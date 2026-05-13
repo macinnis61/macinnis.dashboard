@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Classroom Dashboard · Build 16.9.10</title>
+  <title>Classroom Dashboard · Build 16.9.13</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Poppins + Trocchi fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Trocchi&display=swap" rel="stylesheet">
@@ -1167,7 +1167,7 @@
       flex-wrap: wrap;
     }
 
-    /* Build 16.9.10: keep Setup save/cancel reachable while scrolling long setup sections */
+    /* Build 16.9.13: keep Setup save/cancel reachable while scrolling long setup sections */
     .setup-modal .modal-actions{
       position: sticky;
       bottom: 0;
@@ -1494,9 +1494,33 @@
 .rotation-warning{display:none;margin-top:10px;padding:10px 12px;border-radius:12px;background:#fff7ed;border:1px solid #fdba74;color:#9a3412;font-size:.82rem;}
 .rotation-warning.show{display:block;}
 .rotation-warning.good{display:block;background:#f0fdf4;border-color:#bbf7d0;color:#166534;}
-.rotation-controls{display:flex;align-items:end;gap:12px;flex-wrap:wrap;margin:12px 0 10px;}
+.rotation-controls{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;margin:12px 0 10px;}
 .rotation-controls label{display:flex;flex-direction:column;gap:6px;font-size:.86rem;font-weight:600;color:var(--text);}
 .rotation-controls .small-text{margin:0;max-width:520px;}
+.rotation-capacity-status{
+  display:inline-flex;
+  align-items:center;
+  min-height:36px;
+  padding:7px 12px;
+  border-radius:14px;
+  border:1px solid #bbf7d0;
+  background:#f0fdf4;
+  color:#166534;
+  font-size:.78rem;
+  font-weight:700;
+  line-height:1.25;
+  max-width:360px;
+}
+.rotation-capacity-status.warn{
+  border-color:#fecaca;
+  background:#fef2f2;
+  color:#991b1b;
+}
+.rotation-capacity-status.empty{
+  border-color:#fed7aa;
+  background:#fff7ed;
+  color:#9a3412;
+}
 .job-detail-overlay{position:fixed;inset:0;background:rgba(15,23,42,.44);display:none;align-items:center;justify-content:center;padding:18px;z-index:10000;backdrop-filter:blur(6px);}
 .job-detail-overlay.show{display:flex;}
 .job-detail-modal{width:min(1040px,96vw);max-height:88vh;overflow:auto;border-radius:28px;background:#f7f8fa;box-shadow:0 22px 55px rgba(15,23,42,.28);border:1px solid rgba(15,23,42,.06);display:grid;grid-template-columns:minmax(340px, 44%) 1fr;}
@@ -1584,7 +1608,7 @@
 .version-notes-list li{margin:3px 0;font-size:.84rem;color:#475569;line-height:1.4;}
 
 
-/* Build 16.9.10: Jobs Setup */
+/* Build 16.9.13: Jobs Setup */
 .jobs-setup-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 0;}
 .jobs-setup-warning{display:none;margin:10px 0 0;padding:9px 11px;border-radius:12px;background:#fff1f2;border:1px solid #fecdd3;color:#b91c1c;font-size:.8rem;line-height:1.4;}
 .jobs-setup-warning.show{display:block;}
@@ -1850,7 +1874,7 @@
   <div class="app-shell">
     <header>
       <div class="title-block">
-        <h1 id="app-title">Classroom Dashboard <span id="build-version-text" class="build-pill">Build 16.9.10</span></h1>
+        <h1 id="app-title">Classroom Dashboard <span id="build-version-text" class="build-pill">Build 16.9.13</span></h1>
         <p id="app-subtitle"><span class="hint" data-tip="Teacher view, jobs rotation, and a student-facing screen in one lightweight dashboard.">i</span></p>
       </div>
       <div>
@@ -2060,6 +2084,7 @@
                   On-Call slots
                   <select id="oncall-slot-count-select"></select>
                 </label>
+                <div id="rotation-capacity-status" class="rotation-capacity-status" role="status" aria-live="polite"></div>
                 <p class="small-text">
                   Choose how many students should be On-Call. If there are more students than open spots, the dashboard will still add extra On-Call slots automatically so nobody loses a place on the wheel.
                 </p>
@@ -2333,7 +2358,7 @@
     <div class="modal setup-modal" role="dialog" aria-modal="true" aria-labelledby="setup-title">
       <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;">
         <div>
-          <h2 id="setup-title">Start-of-Year Setup <span id="setup-version-pill" class="build-pill version-notes-trigger" role="button" tabindex="0" title="Build notes" data-build-label>Build 16.9.10</span></h2>
+          <h2 id="setup-title">Start-of-Year Setup <span id="setup-version-pill" class="build-pill version-notes-trigger" role="button" tabindex="0" title="Build notes" data-build-label>Build 16.9.13</span></h2>
           <div class="modal-sub">Use Basic Setup for the September essentials. Advanced Setup is available for settings that are useful, but not required on day one.</div>
         </div>
         <button class="btn-ghost btn-xs" id="setup-close-btn">Close</button>
@@ -2583,12 +2608,31 @@ Pro-D Week, 2026-10-19, 2026-10-23"></textarea>
       <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;">
         <div>
           <h2 id="version-notes-title">Build notes</h2>
-          <div class="modal-sub" id="version-notes-current-build" data-build-label>Build 16.9.10</div>
+          <div class="modal-sub" id="version-notes-current-build" data-build-label>Build 16.9.13</div>
         </div>
         <button class="btn-ghost btn-xs" id="version-notes-close-btn" type="button">Close</button>
       </div>
       <div class="version-notes-list">
+        <h3>Build 16.9.13</h3>
+        <ul>
+          <li>Fixes renamed permanent jobs losing their default tile colour and falling back to gray.</li>
+          <li>Makes fallback job colours follow the stable internal job key instead of the editable display label.</li>
+          <li>Preserves teacher custom colours while allowing job names to be changed safely.</li>
+        </ul>
+        <h3>Build 16.9.12</h3>
+        <ul>
+          <li>Moves the Ferris wheel capacity status beside the On-Call slots control.</li>
+          <li>Uses compact matching red/green status styling instead of a full-width message above the rotation list.</li>
+          <li>Keeps the full Ferris wheel math available as hover text while reducing crowding in Rotation Setup.</li>
+        </ul>
         <h3>Build 16.9.10</h3>
+        <ul>
+          <li>Locks the Ferris wheel back to the stable internal job-key order so assignments do not drift when jobs are renamed or customized.</li>
+          <li>Sorts active jobs and Student View weekly jobs by the same Ferris wheel source used by Rotation Setup.</li>
+          <li>Makes the global Student View jobs toggle hide both Weekly Jobs and Cleanup Jobs.</li>
+          <li>Sorts On Call names by slot number so coverage order is easier to follow.</li>
+        </ul>
+        <h3>Build 16.9.9</h3>
         <ul>
           <li>Makes the Ferris wheel the direct source of truth for permanent job assignments.</li>
           <li>Fixes cases where Student View job tiles could show stale or garbled names even when Rotation Setup looked correct.</li>
@@ -2723,7 +2767,7 @@ Pro-D Week, 2026-10-19, 2026-10-23"></textarea>
     <div class="modal template-modal" role="dialog" aria-modal="true" aria-labelledby="templates-title">
       <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;">
         <div>
-          <h2 id="templates-title">Data & Templates <span id="templates-version-pill" class="build-pill" data-build-label>Build 16.9.10</span></h2>
+          <h2 id="templates-title">Data & Templates <span id="templates-version-pill" class="build-pill" data-build-label>Build 16.9.13</span></h2>
           <div class="modal-sub">Backups restore the whole dashboard. Templates save reusable structure without daily classroom state.</div>
         </div>
         <button class="btn-ghost btn-xs" id="templates-close-btn">Close</button>
@@ -2787,7 +2831,7 @@ Pro-D Week, 2026-10-19, 2026-10-23"></textarea>
     function $(id){ return document.getElementById(id); }
 const STORAGE_KEY = "class_points_dashboard_v10";
     const TEMPLATE_STORAGE_KEY = "classroom_dashboard_templates_v16";
-    const BUILD_VERSION = "16.9.10";
+    const BUILD_VERSION = "16.9.13";
 
     // Rotation positions for dropdown
     const ROTATION_POSITIONS = [
@@ -2911,7 +2955,7 @@ function getEnabledRotationJobKeys() {
 			if (key) enabledByKey.set(key, job.enabled !== false);
 		});
 
-		// Build 16.9.10: keep the Ferris wheel order stable by internal job key.
+		// Build 16.9.13: keep the Ferris wheel order stable by internal job key.
 		// Job names can be customized freely, but the rotation order should not drift
 		// just because the Setup list was reordered or a display label changed.
 		const enabled = ROTATION_JOB_ORDER.filter((jobKey) => enabledByKey.get(jobKey) !== false);
@@ -2983,7 +3027,7 @@ function clampRotationIndicesOnly() {
 		});
 }
 
-// Build 16.9.10: keep each student on a unique Ferris wheel slot whenever capacity allows.
+// Build 16.9.13: keep each student on a unique Ferris wheel slot whenever capacity allows.
 // This repairs older states where changing the On-Call count could leave duplicate saved positions.
 function repairRotationIndicesPreservingWherePossible() {
 		ensureRotationCapacity(0);
@@ -3952,7 +3996,7 @@ function safeSaveState(){ try{ saveState(); } catch(e){ console.warn('saveState 
       return (state.students || []).find((student) => student.rotationIndex === index && student.id !== excludeStudentId) || null;
     }
 
-    // Build 16.9.10: permanent job assignments are derived directly from the Ferris wheel.
+    // Build 16.9.13: permanent job assignments are derived directly from the Ferris wheel.
     // This prevents Student View tiles from showing stale job.assignedStudentId values when
     // the Rotation Setup screen is otherwise correct. Extra Jobs Today still use their
     // direct assignedStudentId because they are not part of the Ferris wheel.
@@ -4209,6 +4253,7 @@ const exportBtn = document.getElementById("export-data-btn");
     const newStudentNameInput = document.getElementById("new-student-name");
     const rotationListEl = document.getElementById("rotation-list");
     const onCallSlotCountSelect = document.getElementById("oncall-slot-count-select");
+    const rotationCapacityStatusEl = document.getElementById("rotation-capacity-status");
     const rotationOrderHintEl = document.getElementById("rotation-order-hint");
     const toggleEodJobsBtn = document.getElementById("toggle-eod-jobs-btn");
     const attendanceClearBtn = document.getElementById("attendance-clear-btn");
@@ -4419,7 +4464,7 @@ const exportBtn = document.getElementById("export-data-btn");
 
       const setupNote = createElement("p", {
         class: "small-text",
-        text: "Job names, colours, descriptions, Student View settings, and disabled jobs are managed in Setup → Jobs Setup."
+        text: "Job names, colours, descriptions, display settings, and disabled jobs are managed in Setup → Jobs Setup."
       });
       jobsListEl.appendChild(setupNote);
 
@@ -4444,7 +4489,7 @@ const exportBtn = document.getElementById("export-data-btn");
         labelCell.appendChild(label);
         if (job.important) {
           labelCell.appendChild(
-            createElement("div", { class: "chip-important", text: "Student View" })
+            createElement("div", { class: "chip-important", text: "Cleanup Job" })
           );
         }
         row.appendChild(labelCell);
@@ -4586,10 +4631,10 @@ function renderWeeklyMiniJobs() {
     tile.title = "Click to mark done. Double-click for details.";
 
     // Soft colour tint: custom colour if set, otherwise the job's theme colour.
-    const miniBg = getSoftJobTileColor(job.label, job.tileColor || null);
+    const miniBg = getSoftJobTileColor(job, job.tileColor || null);
     tile.style.backgroundColor = miniBg;
     tile.style.color = "#0f172a";
-    tile.style.borderColor = mixHexColors(job.tileColor || getJobThemeColor(job.label) || "#6b7280", "#ffffff", 0.55);
+    tile.style.borderColor = mixHexColors(job.tileColor || getJobThemeColor(job) || "#6b7280", "#ffffff", 0.55);
 
     let miniClickTimer = null;
     tile.addEventListener("click", (e) => {
@@ -4689,13 +4734,36 @@ function renderWeeklyMiniJobs() {
       return '#' + toHex(mix(a.r,b.r)) + toHex(mix(a.g,b.g)) + toHex(mix(a.b,b.b));
     }
 
-    function getSoftJobTileColor(label, customColor = null){
-      const base = normalizeHexColor(customColor) || getJobThemeColor(label) || '#6b7280';
+    function getSoftJobTileColor(jobOrLabel, customColor = null){
+      const base = normalizeHexColor(customColor) || getJobThemeColor(jobOrLabel) || '#6b7280';
       return mixHexColors(base, '#ffffff', 0.78);
     }
 
-    function getJobThemeColor(label){
-      const base = jobBaseLabel(label);
+    function getJobThemeColor(jobOrLabel){
+      // Build 16.9.13: default job colours follow the stable internal job key first.
+      // This protects teacher-renamed jobs from falling back to gray when the visible label changes.
+      const jobKey = (jobOrLabel && typeof jobOrLabel === "object") ? jobOrLabel.jobKey : null;
+      switch (jobKey) {
+        case "broom_detail_1": return "#2b6cff";
+        case "broom_detail_2": return "#2e8b57";
+        case "broom_detail_3": return "#ff8c00";
+        case "desk_check": return "#f97316";
+        case "rug_rats": return "#16a34a";
+        case "cubby_check": return "#f59e0b";
+        case "book_shelf": return "#7c3aed";
+        case "chair_check": return "#0f766e";
+        case "whiteboards": return "#3b82f6";
+        case "name_tags": return "#db2777";
+        case "floor_check": return "#fdba74";
+        case "supply_check": return "#0f766e";
+        case "chromebooks": return "#2563eb";
+        case "handouts_1":
+        case "handouts_2": return "#0891b2";
+        case "pe_helper": return "#65a30d";
+      }
+
+      const label = (jobOrLabel && typeof jobOrLabel === "object") ? jobOrLabel.label : jobOrLabel;
+      const base = jobBaseLabel(String(label || ""));
       switch (base) {
         case "broom detail": return "#ea580c";
         case "floor check": return "#fdba74";
@@ -5041,7 +5109,7 @@ function formatJobDescriptionHtml(text) {
 function getJobDetailTheme(job) {
   const customBg = job?.tileColor ? normalizeHexColor(job.tileColor) : null;
   const broomBg = /^Broom Detail\s+\d+$/i.test(job?.label || "") ? getBroomStripeColour(job) : null;
-  const bg = customBg || broomBg || getJobThemeColor(job?.label || "") || '#f59e0b';
+  const bg = customBg || broomBg || getJobThemeColor(job) || '#f59e0b';
   const fg = job?.tileTextColor ? normalizeHexColor(job.tileTextColor) : getContrastingTextColor(bg);
   return { bg, fg };
 }
@@ -5141,6 +5209,12 @@ function renderEodJobs() {
           card.style.backgroundColor = customBg;
           const tc = job.tileTextColor ? normalizeHexColor(job.tileTextColor) : getContrastingTextColor(customBg);
           card.style.color = tc;
+        } else if (!job.doneToday) {
+          const fallbackBg = getJobThemeColor(job);
+          if (fallbackBg) {
+            card.style.backgroundColor = fallbackBg;
+            card.style.color = getContrastingTextColor(fallbackBg);
+          }
         }
 
 
@@ -5597,15 +5671,38 @@ if (onCallSlotCountSelect) {
   });
 }
 
+    function renderRotationCapacityStatus() {
+      if (!rotationCapacityStatusEl) return;
+      const summary = getRotationCapacitySummary();
+      const capacityMessage = buildRotationCapacityMessage(summary);
+      rotationCapacityStatusEl.className = "rotation-capacity-status";
+      rotationCapacityStatusEl.title = capacityMessage.text || "";
+      if (!summary || !summary.students) {
+        rotationCapacityStatusEl.classList.add("empty");
+        rotationCapacityStatusEl.textContent = "Add students to check capacity.";
+        return;
+      }
+      if (summary.totalPositions > summary.students) {
+        const extra = summary.totalPositions - summary.students;
+        rotationCapacityStatusEl.classList.add("warn");
+        rotationCapacityStatusEl.textContent = `${summary.totalPositions} positions for ${summary.students} students · ${extra} empty`;
+        return;
+      }
+      if (summary.totalPositions < summary.students) {
+        const short = summary.students - summary.totalPositions;
+        rotationCapacityStatusEl.classList.add("warn");
+        rotationCapacityStatusEl.textContent = `${summary.totalPositions} positions for ${summary.students} students · ${short} short`;
+        return;
+      }
+      rotationCapacityStatusEl.textContent = `Capacity matches · ${summary.totalPositions} for ${summary.students}`;
+    }
+
     // Rotation setup UI
   function renderRotationSetup() {
   rotationListEl.innerHTML = "";
   renderOnCallSlotCountControl();
   renderRotationOrderHint();
-  const capacity = getRotationCapacitySummary();
-  const capacityMessage = buildRotationCapacityMessage(capacity);
-  const capacityWarning = createElement("div", { class: "rotation-warning show" + (capacityMessage.type === "good" ? " good" : ""), text: capacityMessage.text });
-  rotationListEl.appendChild(capacityWarning);
+  renderRotationCapacityStatus();
   const duplicates = getRotationDuplicateSummary();
   if (duplicates.length) {
     const warning = createElement("div", { class: "rotation-warning show", text: "Warning: two or more students currently share the same Ferris wheel slot. The dashboard will try to repair this automatically when there are enough positions; otherwise add On-Call slots or enable more jobs." });
@@ -6263,7 +6360,7 @@ resetJobsTodayBtn.addEventListener("click", () => {
     if (setupSaveBtn) setupSaveBtn.addEventListener("click", saveSetupModal);
     if (setupOverlay) {
       setupOverlay.addEventListener("click", (e) => {
-        // Build 16.9.10: avoid accidental dismissal of a long setup form by outside-clicking.
+        // Build 16.9.13: avoid accidental dismissal of a long setup form by outside-clicking.
         if (e.target === setupOverlay) e.stopPropagation();
       });
     }
@@ -7994,7 +8091,7 @@ if (tab === "jobs") {
     }
 
     function renderSetupSubjectOptions() {
-      // Build 16.9.10: schedule fields are plain text inputs.
+      // Build 16.9.13: schedule fields are plain text inputs.
       // Default subjects remain real values, while blank fields use a simple placeholder.
     }
 
@@ -8052,7 +8149,7 @@ if (tab === "jobs") {
     }
 
     function renderSetupJobsCapacityWarning() {
-      // Build 16.9.10: capacity status belongs with the Ferris wheel / On-Call controls,
+      // Build 16.9.13: capacity status belongs with the Ferris wheel / On-Call controls,
       // not inside Jobs Setup where teachers cannot adjust On-Call slots.
       if (!setupJobsCapacityWarning) return;
       setupJobsCapacityWarning.textContent = "";
@@ -8121,7 +8218,7 @@ if (tab === "jobs") {
         colour.appendChild(document.createTextNode("Colour"));
         const colourInput = document.createElement("input");
         colourInput.type = "color";
-        colourInput.value = normalizeHexColor(job.tileColor) || getJobThemeColor(job.label || getDefaultJobLabel(job.jobKey));
+        colourInput.value = normalizeHexColor(job.tileColor) || getJobThemeColor(job);
         colourInput.addEventListener("input", () => {
           job.tileColor = normalizeHexColor(colourInput.value);
           job.tileTextColor = getContrastingTextColor(job.tileColor);
@@ -8131,7 +8228,7 @@ if (tab === "jobs") {
         const order = document.createElement("div");
         order.className = "jobs-setup-order";
         const orderNote = createElement("span", { class: "jobs-setup-key", text: "Rotation order locked" });
-        orderNote.title = "Build 16.9.10 keeps the Ferris wheel in a stable internal order so existing assignments do not drift when jobs are renamed or customized.";
+        orderNote.title = "Build 16.9.13 keeps the Ferris wheel in a stable internal order so existing assignments do not drift when jobs are renamed or customized.";
         order.appendChild(orderNote);
 
         const desc = document.createElement("textarea");
