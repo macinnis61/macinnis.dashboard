@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Classroom Dashboard · Build 16.7.2 Clean Distribution</title>
+  <title>Classroom Dashboard · Build 16.9.7</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Poppins + Trocchi fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Trocchi&display=swap" rel="stylesheet">
@@ -1167,6 +1167,20 @@
       flex-wrap: wrap;
     }
 
+    /* Build 16.9.7: keep Setup save/cancel reachable while scrolling long setup sections */
+    .setup-modal .modal-actions{
+      position: sticky;
+      bottom: 0;
+      z-index: 12;
+      margin-left: -18px;
+      margin-right: -18px;
+      margin-bottom: -16px;
+      padding: 12px 18px 14px;
+      background: rgba(255,255,255,0.96);
+      border-top: 1px solid #e5e7eb;
+      backdrop-filter: blur(6px);
+    }
+
     /* Build 14: teacher footer controls */
     .teacher-footer-controls{
       margin-top: 10px;
@@ -1479,6 +1493,7 @@
 .description-edit-actions{margin-top:6px;display:flex;justify-content:flex-end;}
 .rotation-warning{display:none;margin-top:10px;padding:10px 12px;border-radius:12px;background:#fff7ed;border:1px solid #fdba74;color:#9a3412;font-size:.82rem;}
 .rotation-warning.show{display:block;}
+.rotation-warning.good{display:block;background:#f0fdf4;border-color:#bbf7d0;color:#166534;}
 .rotation-controls{display:flex;align-items:end;gap:12px;flex-wrap:wrap;margin:12px 0 10px;}
 .rotation-controls label{display:flex;flex-direction:column;gap:6px;font-size:.86rem;font-weight:600;color:var(--text);}
 .rotation-controls .small-text{margin:0;max-width:520px;}
@@ -1505,16 +1520,109 @@
 @media (max-width: 760px){.job-detail-modal{grid-template-columns:1fr;}.job-detail-head{min-height:unset;}.job-detail-body{border-left:none;border-top:1px solid rgba(15,23,42,.08);}.job-detail-title{font-size:clamp(1.6rem,8vw,2.1rem);}}
 
 
+
+/* Build 16.8.2: Weekly Schedule Setup */
+.schedule-setup-grid{
+  margin-top:12px;
+  display:grid;
+  grid-template-columns: 0.75fr repeat(5, minmax(120px, 1fr));
+  gap:8px;
+  align-items:end;
+}
+.schedule-setup-head{
+  font-size:.72rem;
+  font-weight:800;
+  color:var(--text-muted);
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+.schedule-day-label{
+  font-weight:800;
+  color:var(--accent-strong);
+  font-size:.86rem;
+  padding-bottom:7px;
+}
+.schedule-subject-input{
+  width:100%;
+}
+.schedule-time-grid{
+  margin-top:12px;
+  display:grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap:8px;
+  align-items:center;
+}
+.schedule-time-grid input[type="time"]{
+  border-radius:var(--radius-sm);
+  border:1px solid var(--border);
+  padding:6px 8px;
+  font-size:.85rem;
+  background:#fff;
+  color:var(--text-main);
+}
+.schedule-setup-actions{
+  margin-top:10px;
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.schedule-reset-note{
+  font-size:.78rem;
+  color:var(--text-muted);
+}
+@media (max-width: 900px){
+  .schedule-setup-grid{grid-template-columns:0.85fr repeat(5, minmax(110px, 1fr));overflow-x:auto;align-items:end;}
+  .schedule-setup-head:first-child{display:block;}
+  .schedule-day-label{grid-column:auto;padding-top:0;border-top:none;}
+  .schedule-time-grid{grid-template-columns:1fr 1fr;}
+  .schedule-time-grid .schedule-setup-head:first-child{display:block;}
+}
+
 .version-notes-list h3{margin:12px 0 4px;font-size:.9rem;color:var(--accent-strong);}
 .version-notes-list ul{margin:0 0 8px;padding-left:1.2rem;}
 .version-notes-list li{margin:3px 0;font-size:.84rem;color:#475569;line-height:1.4;}
 
+
+/* Build 16.9.7: Jobs Setup */
+.jobs-setup-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 0;}
+.jobs-setup-warning{display:none;margin:10px 0 0;padding:9px 11px;border-radius:12px;background:#fff1f2;border:1px solid #fecdd3;color:#b91c1c;font-size:.8rem;line-height:1.4;}
+.jobs-setup-warning.show{display:block;}
+.jobs-setup-warning.good{display:block;background:#f0fdf4;border-color:#bbf7d0;color:#166534;}
+.jobs-setup-list{display:flex;flex-direction:column;gap:10px;margin-top:12px;}
+.jobs-setup-row{display:grid;grid-template-columns:1.2fr auto auto auto;gap:8px;align-items:center;border:1px solid #e5e7eb;border-radius:14px;background:#fff;padding:10px;}
+.jobs-setup-row.disabled{opacity:.58;background:#f8fafc;}
+.jobs-setup-main{display:flex;flex-direction:column;gap:6px;min-width:0;}
+.jobs-setup-name{width:100%;font-weight:700;}
+.jobs-setup-toggles{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.jobs-setup-toggle{display:inline-flex;align-items:center;gap:5px;font-size:.76rem;color:var(--text-muted);white-space:nowrap;}
+.jobs-setup-colour{display:flex;align-items:center;gap:6px;font-size:.76rem;color:var(--text-muted);}
+.jobs-setup-colour input[type="color"]{width:34px;height:28px;border:none;padding:0;background:transparent;cursor:pointer;}
+.jobs-setup-order{display:flex;gap:4px;align-items:center;justify-content:flex-end;}
+.jobs-setup-description{grid-column:1/-1;width:100%;min-height:64px;resize:vertical;border-radius:10px;border:1px solid var(--border);padding:8px 10px;font:inherit;font-size:.8rem;background:#f9fafb;}
+.jobs-setup-key{font-size:.68rem;color:#94a3b8;}
+.job-row.disabled-job{opacity:.55;background:#f8fafc;}
+.disabled-job-note{font-size:.68rem;border-radius:999px;padding:2px 7px;background:#e5e7eb;color:#64748b;text-transform:uppercase;letter-spacing:.06em;font-weight:700;}
+@media (max-width:760px){.jobs-setup-row{grid-template-columns:1fr;}.jobs-setup-description{grid-column:1;}.jobs-setup-order{justify-content:flex-start;}}
+
 /* Build 16.6.3: setup clarity + seating plan builder */
 .setup-modal{width:min(920px,96vw);}
-.setup-section{margin-top:14px;padding:14px;border:1px solid #e5e7eb;border-radius:16px;background:#f8fafc;}
+.setup-nav{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 2px;position:sticky;top:-16px;z-index:2;padding:8px 0;background:rgba(255,255,255,0.94);backdrop-filter:blur(6px);}
+.setup-nav-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;border:1px solid rgba(15,23,42,.08);font-size:.76rem;font-weight:700;color:#334155;text-decoration:none;box-shadow:0 2px 7px rgba(15,23,42,.04);}
+.setup-nav-pill:hover{filter:brightness(.98);transform:translateY(-1px);}
+.setup-section{margin-top:14px;padding:14px;border:1px solid #e5e7eb;border-radius:16px;background:#f8fafc;scroll-margin-top:70px;}
 .setup-section summary{cursor:pointer;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;}
 .setup-section-title{font-weight:800;color:#0f172a;font-size:.95rem;}
 .setup-section-subtitle{font-size:.82rem;color:var(--text-muted);}
+.setup-basic-section,.setup-basic-pill{background:#f8fafc;}
+#setup-weekly-schedule-section,.setup-weekly-pill{background:#eff6ff;}
+#setup-jobs-section,.setup-jobs-pill{background:#f0fdf4;}
+#setup-advanced-schedule-section,.setup-schedule-times-pill{background:#fff7ed;}
+#setup-roster-photos-section,.setup-photos-pill{background:#fdf4ff;}
+.setup-advanced-section,.setup-advanced-pill{background:#f1f5f9;}
+.setup-section[open]{box-shadow:0 8px 18px rgba(15,23,42,.05);}
+.setup-cta-btn{font-weight:700;}
+.daily-state-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:2px 0 4px;}
 .setup-advanced-grid{margin-top:12px;}
 .setup-roster-input{width:100%;resize:vertical;border-radius:12px;border:1px solid var(--border);padding:10px 12px;font:inherit;font-size:.86rem;background:#fff;color:var(--text-main);}
 .setup-version-note{margin-top:12px;padding:10px 12px;border-radius:14px;background:#ecfeff;color:#164e63;font-size:.82rem;border:1px solid #bae6fd;}
@@ -1742,7 +1850,7 @@
   <div class="app-shell">
     <header>
       <div class="title-block">
-        <h1 id="app-title">Classroom Dashboard <span id="build-version-text" class="build-pill">Build 16.7.2</span></h1>
+        <h1 id="app-title">Classroom Dashboard <span id="build-version-text" class="build-pill">Build 16.9.7</span></h1>
         <p id="app-subtitle"><span class="hint" data-tip="Teacher view, jobs rotation, and a student-facing screen in one lightweight dashboard.">i</span></p>
       </div>
       <div>
@@ -1759,9 +1867,7 @@
       <!-- Shared toolbar -->
       <div class="toolbar">
         <div class="toolbar-group" style="margin-left:auto;">
-          <div id="focus-mode-pill"></div>
-          
-          <button class="btn-outline" id="open-setup-btn">Setup</button>
+          <button class="btn-primary setup-cta-btn" id="open-setup-btn">Setup</button>
           <button class="btn-outline" id="open-templates-btn">Data & Templates</button>
           <button class="btn-ghost" id="export-data-btn">Backup data</button>
           <button class="btn-ghost" id="import-data-btn">Restore data</button>
@@ -1778,7 +1884,7 @@
               <div class="card-title">
                 Teacher View
               </div>
-              <div class="card-subtitle"><span class="hint" data-tip="See attendance, today’s agenda, reminders, and weekly job assignments.">i</span></div>
+              <div class="card-subtitle">Daily controls for attendance, reminders, and quick roster adjustments.</div>
             </div>
             <div class="badge points-controls">Weekly vs Total toggle affects which totals you change.</div>
           </div>
@@ -1787,14 +1893,12 @@
 
           
 <div class="divider"></div>
-<!-- Attendance (today) -->
+<!-- Attendance -->
 <div class="attendance-panel">
   <div class="card-header" style="padding:0;">
     <div>
-      <div class="card-title">Attendance (today)</div>
-      <div class="card-subtitle">
-        <span class="hint" data-tip="Mark absent students any time. End-of-day cleanup tiles will auto-fill from On Call. Absences reset automatically each new day.">i</span>
-      </div>
+      <div class="card-title">Attendance</div>
+      <div class="card-subtitle">Mark absent students so job coverage and Student View assignments stay accurate for today.</div>
     </div>
   </div>
   <details id="attendance-details" style="margin-top:6px;" open>
@@ -1807,7 +1911,7 @@
 </div>
 <div class="divider"></div>
           <details class="roster-details" style="margin-top:6px;">
-  <summary class="subtext" style="cursor:pointer;">Class roster (edit names / remove students)</summary>
+  <summary class="subtext" style="cursor:pointer;"><strong>Class roster</strong> — edit names or remove students. For larger setup changes, use Setup.</summary>
   <div style="margin-top:10px;">
     <table>
               <thead>
@@ -1825,45 +1929,25 @@
   </div>
 </details>
 
-          <!-- Agenda Viewer (automatic) -->
-          <div class="divider"></div>
-          <div class="agenda-editor">
-            <div class="card-header" style="padding:0;">
-              <div>
-                <div class="card-title">Today's Agenda (automatic)</div>
-                <div class="card-subtitle">
-                  Based on your weekly schedule, Nutrition Break, and Lunch. "Now / Next / Then / Later" update themselves.
-                </div>
-              </div>
-            </div>
-            <div class="agenda-editor-rows">
-              <div class="agenda-editor-header">
-                <div>Slot</div>
-                <div>Subject</div>
-                <div>Time</div>
-              </div>
-              <div id="agenda-editor-body">
-                <!-- Rows via JS -->
-              </div>
-            </div>
-          </div>
 
           <div class="divider"></div>
           <div class="agenda-editor">
             <div class="card-header" style="padding:0;">
               <div>
                 <div class="card-title">Today's Reminders</div>
-                <div class="card-subtitle">
-                  Shown on the Student View near the clock. Use one reminder per line.
-                </div>
+                <div class="card-subtitle">Add one reminder per line. These appear on Student View. Use Focus Mode for temporary work expectations.</div>
               </div>
+            </div>
+            <div class="daily-state-row">
+              <span class="small-text">Focus Mode</span>
+              <div id="focus-mode-pill"></div>
             </div>
             <textarea id="today-reminders-input" rows="3" class="reminders-input"></textarea>
             <div class="small-text">Tip: Press Enter for a new bullet.</div>
           </div>
 
 <p class="small-text">
-            Jobs rotate fairly over time and help the class run smoothly. Use the Student View tiles to track completion.
+            For detailed job controls, seating plans, schedule setup, backups, and templates, use the tabs and buttons above.
           </p>
         </div>
       </section>
@@ -1878,7 +1962,7 @@
                   Jobs (including end-of-day)
                 </div>
                 <div class="card-subtitle">
-                  Jobs auto-rotate weekly. Assignments come from the rotation, but can be tweaked if needed.
+                  Use this screen for this week’s active job assignments, daily completion, and one-off extra jobs.
                 </div>
               </div>
             </div>
@@ -1938,7 +2022,7 @@
               <div>
                 <div class="card-title">Job Controls & Rotation</div>
                 <div class="card-subtitle">
-                  Reset daily completion, control Student View visibility, and set up the Ferris wheel rotation for this week.
+                  Daily controls for job completion, Student View visibility, and this week’s Ferris wheel positions.
                 </div>
               </div>
             </div>
@@ -2249,15 +2333,26 @@
     <div class="modal setup-modal" role="dialog" aria-modal="true" aria-labelledby="setup-title">
       <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;">
         <div>
-          <h2 id="setup-title">Start-of-Year Setup <span id="setup-version-pill" class="build-pill version-notes-trigger" role="button" tabindex="0" title="Build notes" data-build-label>Build 16.7.2</span></h2>
+          <h2 id="setup-title">Start-of-Year Setup <span id="setup-version-pill" class="build-pill version-notes-trigger" role="button" tabindex="0" title="Build notes" data-build-label>Build 16.9.7</span></h2>
           <div class="modal-sub">Use Basic Setup for the September essentials. Advanced Setup is available for settings that are useful, but not required on day one.</div>
         </div>
         <button class="btn-ghost btn-xs" id="setup-close-btn">Close</button>
       </div>
 
-      <div class="setup-section setup-basic-section">
-        <div class="setup-section-title">Basic setup</div>
-        <div class="setup-section-subtitle">These choices make the dashboard usable for a new class on a clean browser.</div>
+      <nav class="setup-nav" aria-label="Setup sections">
+        <a class="setup-nav-pill setup-basic-pill" href="#setup-basic-section">Basic</a>
+        <a class="setup-nav-pill setup-weekly-pill" href="#setup-weekly-schedule-section">Weekly Schedule</a>
+        <a class="setup-nav-pill setup-jobs-pill" href="#setup-jobs-section">Jobs Setup</a>
+        <a class="setup-nav-pill setup-schedule-times-pill" href="#setup-advanced-schedule-section">Schedule Times</a>
+        <a class="setup-nav-pill setup-photos-pill" href="#setup-roster-photos-section">Roster & Photos</a>
+        <a class="setup-nav-pill setup-advanced-pill" href="#setup-advanced-section">Advanced</a>
+      </nav>
+
+      <details class="setup-section setup-basic-section" id="setup-basic-section" open>
+        <summary>
+          <span class="setup-section-title">Basic setup</span>
+          <span class="setup-section-subtitle">These choices make the dashboard usable for a new class on a clean browser.</span>
+        </summary>
         <div class="modal-grid">
           <div class="modal-field">
             <label>Dashboard title</label>
@@ -2290,7 +2385,43 @@ Student 3"></textarea>
             <div class="small-text">Saving this list will sync the roster. Existing matching names keep their saved IDs, points, and rotation positions.</div>
           </div>
         </div>
-      </div>
+      </details>
+
+      <details class="setup-section" id="setup-weekly-schedule-section" open>
+        <summary>
+          <span class="setup-section-title">Weekly Schedule</span>
+          <span class="setup-section-subtitle">Choose which subject happens in each block. The default bell times stay in place unless changed below.</span>
+        </summary>
+        <div id="setup-weekly-schedule-grid" class="schedule-setup-grid"></div>
+        <div class="schedule-setup-actions">
+          <button class="btn-outline btn-xs" id="schedule-reset-subjects-btn" type="button">Reset subjects to defaults</button>
+          <span class="schedule-reset-note">This only resets subject names. It will not change roster, jobs, seating, or photos.</span>
+        </div>
+      </details>
+
+      <details class="setup-section" id="setup-jobs-section">
+        <summary>
+          <span class="setup-section-title">Jobs Setup</span>
+          <span class="setup-section-subtitle">Rename, disable, reorder, and choose which permanent jobs show on Student View.</span>
+        </summary>
+        <div class="jobs-setup-controls">
+          <span class="small-text">Disabled jobs are removed from the Ferris wheel and daily Jobs & Rotation view, but keep their name, colour, and description here for later.</span>
+        </div>
+        <div id="setup-jobs-capacity-warning" class="jobs-setup-warning" role="status" aria-live="polite"></div>
+        <div id="setup-jobs-list" class="jobs-setup-list"></div>
+      </details>
+
+      <details class="setup-section" id="setup-advanced-schedule-section">
+        <summary>
+          <span class="setup-section-title">Advanced schedule times</span>
+          <span class="setup-section-subtitle">Use this only if your bell schedule changes. Subject setup above is usually all that is needed.</span>
+        </summary>
+        <div id="setup-schedule-times-grid" class="schedule-time-grid"></div>
+        <div class="schedule-setup-actions">
+          <button class="btn-outline btn-xs" id="schedule-reset-times-btn" type="button">Reset times to defaults</button>
+          <span class="schedule-reset-note">Times apply across Monday–Friday and feed the Student View agenda, Now/Next/Then, and Teacher View agenda.</span>
+        </div>
+      </details>
 
       <details class="setup-section" id="setup-roster-photos-section">
         <summary>
@@ -2377,7 +2508,7 @@ Student 3"></textarea>
         <details class="photo-import-tip">
           <summary>Photo import tips</summary>
           <ul class="photo-helper-list">
-            <li><strong>Quick import:</strong> choose image files already named with student names, such as <code>6_Smith_Student 1_7.jpg</code> or <code>Smith_Student 1_7_6.jpg</code>.</li>
+            <li><strong>Quick import:</strong> choose image files already named with student names, such as <code>6_Last_First_7.jpg</code> or <code>Last_First_7_6.jpg</code>.</li>
             <li><strong>HTML key import:</strong> choose the whole-school HTML key and photo folder, then attach only the matches for the current dashboard roster.</li>
             <li><strong>Advanced photo tools:</strong> Advanced photo tools can create a renamed ZIP copy of the full photo folder. This only exports renamed files; it does not add students to your dashboard roster.</li>
             <li>Imported images are resized before saving. Use Backup Current Dashboard if you want attached photos preserved in a backup file.</li>
@@ -2389,7 +2520,7 @@ Student 3"></textarea>
         <input class="file-input" type="file" id="single-student-photo-input" accept="image/*" />
       </details>
 
-      <details class="setup-section setup-advanced-section">
+      <details class="setup-section setup-advanced-section" id="setup-advanced-section">
         <summary>
           <span class="setup-section-title">Advanced setup</span>
           <span class="setup-section-subtitle">Break dates, clock display, and non-rotation weeks.</span>
@@ -2452,11 +2583,84 @@ Pro-D Week, 2026-10-19, 2026-10-23"></textarea>
       <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;">
         <div>
           <h2 id="version-notes-title">Build notes</h2>
-          <div class="modal-sub" id="version-notes-current-build" data-build-label>Build 16.7.2</div>
+          <div class="modal-sub" id="version-notes-current-build" data-build-label>Build 16.9.7</div>
         </div>
         <button class="btn-ghost btn-xs" id="version-notes-close-btn" type="button">Close</button>
       </div>
       <div class="version-notes-list">
+        <h3>Build 16.9.7</h3>
+        <ul>
+          <li>Adds Escape-key closing for Setup, Build Notes, Data & Templates, and job detail popups.</li>
+          <li>Protects unsaved Setup changes with a confirmation before closing without saving.</li>
+          <li>Makes Setup actions sticky so Save setup and Cancel stay reachable while scrolling.</li>
+        </ul>
+        <h3>Build 16.9.6</h3>
+        <ul>
+          <li>Fixes the On-Call slot count bug in Ferris wheel capacity messages.</li>
+          <li>Moves the capacity status out of Jobs Setup so it appears only with the Ferris wheel / On-Call controls.</li>
+          <li>Keeps the warning calculation aligned with the actual rotation source of truth.</li>
+        </ul>
+        <h3>Build 16.9.5</h3>
+        <ul>
+          <li>Fixes the Ferris wheel capacity check so it uses enabled jobs + On-Call slots + roster count.</li>
+          <li>Adds the actual capacity math to the rotation warning/status message.</li>
+          <li>Repairs duplicate rotation positions when enough empty Ferris wheel slots are available.</li>
+        </ul>
+        <h3>Build 16.9.4</h3>
+        <ul>
+          <li>Adds Ferris wheel capacity warnings for too many or too few rotation positions.</li>
+          <li>Shows empty Ferris wheel positions as “— Empty position —” instead of repeating student names.</li>
+        </ul>
+        <h3>Build 16.9.3</h3>
+        <ul>
+          <li>Removes the drop shadow from the Setup button while keeping its colour emphasis.</li>
+        </ul>
+        <h3>Build 16.9.2</h3>
+        <ul>
+          <li>Turns Basic setup into a collapsible setup section.</li>
+          <li>Adds coloured setup jump links and gentle section background colours.</li>
+          <li>Makes the Setup button more prominent and moves Focus Mode into Today's Reminders.</li>
+        </ul>
+        <h3>Build 16.9.1</h3>
+        <ul>
+          <li>Moves permanent job colour and description editing out of Jobs & Rotation.</li>
+          <li>Keeps Jobs & Rotation focused on active assignments, completion, On-Call display, and Extra Jobs Today.</li>
+        </ul>
+        <h3>Build 16.9.0</h3>
+        <ul>
+          <li>Adds Jobs Setup with teacher-editable permanent job names, enabled/disabled status, Student View visibility, colour, description, and order controls.</li>
+          <li>Updates the Ferris wheel rotation to use enabled jobs plus On-Call slots while preserving stable internal job keys.</li>
+          <li>Adds Student View safeguards so renamed or reduced job lists still render cleanly.</li>
+        </ul>
+        <h3>Build 16.8.6</h3>
+        <ul>
+          <li>Polishes Teacher View wording so helper text is visible, current, and easier to maintain.</li>
+          <li>Renames “Attendance (today)” to “Attendance” and replaces the outdated hint bubble with a practical subtitle.</li>
+          <li>Clarifies roster and reminder text without changing schedule, jobs, seating, photos, backups, templates, or local saved data.</li>
+        </ul>
+        <h3>Build 16.8.4</h3>
+        <ul>
+          <li>Removes the redundant Teacher View “Today’s Agenda (automatic)” preview card.</li>
+          <li>Keeps the schedule engine, Setup weekly schedule editor, Student View agenda, and Now/Next/Then strip unchanged.</li>
+        </ul>
+        <h3>Build 16.8.2</h3>
+        <ul>
+          <li>Changes Weekly Schedule setup labels back to Block 1–5 instead of Advisory/Blocks.</li>
+          <li>Corrects the default Block 5 end time to 2:50 PM / 14:50.</li>
+          <li>Preserves the transposed Monday–Friday schedule editor and keeps agenda, jobs, seating, photos, and templates unchanged.</li>
+        </ul>
+        <h3>Build 16.8.1</h3>
+        <ul>
+          <li>Transposes Weekly Schedule setup so Monday–Friday run across the top.</li>
+          <li>Lists schedule rows down the left side to better match teacher paper schedules.</li>
+          <li>Keeps the saved schedule data, agenda rendering, jobs, seating, photos, and templates unchanged.</li>
+        </ul>
+        <h3>Build 16.8.0</h3>
+        <ul>
+          <li>Adds Weekly Schedule setup for Monday–Friday subjects by block.</li>
+          <li>Adds Advanced schedule times while preserving the current default bell structure.</li>
+          <li>Routes Teacher View agenda, Student View agenda, and Now/Next/Then through the saved configurable schedule.</li>
+        </ul>
         <h3>Build 16.7.2</h3>
         <ul>
           <li>Removes the legacy shared Add student control from the teacher-side toolbar.</li>
@@ -2519,7 +2723,7 @@ Pro-D Week, 2026-10-19, 2026-10-23"></textarea>
     <div class="modal template-modal" role="dialog" aria-modal="true" aria-labelledby="templates-title">
       <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;">
         <div>
-          <h2 id="templates-title">Data & Templates <span id="templates-version-pill" class="build-pill" data-build-label>Build 16.7.2</span></h2>
+          <h2 id="templates-title">Data & Templates <span id="templates-version-pill" class="build-pill" data-build-label>Build 16.9.7</span></h2>
           <div class="modal-sub">Backups restore the whole dashboard. Templates save reusable structure without daily classroom state.</div>
         </div>
         <button class="btn-ghost btn-xs" id="templates-close-btn">Close</button>
@@ -2552,7 +2756,7 @@ Pro-D Week, 2026-10-19, 2026-10-23"></textarea>
       </div>
 
       <div class="setup-version-note">
-        Templates apply reusable structure such as job names, descriptions, colours, On Call settings, break ranges, and display preferences. Your current student roster stays unchanged by default.
+        Templates apply reusable structure such as weekly schedule, job names, descriptions, colours, On Call settings, break ranges, and display preferences. Your current student roster stays unchanged by default.
       </div>
 
       <div class="modal-actions">
@@ -2583,7 +2787,7 @@ Pro-D Week, 2026-10-19, 2026-10-23"></textarea>
     function $(id){ return document.getElementById(id); }
 const STORAGE_KEY = "class_points_dashboard_v10";
     const TEMPLATE_STORAGE_KEY = "classroom_dashboard_templates_v16";
-    const BUILD_VERSION = "16.7.2-clean";
+    const BUILD_VERSION = "16.9.7";
 
     // Rotation positions for dropdown
     const ROTATION_POSITIONS = [
@@ -2699,6 +2903,19 @@ function getDisplayLabelForJobKey(jobKey) {
 		return fromState?.label || getDefaultJobLabel(jobKey);
 }
 
+function getEnabledRotationJobKeys() {
+		const jobs = Array.isArray(state?.jobs) ? state.jobs : [];
+		const enabled = jobs
+			.filter((job) => job && job.enabled !== false && inferJobKey(job))
+			.map((job) => inferJobKey(job));
+		if (enabled.length) return enabled;
+		return ROTATION_JOB_ORDER.slice();
+}
+
+function isJobEnabled(job) {
+		return !job || job.enabled !== false;
+}
+
 function getRotationSlotDescriptor(index) {
 		const seq = getRotationSequence();
 		return seq[index] || null;
@@ -2724,7 +2941,7 @@ function getOnCallSlotCount() {
 }
 
 function getRotationSequence() {
-		const seq = ROTATION_JOB_ORDER.map((jobKey) => ({ type: "job", jobKey, label: getDisplayLabelForJobKey(jobKey) }));
+		const seq = getEnabledRotationJobKeys().map((jobKey) => ({ type: "job", jobKey, label: getDisplayLabelForJobKey(jobKey) }));
 		const n = getOnCallSlotCount();
 		// Keep the same ferris-wheel visual order as before (On Call N ... On Call 1)
 		for (let i = n; i >= 1; i--) seq.push({ type: "oncall", label: `On Call ${i}` });
@@ -2739,7 +2956,7 @@ function getRotationLength() {
 // If the roster grows, we add additional On Call slots automatically.
 function ensureRotationCapacity(extraStudents = 0) {
 		let onCall = getOnCallSlotCount();
-		let capacity = ROTATION_JOB_ORDER.length + onCall;
+		let capacity = getEnabledRotationJobKeys().length + onCall;
 		const needed = (state.students ? state.students.length : 0) + (extraStudents || 0);
 		if (needed <= capacity) return;
 
@@ -2758,6 +2975,42 @@ function clampRotationIndicesOnly() {
 				s.rotationIndex = ((Math.floor(s.rotationIndex) % len) + len) % len;
 			}
 		});
+}
+
+// Build 16.9.7: keep each student on a unique Ferris wheel slot whenever capacity allows.
+// This repairs older states where changing the On-Call count could leave duplicate saved positions.
+function repairRotationIndicesPreservingWherePossible() {
+		ensureRotationCapacity(0);
+		const students = state.students || [];
+		const len = getRotationLength();
+		if (!students.length || len < students.length) {
+			clampRotationIndicesOnly();
+			return false;
+		}
+
+		const seen = new Set();
+		const duplicates = [];
+		students.forEach((s, i) => {
+			let idx = Number(s.rotationIndex);
+			if (!Number.isFinite(idx)) idx = i;
+			idx = ((Math.floor(idx) % len) + len) % len;
+			if (seen.has(idx)) {
+				duplicates.push(s);
+			} else {
+				s.rotationIndex = idx;
+				seen.add(idx);
+			}
+		});
+
+		if (!duplicates.length) return false;
+		const empty = [];
+		for (let i = 0; i < len; i++) {
+			if (!seen.has(i)) empty.push(i);
+		}
+		duplicates.forEach((student, i) => {
+			if (empty[i] !== undefined) student.rotationIndex = empty[i];
+		});
+		return true;
 }
 
 function getRotationDuplicateSummary() {
@@ -2828,37 +3081,180 @@ function getFirstFreeRotationIndex() {
         { startMinutes:10*60+2,  endMinutes:10*60+59, subjectId: "french" },
         { startMinutes:10*60+59, endMinutes:11*60+55, subjectId: "science" },
         { startMinutes:12*60+57, endMinutes:13*60+54, subjectId: "exploratory" },
-        { startMinutes:13*60+54, endMinutes:14*60+48, subjectId: "flex" },
+        { startMinutes:13*60+54, endMinutes:14*60+50, subjectId: "flex" },
       ],
       2: [
         { startMinutes: 8*60+52, endMinutes: 9*60+48, subjectId: "math" },
         { startMinutes:10*60+2,  endMinutes:10*60+59, subjectId: "gym" },
         { startMinutes:10*60+59, endMinutes:11*60+55, subjectId: "socials" },
         { startMinutes:12*60+57, endMinutes:13*60+54, subjectId: "exploratory" },
-        { startMinutes:13*60+54, endMinutes:14*60+48, subjectId: "la" },
+        { startMinutes:13*60+54, endMinutes:14*60+50, subjectId: "la" },
       ],
       3: [
         { startMinutes: 8*60+52, endMinutes: 9*60+48, subjectId: "math" },
         { startMinutes:10*60+2,  endMinutes:10*60+59, subjectId: "library" },
         { startMinutes:10*60+59, endMinutes:11*60+55, subjectId: "gym" },
         { startMinutes:12*60+57, endMinutes:13*60+54, subjectId: "health" },
-        { startMinutes:13*60+54, endMinutes:14*60+48, subjectId: "la" },
+        { startMinutes:13*60+54, endMinutes:14*60+50, subjectId: "la" },
       ],
       4: [
         { startMinutes: 8*60+52, endMinutes: 9*60+48, subjectId: "math" },
         { startMinutes:10*60+2,  endMinutes:10*60+59, subjectId: "la" },
         { startMinutes:10*60+59, endMinutes:11*60+55, subjectId: "science" },
         { startMinutes:12*60+57, endMinutes:13*60+54, subjectId: "exploratory" },
-        { startMinutes:13*60+54, endMinutes:14*60+48, subjectId: "flex" },
+        { startMinutes:13*60+54, endMinutes:14*60+50, subjectId: "flex" },
       ],
       5: [
         { startMinutes: 8*60+52, endMinutes: 9*60+48, subjectId: "math" },
         { startMinutes:10*60+2,  endMinutes:10*60+59, subjectId: "la" },
         { startMinutes:10*60+59, endMinutes:11*60+55, subjectId: "socials" },
         { startMinutes:12*60+57, endMinutes:13*60+54, subjectId: "french" },
-        { startMinutes:13*60+54, endMinutes:14*60+48, subjectId: "gym" },
+        { startMinutes:13*60+54, endMinutes:14*60+50, subjectId: "gym" },
       ],
     };
+
+
+    const SCHEDULE_DAYS = [
+      { dow: 1, label: "Monday" },
+      { dow: 2, label: "Tuesday" },
+      { dow: 3, label: "Wednesday" },
+      { dow: 4, label: "Thursday" },
+      { dow: 5, label: "Friday" },
+    ];
+
+    const SCHEDULE_MAIN_BLOCKS = [
+      { key: "block1", label: "Block 1" },
+      { key: "block2", label: "Block 2" },
+      { key: "block3", label: "Block 3" },
+      { key: "block4", label: "Block 4" },
+      { key: "block5", label: "Block 5" },
+    ];
+
+    const DEFAULT_SCHEDULE_TIMES = {
+      block1: { label: "Block 1", startMinutes: 8*60+52, endMinutes: 9*60+48 },
+      nutrition: { label: "Nutrition Break", startMinutes: 9*60+48, endMinutes: 10*60+3, subjectId: "nutrition" },
+      block2: { label: "Block 2", startMinutes: 10*60+2, endMinutes: 10*60+59 },
+      block3: { label: "Block 3", startMinutes: 10*60+59, endMinutes: 11*60+55 },
+      lunch: { label: "Lunch", startMinutes: 11*60+55, endMinutes: 12*60+40, subjectId: "lunch" },
+      block4: { label: "Block 4", startMinutes: 12*60+57, endMinutes: 13*60+54 },
+      block5: { label: "Block 5", startMinutes: 13*60+54, endMinutes: 14*60+50 },
+    };
+
+    const SCHEDULE_TIME_FIELDS = [
+      { key: "block1", label: "Block 1" },
+      { key: "nutrition", label: "Nutrition Break" },
+      { key: "block2", label: "Block 2" },
+      { key: "block3", label: "Block 3" },
+      { key: "lunch", label: "Lunch" },
+      { key: "block4", label: "Block 4" },
+      { key: "block5", label: "Block 5" },
+    ];
+
+    function cloneDefaultWeekSchedule() {
+      return JSON.parse(JSON.stringify(WEEK_MAIN_SCHEDULE));
+    }
+
+    function cloneDefaultBreakSchedule() {
+      return {
+        nutrition: { startMinutes: DEFAULT_SCHEDULE_TIMES.nutrition.startMinutes, endMinutes: DEFAULT_SCHEDULE_TIMES.nutrition.endMinutes, subjectId: "nutrition" },
+        lunch: { startMinutes: DEFAULT_SCHEDULE_TIMES.lunch.startMinutes, endMinutes: DEFAULT_SCHEDULE_TIMES.lunch.endMinutes, subjectId: "lunch" },
+      };
+    }
+
+    function minutesToTimeInput(minutes) {
+      const safe = Number.isFinite(Number(minutes)) ? Number(minutes) : 0;
+      const h = Math.floor(safe / 60);
+      const m = safe % 60;
+      return `${pad(h)}:${pad(m)}`;
+    }
+
+    function timeInputToMinutes(value, fallback) {
+      const match = String(value || "").match(/^(\d{1,2}):(\d{2})$/);
+      if (!match) return fallback;
+      const h = clampInt(parseInt(match[1], 10), 0, 23);
+      const m = clampInt(parseInt(match[2], 10), 0, 59);
+      return h * 60 + m;
+    }
+
+    function createSubjectIdFromLabel(label) {
+      const base = String(label || "Subject").trim().toLowerCase()
+        .replace(/&/g, " and ")
+        .replace(/[^a-z0-9]+/g, "_")
+        .replace(/^_+|_+$/g, "") || "subject";
+      return `custom_${base}`;
+    }
+
+    function ensureSubjectForLabel(label) {
+      const clean = String(label || "").trim();
+      if (!clean) return "flex";
+      state.subjects = Array.isArray(state.subjects) && state.subjects.length ? state.subjects : JSON.parse(JSON.stringify(SUBJECTS));
+      const existing = state.subjects.find((subject) => String(subject.label || "").trim().toLowerCase() === clean.toLowerCase());
+      if (existing) return existing.id;
+      let id = createSubjectIdFromLabel(clean);
+      let counter = 2;
+      while (state.subjects.some((subject) => subject.id === id)) id = `${createSubjectIdFromLabel(clean)}_${counter++}`;
+      state.subjects.push({ id, label: clean, bg: "#ffffff", textColor: "#000000", fontWeight: 600 });
+      return id;
+    }
+
+    function normalizeScheduleState(targetState = state) {
+      targetState.subjects = Array.isArray(targetState.subjects) && targetState.subjects.length ? targetState.subjects : JSON.parse(JSON.stringify(SUBJECTS));
+      targetState.schedule ??= {};
+      targetState.schedule.week ??= cloneDefaultWeekSchedule();
+      targetState.schedule.breaks ??= cloneDefaultBreakSchedule();
+
+      const sourceWeek = targetState.schedule.week;
+      const normalizedWeek = {};
+      SCHEDULE_DAYS.forEach(({ dow }) => {
+        const current = Array.isArray(sourceWeek?.[dow]) && sourceWeek[dow].length ? sourceWeek[dow] : WEEK_MAIN_SCHEDULE[dow];
+        normalizedWeek[dow] = SCHEDULE_MAIN_BLOCKS.map((blockDef, index) => {
+          const defaultBlock = WEEK_MAIN_SCHEDULE[dow]?.[index] || {};
+          const currentBlock = current?.[index] || {};
+          const timeDef = DEFAULT_SCHEDULE_TIMES[blockDef.key];
+          const startMinutes = Number.isFinite(Number(currentBlock.startMinutes)) ? Number(currentBlock.startMinutes) : (Number.isFinite(Number(defaultBlock.startMinutes)) ? Number(defaultBlock.startMinutes) : timeDef.startMinutes);
+          let endMinutes = Number.isFinite(Number(currentBlock.endMinutes)) ? Number(currentBlock.endMinutes) : (Number.isFinite(Number(defaultBlock.endMinutes)) ? Number(defaultBlock.endMinutes) : timeDef.endMinutes);
+          // Build 16.8.2: correct legacy Block 5 default from 2:48 PM to 2:50 PM.
+          if (blockDef.key === "block5" && endMinutes === 14*60+48) endMinutes = DEFAULT_SCHEDULE_TIMES.block5.endMinutes;
+          return {
+            blockKey: blockDef.key,
+            startMinutes,
+            endMinutes,
+            subjectId: currentBlock.subjectId || defaultBlock.subjectId || "flex",
+          };
+        });
+      });
+      targetState.schedule.week = normalizedWeek;
+
+      const currentBreaks = targetState.schedule.breaks || {};
+      const normalizedBreaks = {};
+      ["nutrition", "lunch"].forEach((key) => {
+        const timeDef = DEFAULT_SCHEDULE_TIMES[key];
+        const current = currentBreaks[key] || {};
+        normalizedBreaks[key] = {
+          startMinutes: Number.isFinite(Number(current.startMinutes)) ? Number(current.startMinutes) : timeDef.startMinutes,
+          endMinutes: Number.isFinite(Number(current.endMinutes)) ? Number(current.endMinutes) : timeDef.endMinutes,
+          subjectId: current.subjectId || timeDef.subjectId,
+        };
+      });
+      targetState.schedule.breaks = normalizedBreaks;
+      return targetState.schedule;
+    }
+
+    function applyScheduleTimesToWeek(times) {
+      normalizeScheduleState();
+      SCHEDULE_DAYS.forEach(({ dow }) => {
+        SCHEDULE_MAIN_BLOCKS.forEach((blockDef, index) => {
+          const t = times[blockDef.key] || DEFAULT_SCHEDULE_TIMES[blockDef.key];
+          state.schedule.week[dow][index].blockKey = blockDef.key;
+          state.schedule.week[dow][index].startMinutes = t.startMinutes;
+          state.schedule.week[dow][index].endMinutes = t.endMinutes;
+        });
+      });
+      ["nutrition", "lunch"].forEach((key) => {
+        const t = times[key] || DEFAULT_SCHEDULE_TIMES[key];
+        state.schedule.breaks[key] = { startMinutes: t.startMinutes, endMinutes: t.endMinutes, subjectId: DEFAULT_SCHEDULE_TIMES[key].subjectId };
+      });
+    }
 
     function minutesToTimeString(minutes) {
       let h = Math.floor(minutes / 60);
@@ -3177,7 +3573,7 @@ function getFirstFreeRotationIndex() {
     }
 
     // Build 16 uses a fresh setup state for clean first launch.
-    // The old seeded Your Class roster is intentionally no longer bundled as default data.
+    // Real student roster data is intentionally not bundled; it stays local in each browser. Existing localStorage rosters are preserved.
     function cloneSeededDefaultState() {
       return createFreshSetupState();
     }
@@ -3196,6 +3592,8 @@ function getFirstFreeRotationIndex() {
           tileText: null,
           tileColor: null,
           tileTextColor: null,
+          enabled: true,
+          showOnStudentView: !!def.important,
           jobKey: def.key,
           description: getDefaultJobDescription(def.defaultLabel),
         })),
@@ -3214,17 +3612,15 @@ function getFirstFreeRotationIndex() {
           showStudentLeaderboard: false,
           studentPointsMode: "weekly",
           showJobDescriptionEditor: false,
+          hideDisabledJobs: false,
           safeMode: false,
           className: "Classroom Dashboard",
         },
         breakRanges: JSON.parse(JSON.stringify(DEFAULT_NON_ROTATION_RANGES)),
         subjects: JSON.parse(JSON.stringify(SUBJECTS)),
         schedule: {
-          week: JSON.parse(JSON.stringify(WEEK_MAIN_SCHEDULE)),
-          breaks: {
-            nutrition: { startMinutes: 9*60+48, endMinutes: 10*60+3, subjectId: "nutrition" },
-            lunch: { startMinutes: 11*60+55, endMinutes: 12*60+40, subjectId: "lunch" },
-          },
+          week: cloneDefaultWeekSchedule(),
+          breaks: cloneDefaultBreakSchedule(),
         },
         seating: createDefaultSeatingState(),
         extraJobsToday: [],
@@ -3260,6 +3656,7 @@ function getFirstFreeRotationIndex() {
       parsed.settings.showStudentLeaderboard ??= false;
       parsed.settings.studentPointsMode ??= "weekly";
       parsed.settings.showJobDescriptionEditor ??= false;
+      parsed.settings.hideDisabledJobs ??= false;
 
       parsed.profile ??= { teacherName: "", className: parsed.settings.className || "Classroom Dashboard", schoolYearLabel: "" };
       parsed.profile.teacherName ??= "";
@@ -3267,12 +3664,10 @@ function getFirstFreeRotationIndex() {
       parsed.profile.schoolYearLabel ??= "";
       parsed.breakRanges = Array.isArray(parsed.breakRanges) ? parsed.breakRanges : JSON.parse(JSON.stringify(DEFAULT_NON_ROTATION_RANGES));
       parsed.subjects = Array.isArray(parsed.subjects) && parsed.subjects.length ? parsed.subjects : JSON.parse(JSON.stringify(SUBJECTS));
-      parsed.schedule ??= { week: JSON.parse(JSON.stringify(WEEK_MAIN_SCHEDULE)), breaks: {} };
-      parsed.schedule.week ??= JSON.parse(JSON.stringify(WEEK_MAIN_SCHEDULE));
-      parsed.schedule.breaks ??= {
-        nutrition: { startMinutes: 9*60+48, endMinutes: 10*60+3, subjectId: "nutrition" },
-        lunch: { startMinutes: 11*60+55, endMinutes: 12*60+40, subjectId: "lunch" },
-      };
+      parsed.schedule ??= { week: cloneDefaultWeekSchedule(), breaks: cloneDefaultBreakSchedule() };
+      parsed.schedule.week ??= cloneDefaultWeekSchedule();
+      parsed.schedule.breaks ??= cloneDefaultBreakSchedule();
+      normalizeScheduleState(parsed);
       parsed.seating = normalizeSeatingState(parsed.seating);
       parsed.meta ??= {};
       parsed.meta.schemaVersion ??= 16;
@@ -3290,7 +3685,9 @@ function getFirstFreeRotationIndex() {
         job.jobKey = inferJobKey(job, index);
         if (!job.label) job.label = getDefaultJobLabel(job.jobKey);
         const def = getJobDefinition(job.jobKey);
-        if (job.important === undefined && def) job.important = !!def.important;
+        if (job.enabled === undefined) job.enabled = true;
+        if (job.showOnStudentView === undefined) job.showOnStudentView = job.important !== undefined ? !!job.important : !!def?.important;
+        job.important = !!job.showOnStudentView;
         if (job.tileColor === undefined) job.tileColor = null;
         if (job.tileTextColor === undefined) job.tileTextColor = null;
         if (job.description === undefined || job.description === null) job.description = getDefaultJobDescription(job.label);
@@ -3324,7 +3721,7 @@ function getFirstFreeRotationIndex() {
     var state = loadState();
     // Ensure rotation has enough slots for the roster (auto-add On Call positions as needed)
     ensureRotationCapacity();
-    clampRotationIndicesOnly();
+    repairRotationIndicesPreservingWherePossible();
     safeSaveState();
 
 
@@ -3600,7 +3997,7 @@ function computeAbsenceOverridesForEod() {
   const overrides = {};
 
   // Eligible jobs: ALL jobs (weekly + cleanup) plus today's extra jobs
-  const eodJobs = ([]).concat((state.jobs || []), (state.extraJobsToday || []));
+  const eodJobs = ([]).concat((state.jobs || []).filter((job) => job.enabled !== false), (state.extraJobsToday || []));
 // On Call pool (skip absent on-call students)
   const onCall = (typeof getOnCallStudentsOrderedBySlot === "function" ? getOnCallStudentsOrderedBySlot() : (typeof getOnCallStudents === "function" ? getOnCallStudents() : []))
     .map(s => s.id)
@@ -3758,7 +4155,6 @@ const exportBtn = document.getElementById("export-data-btn");
     const localTemplatesListEl = document.getElementById("local-templates-list");
     const resetJobsTodayBtn = document.getElementById("reset-jobs-today-btn");
     const todayRemindersInput = document.getElementById("today-reminders-input");
-    const agendaEditorBody = document.getElementById("agenda-editor-body");
     const agendaBlocksEl = document.getElementById("agenda-blocks");
     const addStudentBtn = document.getElementById("add-student-btn");
     const newStudentNameInput = document.getElementById("new-student-name");
@@ -3960,44 +4356,34 @@ const exportBtn = document.getElementById("export-data-btn");
     function renderJobsList() {
       jobsListEl.innerHTML = "";
 
-      const descriptionsOpen = !!state.settings.showJobDescriptionEditor;
-      const toolbar = createElement("div", { class: "job-description-toolbar" });
-      const toggleBtn = createElement("button", {
-        class: descriptionsOpen ? "btn-outline btn-xs" : "btn-subtle",
-        onclick: () => {
-          state.settings.showJobDescriptionEditor = !state.settings.showJobDescriptionEditor;
-          saveState();
-          renderJobsList();
-        }
-      }, [descriptionsOpen ? "Hide description editor" : "Description editor"]);
-      toolbar.appendChild(toggleBtn);
-      jobsListEl.appendChild(toolbar);
+      const activeJobs = (state.jobs || []).filter((job) => job.enabled !== false);
 
-      if (!state.jobs.length) {
+      if (!activeJobs.length) {
         jobsListEl.appendChild(
-          createElement("p", { class: "subtext", text: "No jobs configured." })
+          createElement("p", { class: "subtext", text: "No active jobs are enabled. Turn jobs back on in Setup → Jobs Setup." })
         );
         return;
       }
+
+      const setupNote = createElement("p", {
+        class: "small-text",
+        text: "Job names, colours, descriptions, Student View settings, and disabled jobs are managed in Setup → Jobs Setup."
+      });
+      jobsListEl.appendChild(setupNote);
 
       const header = createElement(
         "div",
         { class: "job-row" },
         [
-          createElement("div", { class: "small-text muted", text: "Job" }),
+          createElement("div", { class: "small-text muted", text: "Active job" }),
           createElement("div", { class: "small-text muted", text: "Assigned to" }),
-          createElement("div", { class: "small-text muted nowrap", text: "Status / Action" }),
+          createElement("div", { class: "small-text muted nowrap", text: "Daily status" }),
         ]
       );
       jobsListEl.appendChild(header);
       jobsListEl.appendChild(createElement("div", { class: "divider" }));
 
-      const descPanel = createElement("div", { class: "description-editor-panel" + (descriptionsOpen ? " show" : "") });
-      if (descriptionsOpen) {
-        descPanel.appendChild(createElement("p", { class: "description-editor-help", text: 'Edit the text that appears when you double-click a cleanup tile in Student View. Use plain text. Put each checklist item on its own line starting with a dash, such as "- Pencils and pens: Make sure the bins are stocked."' }));
-      }
-
-      state.jobs.forEach((job) => {
+      activeJobs.forEach((job) => {
         const row = document.createElement("div");
         row.className = "job-row";
 
@@ -4009,56 +4395,6 @@ const exportBtn = document.getElementById("export-data-btn");
             createElement("div", { class: "chip-important", text: "Student View" })
           );
         }
-        row.appendChild(labelCell);
-
-        // Build 14.23: tile colour controls (Student View only)
-        const colorWrap = document.createElement("div");
-        colorWrap.className = "job-color-controls";
-
-        const swatch = document.createElement("span");
-        swatch.className = "job-color-swatch";
-        const currentColor = job.tileColor ? normalizeHexColor(job.tileColor) : null;
-        const themeColor = getJobThemeColor(job.label);
-        swatch.style.background = currentColor || themeColor;
-
-        const labelSmall = document.createElement("span");
-        labelSmall.className = "job-color-label";
-        labelSmall.textContent = "Tile colour:";
-
-        const colorInput = document.createElement("input");
-        colorInput.type = "color";
-        colorInput.className = "job-color-input";
-        colorInput.value = currentColor || themeColor;
-        colorInput.addEventListener("input", () => {
-          const hex = normalizeHexColor(colorInput.value);
-          job.tileColor = hex;
-          job.tileTextColor = getContrastingTextColor(hex);
-          swatch.style.background = hex || themeColor;
-          saveState();
-          renderEodJobs();
-          renderWeeklyMiniJobs();
-        });
-
-        const resetBtn = document.createElement("button");
-        resetBtn.type = "button";
-        resetBtn.className = "job-color-btn";
-        resetBtn.textContent = "Reset";
-        resetBtn.addEventListener("click", () => {
-          job.tileColor = null;
-          job.tileTextColor = null;
-          colorInput.value = themeColor;
-          swatch.style.background = themeColor;
-          saveState();
-          renderEodJobs();
-          renderWeeklyMiniJobs();
-        });
-
-        colorWrap.appendChild(labelSmall);
-        colorWrap.appendChild(swatch);
-        colorWrap.appendChild(colorInput);
-        colorWrap.appendChild(resetBtn);
-        labelCell.appendChild(colorWrap);
-
         row.appendChild(labelCell);
 
         const assignCell = document.createElement("div");
@@ -4087,9 +4423,19 @@ const exportBtn = document.getElementById("export-data-btn");
 
         const statusCell = document.createElement("div");
         if (job.doneToday) {
-          statusCell.appendChild(
-            createElement("span", { class: "status-pill", text: "Done today" })
+          const resetBtn = createElement(
+            "button",
+            {
+              class: "btn-xs btn-outline",
+              onclick: () => {
+                job.doneToday = false;
+                saveState();
+                renderJobSurfaces();
+              },
+            },
+            ["Done — reset"]
           );
+          statusCell.appendChild(resetBtn);
         } else {
           const btn = createElement(
             "button",
@@ -4098,8 +4444,7 @@ const exportBtn = document.getElementById("export-data-btn");
               onclick: () => {
                 job.doneToday = true;
                 saveState();
-                renderJobsList();
-                renderEodJobs();
+                renderJobSurfaces();
               },
             },
             ["Mark done"]
@@ -4109,26 +4454,7 @@ const exportBtn = document.getElementById("export-data-btn");
         row.appendChild(statusCell);
 
         jobsListEl.appendChild(row);
-
-        const editorRow = createElement("div", { class: "description-edit-row" });
-        const head = createElement("div", { class: "description-edit-head" }, [
-          createElement("div", { class: "description-edit-title", text: job.label }),
-          createElement("div", { class: "description-edit-meta", text: job.important ? "Student View tile" : "Teacher-side job" })
-        ]);
-        const textarea = document.createElement("textarea");
-        textarea.className = "description-edit-textarea";
-        textarea.value = ensureJobDescription(job);
-        textarea.placeholder = "Add the job description or checklist here.";
-        textarea.addEventListener("input", (e) => {
-          job.description = e.target.value;
-          saveState();
-        });
-        editorRow.appendChild(head);
-        editorRow.appendChild(textarea);
-        descPanel.appendChild(editorRow);
       });
-
-      if (descriptionsOpen) jobsListEl.appendChild(descPanel);
     }
 
     function renderOnCallLists() {
@@ -4183,7 +4509,7 @@ function renderWeeklyMiniJobs() {
   grid.innerHTML = "";
 
   // Non-EOD jobs only (important === false). Cleanup jobs use the larger tiles below.
-  const miniJobs = (state.jobs || []).filter((j) => !j.important);
+  const miniJobs = (state.jobs || []).filter((j) => j.enabled !== false && !j.important);
 
   miniJobs.forEach((job) => {
     const assigneeName = job.assignedStudentId ? getStudentNameById(getEffectiveAssigneeIdForStudentView(job)) : "—";
@@ -4524,10 +4850,15 @@ const BROOM_STRIPE_COLOURS = {
   "Floor Check": "#d62828"     // Red
 };
 
-function getBroomStripeColour(jobLabel) {
+function getBroomStripeColour(jobOrLabel) {
+  const jobKey = typeof jobOrLabel === "object" ? jobOrLabel?.jobKey : null;
+  if (jobKey === "broom_detail_1") return BROOM_STRIPE_COLOURS["Broom Detail 1"];
+  if (jobKey === "broom_detail_2") return BROOM_STRIPE_COLOURS["Broom Detail 2"];
+  if (jobKey === "broom_detail_3") return BROOM_STRIPE_COLOURS["Broom Detail 3"];
+  const jobLabel = typeof jobOrLabel === "object" ? jobOrLabel?.label : jobOrLabel;
   if (!jobLabel) return null;
   for (const key of Object.keys(BROOM_STRIPE_COLOURS)) {
-    if (jobLabel === key || jobLabel.startsWith(key + " ")) return BROOM_STRIPE_COLOURS[key];
+    if (jobLabel === key || String(jobLabel).startsWith(key + " ")) return BROOM_STRIPE_COLOURS[key];
   }
   return null;
 }
@@ -4643,7 +4974,7 @@ function formatJobDescriptionHtml(text) {
 
 function getJobDetailTheme(job) {
   const customBg = job?.tileColor ? normalizeHexColor(job.tileColor) : null;
-  const broomBg = /^Broom Detail\s+\d+$/i.test(job?.label || "") ? getBroomStripeColour(job?.label || "") : null;
+  const broomBg = /^Broom Detail\s+\d+$/i.test(job?.label || "") ? getBroomStripeColour(job) : null;
   const bg = customBg || broomBg || getJobThemeColor(job?.label || "") || '#f59e0b';
   const fg = job?.tileTextColor ? normalizeHexColor(job.tileTextColor) : getContrastingTextColor(bg);
   return { bg, fg };
@@ -4688,7 +5019,7 @@ function renderEodJobs() {
       eodJobsGrid.style.display = "grid";
       eodJobsHiddenMessage.style.display = "none";
 
-      const importantJobs = state.jobs.filter((j) => j.important);
+      const importantJobs = state.jobs.filter((j) => j.enabled !== false && j.important);
       const featuredExtraJobs = state.extraJobsToday.filter((j) => j.featured);
 
       if (!importantJobs.length && !featuredExtraJobs.length) {
@@ -4715,13 +5046,16 @@ function renderEodJobs() {
         "Rug Rats",
       ];
 
-      const orderIndex = (label) => {
-        const idx = displayOrder.indexOf(label);
-        return idx === -1 ? 999 : idx;
+      const keyOrder = ["broom_detail_1", "broom_detail_2", "broom_detail_3", "desk_check", "chair_check", "cubby_check", "whiteboards", "name_tags", "floor_check", "supply_check", "rug_rats"];
+      const orderIndex = (job) => {
+        const keyIdx = keyOrder.indexOf(job.jobKey);
+        if (keyIdx !== -1) return keyIdx;
+        const labelIdx = displayOrder.indexOf(job.label);
+        return labelIdx === -1 ? 999 : labelIdx;
       };
 
       const sortedImportant = [...importantJobs].sort(
-        (a, b) => orderIndex(a.label) - orderIndex(b.label)
+        (a, b) => orderIndex(a) - orderIndex(b)
       );
 
       function addCardForJob(job, isExtra = false, container = eodJobsGrid) {
@@ -4744,7 +5078,7 @@ function renderEodJobs() {
 
 
 // Add broom colour stripe (does not change the orange "broom team" tile theme)
-const broomStripe = getBroomStripeColour(job.label);
+const broomStripe = getBroomStripeColour(job);
 if (broomStripe) {
   card.classList.add("broom-stripe");
   card.style.setProperty("--broom-stripe", broomStripe);
@@ -4752,7 +5086,7 @@ if (broomStripe) {
 
 
 // Make Broom Detail tiles dark (students still see the stripe colour cue)
-if (job.label === "Broom Detail 1" || job.label === "Broom Detail 2" || job.label === "Broom Detail 3") {
+if (["broom_detail_1", "broom_detail_2", "broom_detail_3"].includes(job.jobKey)) {
   card.classList.add("broom-dark");
 }
         // Student View: click tile to toggle complete/incomplete; double-click to open description
@@ -4819,8 +5153,8 @@ if (job.label === "Broom Detail 1" || job.label === "Broom Detail 2" || job.labe
       }
 
       // Split into broom row + the rest (for a true “half-tile” centered look)
-      const broomJobs = sortedImportant.filter((j) => /^Broom Detail\s+\d+$/i.test(j.label));
-      const otherJobs = sortedImportant.filter((j) => !/^Broom Detail\s+\d+$/i.test(j.label));
+      const broomJobs = sortedImportant.filter((j) => ["broom_detail_1", "broom_detail_2", "broom_detail_3"].includes(j.jobKey));
+      const otherJobs = sortedImportant.filter((j) => !["broom_detail_1", "broom_detail_2", "broom_detail_3"].includes(j.jobKey));
 
       // Render broom row (centered)
       if (typeof eodBroomRow !== "undefined" && eodBroomRow) {
@@ -5092,46 +5426,6 @@ if (job.label === "Broom Detail 1" || job.label === "Broom Detail 2" || job.labe
       });
     }
 
-    // Agenda (teacher view, read-only)
-    function renderAgendaEditor() {
-      agendaEditorBody.innerHTML = "";
-      const { slots } = computeAgendaSlots();
-      const slotLabelMap = { now: "Now", next: "Next", then: "Then", later: "Later" };
-
-      AGENDA_SLOT_ORDER.forEach((slotId) => {
-        const item = slots.find((s) => s.slotId === slotId);
-        const row = document.createDocumentFragment();
-
-        const slotCell = createElement("div", {
-          class: "agenda-editor-slot",
-          text: slotLabelMap[slotId],
-        });
-
-        const subjectCell = document.createElement("div");
-        const timeCell = document.createElement("div");
-
-        if (item) {
-          const subj = subjectById(item.subjectId);
-          subjectCell.className = "agenda-editor-subject";
-          subjectCell.textContent = subj ? subj.label : "—";
-          timeCell.className = "agenda-editor-time";
-          timeCell.textContent =
-            `${minutesToTimeString(item.startMinutes)}–${minutesToTimeString(item.endMinutes)}`;
-        } else {
-          subjectCell.className = "agenda-editor-subject";
-          subjectCell.textContent = "—";
-          timeCell.className = "agenda-editor-time";
-          timeCell.textContent = "";
-        }
-
-        row.appendChild(slotCell);
-        row.appendChild(subjectCell);
-        row.appendChild(timeCell);
-
-        agendaEditorBody.appendChild(row);
-      });
-    }
-
     // Agenda (Student View)
     function renderAgendaDisplay() {
       agendaBlocksEl.innerHTML = "";
@@ -5209,11 +5503,13 @@ function renderRotationOrderHint() {
   if (!rotationOrderHintEl) return;
   const seq = getRotationSequence();
   const jobDescriptors = seq.filter((item) => item.type === "job");
-  const firstJobLabel = jobDescriptors[0]?.label || "First job";
-  const lastJobLabel = jobDescriptors[jobDescriptors.length - 1]?.label || "Last job";
+  const firstJobLabel = jobDescriptors[0]?.label || "On Call";
+  const lastJobLabel = jobDescriptors[jobDescriptors.length - 1]?.label || "On Call";
   const onCallLabels = [];
   for (let i = getOnCallSlotCount(); i >= 1; i--) onCallLabels.push(`On Call ${i}`);
-  rotationOrderHintEl.textContent = `Order: ${firstJobLabel} → … → ${lastJobLabel} → ${onCallLabels.join(" → ")} → back to ${firstJobLabel}.`;
+  rotationOrderHintEl.textContent = jobDescriptors.length
+    ? `Order: ${firstJobLabel} → … → ${lastJobLabel} → ${onCallLabels.join(" → ")} → back to ${firstJobLabel}.`
+    : `Order: ${onCallLabels.join(" → ")}. Enable jobs in Setup to add them back to the Ferris wheel.`;
 }
 
 if (onCallSlotCountSelect) {
@@ -5222,7 +5518,7 @@ if (onCallSlotCountSelect) {
     if (!Number.isFinite(requested) || requested < 1) return;
     state.settings.onCallSlotsCount = Math.floor(requested);
     ensureRotationCapacity(0);
-    clampRotationIndicesOnly();
+    repairRotationIndicesPreservingWherePossible();
     saveState();
     applyRotationToJobs();
     renderJobsList();
@@ -5238,9 +5534,13 @@ if (onCallSlotCountSelect) {
   rotationListEl.innerHTML = "";
   renderOnCallSlotCountControl();
   renderRotationOrderHint();
+  const capacity = getRotationCapacitySummary();
+  const capacityMessage = buildRotationCapacityMessage(capacity);
+  const capacityWarning = createElement("div", { class: "rotation-warning show" + (capacityMessage.type === "good" ? " good" : ""), text: capacityMessage.text });
+  rotationListEl.appendChild(capacityWarning);
   const duplicates = getRotationDuplicateSummary();
   if (duplicates.length) {
-    const warning = createElement("div", { class: "rotation-warning show", text: "Warning: two or more students currently share the same Ferris wheel slot. Their saved order has been preserved, but you should fix the duplicate positions below." });
+    const warning = createElement("div", { class: "rotation-warning show", text: "Warning: two or more students currently share the same Ferris wheel slot. The dashboard will try to repair this automatically when there are enough positions; otherwise add On-Call slots or enable more jobs." });
     rotationListEl.appendChild(warning);
   }
   if (!state.students.length) {
@@ -5300,13 +5600,17 @@ if (onCallSlotCountSelect) {
       },
     });
 
-    // Populate the dropdown: every student, select whoever is at this index
+    // Populate the dropdown: include a blank row for empty rotation positions so names do not repeat visually.
+    const occupant = state.students.find((s) => s.rotationIndex === index) || null;
+    const emptyOpt = createElement("option", { value: "", text: "— Empty position —" });
+    if (!occupant) emptyOpt.selected = true;
+    select.appendChild(emptyOpt);
     state.students.forEach((s) => {
       const opt = createElement("option", {
         value: s.id,
         text: s.displayName || s.name || "Unnamed",
       });
-      if (s.rotationIndex === index) opt.selected = true;
+      if (occupant && s.id === occupant.id) opt.selected = true;
       select.appendChild(opt);
     });
 
@@ -5402,6 +5706,7 @@ function clearPointUndoStack() {
       saveState();
       renderStudentsTable();
       renderAttendancePanel();
+      renderRotationSetup();
       renderSeatingPlan();
     });
 
@@ -5522,7 +5827,7 @@ function clearPointUndoStack() {
       template.data.jobs = cleanJobsForTemplate(template.data.jobs || []);
       template.data.breakRanges = Array.isArray(template.data.breakRanges) ? template.data.breakRanges : JSON.parse(JSON.stringify(DEFAULT_NON_ROTATION_RANGES));
       template.data.subjects = Array.isArray(template.data.subjects) && template.data.subjects.length ? template.data.subjects : JSON.parse(JSON.stringify(SUBJECTS));
-      template.data.schedule ||= { week: JSON.parse(JSON.stringify(WEEK_MAIN_SCHEDULE)), breaks: {} };
+      template.data.schedule ||= { week: cloneDefaultWeekSchedule(), breaks: cloneDefaultBreakSchedule() };
       template.data.settings ||= {};
       template.data.profile ||= {};
       template.data.seating ||= null;
@@ -5615,7 +5920,8 @@ function clearPointUndoStack() {
 
       state.breakRanges = JSON.parse(JSON.stringify(data.breakRanges || DEFAULT_NON_ROTATION_RANGES));
       state.subjects = JSON.parse(JSON.stringify(data.subjects || SUBJECTS));
-      state.schedule = JSON.parse(JSON.stringify(data.schedule || { week: WEEK_MAIN_SCHEDULE, breaks: {} }));
+      state.schedule = JSON.parse(JSON.stringify(data.schedule || { week: cloneDefaultWeekSchedule(), breaks: cloneDefaultBreakSchedule() }));
+      normalizeScheduleState();
       if (data.seating && Array.isArray(data.seating.layouts) && data.seating.layouts.length) {
         state.seating = normalizeSeatingState({ ...state.seating, layouts: data.seating.layouts.map((layout) => ({ ...layout, desks: (layout.desks || []).map((d) => ({ ...d, studentId: null })) })), activeLayoutId: data.seating.layouts[0].id || "layout_main", broadcast: data.seating.broadcast || state.seating?.broadcast || {} });
       }
@@ -5632,7 +5938,7 @@ function clearPointUndoStack() {
       state.pointUndoStack = [];
       cleanupSeatingAssignmentsForRoster();
       ensureRotationCapacity(0);
-      clampRotationIndicesOnly();
+      repairRotationIndicesPreservingWherePossible();
       applyRotationToJobs();
       state.meta ??= {};
       state.meta.setupCompleted = true;
@@ -5747,6 +6053,11 @@ function clearPointUndoStack() {
     if (openTemplatesBtn) openTemplatesBtn.addEventListener("click", openTemplatesModal);
     if (templatesCloseBtn) templatesCloseBtn.addEventListener("click", closeTemplatesModal);
     if (templatesDoneBtn) templatesDoneBtn.addEventListener("click", closeTemplatesModal);
+    if (templatesOverlay) {
+      templatesOverlay.addEventListener("click", (e) => {
+        if (e.target === templatesOverlay) closeTemplatesModal();
+      });
+    }
     if (templatesBackupBtn) templatesBackupBtn.addEventListener("click", exportDashboardBackup);
     if (templatesRestoreBtn) templatesRestoreBtn.addEventListener("click", () => importFileInput?.click());
     if (saveLocalTemplateBtn) saveLocalTemplateBtn.addEventListener("click", saveCurrentSetupAsLocalTemplate);
@@ -5812,8 +6123,11 @@ resetJobsTodayBtn.addEventListener("click", () => {
       });
     }
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && jobDetailOverlay?.classList.contains("show")) closeJobDetail();
-      if (e.key === "Escape" && versionNotesOverlay?.classList.contains("show")) closeVersionNotes();
+      if (e.key !== "Escape") return;
+      if (jobDetailOverlay?.classList.contains("show")) { closeJobDetail(); return; }
+      if (versionNotesOverlay?.classList.contains("show")) { closeVersionNotes(); return; }
+      if (templatesOverlay?.classList.contains("show")) { closeTemplatesModal(); return; }
+      if (setupOverlay?.classList.contains("show")) { closeSetupModal(false); return; }
     });
 
     // Setup modal refs
@@ -5834,6 +6148,15 @@ resetJobsTodayBtn.addEventListener("click", () => {
     const setupDismissalMinute = document.getElementById("setup-dismissal-minute");
     const setupShowClockSeconds = document.getElementById("setup-show-clock-seconds");
     const setupShowCountdownSeconds = document.getElementById("setup-show-countdown-seconds");
+    const setupWeeklyScheduleGrid = document.getElementById("setup-weekly-schedule-grid");
+    const setupJobsList = document.getElementById("setup-jobs-list");
+    const setupJobsCapacityWarning = document.getElementById("setup-jobs-capacity-warning");
+    const setupHideDisabledJobsInput = document.getElementById("setup-hide-disabled-jobs");
+    let setupJobsDraft = null;
+    let setupInitialSnapshot = "";
+    const setupScheduleTimesGrid = document.getElementById("setup-schedule-times-grid");
+    const scheduleResetSubjectsBtn = document.getElementById("schedule-reset-subjects-btn");
+    const scheduleResetTimesBtn = document.getElementById("schedule-reset-times-btn");
     const setupVersionPill = document.getElementById("setup-version-pill");
     const versionNotesOverlay = document.getElementById("version-notes-overlay");
     const versionNotesCloseBtn = document.getElementById("version-notes-close-btn");
@@ -5872,8 +6195,15 @@ resetJobsTodayBtn.addEventListener("click", () => {
     if (setupSaveBtn) setupSaveBtn.addEventListener("click", saveSetupModal);
     if (setupOverlay) {
       setupOverlay.addEventListener("click", (e) => {
-        if (e.target === setupOverlay) closeSetupModal();
+        // Build 16.9.7: avoid accidental dismissal of a long setup form by outside-clicking.
+        if (e.target === setupOverlay) e.stopPropagation();
       });
+    }
+    if (scheduleResetSubjectsBtn) {
+      scheduleResetSubjectsBtn.addEventListener("click", () => renderSetupWeeklySchedule(true));
+    }
+    if (scheduleResetTimesBtn) {
+      scheduleResetTimesBtn.addEventListener("click", () => renderSetupScheduleTimes(true));
     }
 
 
@@ -6054,7 +6384,7 @@ if (tab === "jobs") {
       e.target.value = "";
     });
 
-    // Clock updates every second; agenda/ribbon surfaces only rebuild when the minute changes.
+    // Clock updates every second; Student View agenda/ribbon surfaces only rebuild when the minute changes.
     let lastAgendaRenderMinute = null;
     setInterval(() => {
       updateClock();
@@ -6062,7 +6392,6 @@ if (tab === "jobs") {
       const currentMinute = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}-${now.getHours()}-${now.getMinutes()}`;
       if (currentMinute !== lastAgendaRenderMinute) {
         lastAgendaRenderMinute = currentMinute;
-        renderAgendaEditor();
         renderAgendaDisplay();
         renderNowNextStrip();
         renderNextRibbon();
@@ -7573,6 +7902,326 @@ if (tab === "jobs") {
         .join("\n");
     }
 
+
+    function getCurrentScheduleTimesForSetup() {
+      normalizeScheduleState();
+      const times = {};
+      SCHEDULE_MAIN_BLOCKS.forEach((blockDef, index) => {
+        const block = state.schedule.week?.[1]?.[index] || DEFAULT_SCHEDULE_TIMES[blockDef.key];
+        times[blockDef.key] = {
+          label: DEFAULT_SCHEDULE_TIMES[blockDef.key].label,
+          startMinutes: block.startMinutes,
+          endMinutes: block.endMinutes,
+        };
+      });
+      ["nutrition", "lunch"].forEach((key) => {
+        const block = state.schedule.breaks?.[key] || DEFAULT_SCHEDULE_TIMES[key];
+        times[key] = {
+          label: DEFAULT_SCHEDULE_TIMES[key].label,
+          startMinutes: block.startMinutes,
+          endMinutes: block.endMinutes,
+        };
+      });
+      return times;
+    }
+
+    function renderSetupSubjectOptions() {
+      // Build 16.9.7: schedule fields are plain text inputs.
+      // Default subjects remain real values, while blank fields use a simple placeholder.
+    }
+
+    function getSetupBlockAxisLabel(blockDef, index) {
+      return blockDef?.label || `Block ${index + 1}`;
+    }
+
+    function cloneJobsForSetup() {
+      return (state.jobs || []).map((job, index) => ({
+        ...job,
+        jobKey: inferJobKey(job, index),
+        label: job.label || getDefaultJobLabel(inferJobKey(job, index)),
+        enabled: job.enabled !== false,
+        showOnStudentView: job.showOnStudentView !== undefined ? !!job.showOnStudentView : !!job.important,
+        important: job.showOnStudentView !== undefined ? !!job.showOnStudentView : !!job.important,
+        tileColor: normalizeHexColor(job.tileColor) || null,
+        tileTextColor: normalizeHexColor(job.tileTextColor) || null,
+        description: typeof job.description === "string" ? job.description : getDefaultJobDescription(job.label || getDefaultJobLabel(inferJobKey(job, index))),
+      }));
+    }
+
+    function getRotationCapacitySummary(jobsOverride = null, onCallOverride = undefined) {
+      const jobs = Array.isArray(jobsOverride) ? jobsOverride : (state.jobs || []);
+      const enabledJobKeys = jobs
+        .filter((job) => job && job.enabled !== false && inferJobKey(job))
+        .map((job) => inferJobKey(job));
+      const enabledJobs = enabledJobKeys.length;
+      const hasOnCallOverride = onCallOverride !== undefined && onCallOverride !== null && onCallOverride !== "";
+      const overrideNumber = Number(onCallOverride);
+      const onCallSlots = hasOnCallOverride && Number.isFinite(overrideNumber)
+        ? Math.max(1, Math.floor(overrideNumber))
+        : getOnCallSlotCount();
+      const students = Array.isArray(state.students) ? state.students.length : 0;
+      const totalPositions = enabledJobs + onCallSlots;
+      return { enabledJobs, enabledJobKeys, onCallSlots, students, totalPositions, difference: totalPositions - students };
+    }
+
+    function buildRotationCapacityMessage(summary) {
+      if (!summary) {
+        return { type: "warn", text: "Ferris wheel check unavailable." };
+      }
+      const math = `${summary.enabledJobs} enabled job${summary.enabledJobs === 1 ? "" : "s"} + ${summary.onCallSlots} On-Call slot${summary.onCallSlots === 1 ? "" : "s"} = ${summary.totalPositions} position${summary.totalPositions === 1 ? "" : "s"} for ${summary.students} student${summary.students === 1 ? "" : "s"}.`;
+      if (!summary.students) {
+        return { type: "warn", text: `Ferris wheel check: ${math} Add students to the roster to check whether the wheel has the right number of positions.` };
+      }
+      if (summary.totalPositions > summary.students) {
+        const extra = summary.totalPositions - summary.students;
+        return { type: "warn", text: `Ferris wheel check: ${math} There ${extra === 1 ? "is" : "are"} ${extra} extra position${extra === 1 ? "" : "s"}. Some job or On-Call positions will be empty. This is safe, but you may want fewer On-Call slots or fewer enabled jobs.` };
+      }
+      if (summary.totalPositions < summary.students) {
+        const short = summary.students - summary.totalPositions;
+        return { type: "warn", text: `Ferris wheel check: ${math} There ${short === 1 ? "is" : "are"} ${short} more student${short === 1 ? "" : "s"} than position${summary.totalPositions === 1 ? "" : "s"}. Add On-Call slots or enable more jobs so every student has a position.` };
+      }
+      return { type: "good", text: `Ferris wheel check: ${math} Capacity matches the roster.` };
+    }
+
+    function renderSetupJobsCapacityWarning() {
+      // Build 16.9.7: capacity status belongs with the Ferris wheel / On-Call controls,
+      // not inside Jobs Setup where teachers cannot adjust On-Call slots.
+      if (!setupJobsCapacityWarning) return;
+      setupJobsCapacityWarning.textContent = "";
+      setupJobsCapacityWarning.className = "jobs-setup-warning";
+    }
+
+    function renderSetupJobs() {
+      if (!setupJobsList) return;
+      if (!setupJobsDraft) setupJobsDraft = cloneJobsForSetup();
+      setupJobsList.innerHTML = "";
+      renderSetupJobsCapacityWarning();
+      setupJobsDraft.forEach((job, index) => {
+        const row = document.createElement("div");
+        row.className = "jobs-setup-row" + (job.enabled === false ? " disabled" : "");
+
+        const main = document.createElement("div");
+        main.className = "jobs-setup-main";
+        const name = document.createElement("input");
+        name.type = "text";
+        name.className = "jobs-setup-name";
+        name.value = job.label || getDefaultJobLabel(job.jobKey);
+        name.dataset.jobIndex = String(index);
+        name.placeholder = "Job name";
+        name.addEventListener("input", () => { job.label = name.value; });
+        main.appendChild(name);
+
+        const key = document.createElement("div");
+        key.className = "jobs-setup-key";
+        key.textContent = `Internal key: ${job.jobKey || "custom"}`;
+        main.appendChild(key);
+
+        const toggles = document.createElement("div");
+        toggles.className = "jobs-setup-toggles";
+        const enabledLabel = document.createElement("label");
+        enabledLabel.className = "jobs-setup-toggle";
+        const enabled = document.createElement("input");
+        enabled.type = "checkbox";
+        enabled.checked = job.enabled !== false;
+        enabled.addEventListener("change", () => {
+          job.enabled = !!enabled.checked;
+          if (!job.enabled) job.showOnStudentView = false;
+          renderSetupJobs();
+        });
+        enabledLabel.appendChild(enabled);
+        enabledLabel.appendChild(document.createTextNode("Enabled"));
+
+        const studentViewLabel = document.createElement("label");
+        studentViewLabel.className = "jobs-setup-toggle";
+        const studentView = document.createElement("input");
+        studentView.type = "checkbox";
+        studentView.checked = !!job.showOnStudentView && job.enabled !== false;
+        studentView.disabled = job.enabled === false;
+        studentView.addEventListener("change", () => { job.showOnStudentView = !!studentView.checked; job.important = !!studentView.checked; });
+        studentViewLabel.appendChild(studentView);
+        studentViewLabel.appendChild(document.createTextNode("Show on Student View"));
+        toggles.appendChild(enabledLabel);
+        toggles.appendChild(studentViewLabel);
+        main.appendChild(toggles);
+
+        const colour = document.createElement("label");
+        colour.className = "jobs-setup-colour";
+        colour.appendChild(document.createTextNode("Colour"));
+        const colourInput = document.createElement("input");
+        colourInput.type = "color";
+        colourInput.value = normalizeHexColor(job.tileColor) || getJobThemeColor(job.label || getDefaultJobLabel(job.jobKey));
+        colourInput.addEventListener("input", () => {
+          job.tileColor = normalizeHexColor(colourInput.value);
+          job.tileTextColor = getContrastingTextColor(job.tileColor);
+        });
+        colour.appendChild(colourInput);
+
+        const order = document.createElement("div");
+        order.className = "jobs-setup-order";
+        const up = createElement("button", { class: "btn-outline btn-xs", type: "button", text: "↑" });
+        up.disabled = index === 0;
+        up.addEventListener("click", () => {
+          if (index <= 0) return;
+          [setupJobsDraft[index - 1], setupJobsDraft[index]] = [setupJobsDraft[index], setupJobsDraft[index - 1]];
+          renderSetupJobs();
+        });
+        const down = createElement("button", { class: "btn-outline btn-xs", type: "button", text: "↓" });
+        down.disabled = index === setupJobsDraft.length - 1;
+        down.addEventListener("click", () => {
+          if (index >= setupJobsDraft.length - 1) return;
+          [setupJobsDraft[index + 1], setupJobsDraft[index]] = [setupJobsDraft[index], setupJobsDraft[index + 1]];
+          renderSetupJobs();
+        });
+        order.appendChild(up);
+        order.appendChild(down);
+
+        const desc = document.createElement("textarea");
+        desc.className = "jobs-setup-description";
+        desc.value = job.description || "";
+        desc.placeholder = "Job description or checklist.";
+        desc.addEventListener("input", () => { job.description = desc.value; });
+
+        row.appendChild(main);
+        row.appendChild(colour);
+        row.appendChild(order);
+        row.appendChild(desc);
+        setupJobsList.appendChild(row);
+      });
+    }
+
+    function collectSetupJobs() {
+      const jobs = (setupJobsDraft || cloneJobsForSetup()).map((job, index) => {
+        const labelInput = setupJobsList?.querySelector(`.jobs-setup-name[data-job-index="${index}"]`);
+        const label = (labelInput?.value || job.label || getDefaultJobLabel(job.jobKey)).trim() || getDefaultJobLabel(job.jobKey);
+        const enabled = job.enabled !== false;
+        const showOnStudentView = enabled && !!job.showOnStudentView;
+        return {
+          ...job,
+          label,
+          jobKey: inferJobKey(job, index),
+          enabled,
+          showOnStudentView,
+          important: showOnStudentView,
+          assignedStudentId: enabled ? (job.assignedStudentId || null) : null,
+          tileColor: normalizeHexColor(job.tileColor) || null,
+          tileTextColor: job.tileColor ? (normalizeHexColor(job.tileTextColor) || getContrastingTextColor(job.tileColor)) : null,
+          description: typeof job.description === "string" ? job.description : "",
+        };
+      });
+      return jobs;
+    }
+
+    function renderSetupWeeklySchedule(useDefaults = false) {
+      if (!setupWeeklyScheduleGrid) return;
+      normalizeScheduleState();
+      renderSetupSubjectOptions();
+      setupWeeklyScheduleGrid.innerHTML = "";
+      setupWeeklyScheduleGrid.appendChild(createElement("div", { class: "schedule-setup-head", text: "Block" }));
+      SCHEDULE_DAYS.forEach(({ label }) => setupWeeklyScheduleGrid.appendChild(createElement("div", { class: "schedule-setup-head", text: label })));
+
+      SCHEDULE_MAIN_BLOCKS.forEach((blockDef, index) => {
+        setupWeeklyScheduleGrid.appendChild(createElement("div", { class: "schedule-day-label", text: getSetupBlockAxisLabel(blockDef, index) }));
+        SCHEDULE_DAYS.forEach(({ dow, label: dayLabel }) => {
+          const sourceBlock = useDefaults ? WEEK_MAIN_SCHEDULE[dow]?.[index] : state.schedule.week?.[dow]?.[index];
+          const subject = subjectById(sourceBlock?.subjectId) || SUBJECTS.find((s) => s.id === sourceBlock?.subjectId);
+          const input = createElement("input", {
+            type: "text",
+            class: "schedule-subject-input",
+            id: `setup-schedule-${dow}-${blockDef.key}`,
+            value: subject?.label || "",
+            "data-dow": String(dow),
+            "data-block-index": String(index),
+            "data-block-key": blockDef.key,
+            "aria-label": `${dayLabel} ${getSetupBlockAxisLabel(blockDef, index)} subject`,
+            placeholder: "Enter subject",
+          });
+          setupWeeklyScheduleGrid.appendChild(input);
+        });
+      });
+    }
+
+    function renderSetupScheduleTimes(useDefaults = false) {
+      if (!setupScheduleTimesGrid) return;
+      const current = useDefaults ? DEFAULT_SCHEDULE_TIMES : getCurrentScheduleTimesForSetup();
+      setupScheduleTimesGrid.innerHTML = "";
+      setupScheduleTimesGrid.appendChild(createElement("div", { class: "schedule-setup-head", text: "Slot" }));
+      setupScheduleTimesGrid.appendChild(createElement("div", { class: "schedule-setup-head", text: "Start" }));
+      setupScheduleTimesGrid.appendChild(createElement("div", { class: "schedule-setup-head", text: "End" }));
+      SCHEDULE_TIME_FIELDS.forEach((field) => {
+        const t = current[field.key] || DEFAULT_SCHEDULE_TIMES[field.key];
+        setupScheduleTimesGrid.appendChild(createElement("div", { class: "schedule-day-label", text: field.label }));
+        setupScheduleTimesGrid.appendChild(createElement("input", { type: "time", id: `setup-time-${field.key}-start`, value: minutesToTimeInput(t.startMinutes), "data-time-key": field.key, "data-time-part": "start" }));
+        setupScheduleTimesGrid.appendChild(createElement("input", { type: "time", id: `setup-time-${field.key}-end`, value: minutesToTimeInput(t.endMinutes), "data-time-key": field.key, "data-time-part": "end" }));
+      });
+    }
+
+    function collectSetupScheduleSubjects() {
+      normalizeScheduleState();
+      const week = {};
+      SCHEDULE_DAYS.forEach(({ dow }) => {
+        week[dow] = [];
+        SCHEDULE_MAIN_BLOCKS.forEach((blockDef, index) => {
+          const input = document.getElementById(`setup-schedule-${dow}-${blockDef.key}`);
+          const label = (input?.value || "").trim();
+          const existing = state.schedule.week?.[dow]?.[index] || WEEK_MAIN_SCHEDULE[dow]?.[index] || DEFAULT_SCHEDULE_TIMES[blockDef.key];
+          week[dow].push({
+            blockKey: blockDef.key,
+            startMinutes: existing.startMinutes,
+            endMinutes: existing.endMinutes,
+            subjectId: ensureSubjectForLabel(label || (subjectById(existing.subjectId)?.label || "Flex")),
+          });
+        });
+      });
+      return week;
+    }
+
+    function collectSetupScheduleTimes() {
+      const current = getCurrentScheduleTimesForSetup();
+      const times = {};
+      SCHEDULE_TIME_FIELDS.forEach((field) => {
+        const fallback = current[field.key] || DEFAULT_SCHEDULE_TIMES[field.key];
+        const startInput = document.getElementById(`setup-time-${field.key}-start`);
+        const endInput = document.getElementById(`setup-time-${field.key}-end`);
+        times[field.key] = {
+          label: field.label,
+          startMinutes: timeInputToMinutes(startInput?.value, fallback.startMinutes),
+          endMinutes: timeInputToMinutes(endInput?.value, fallback.endMinutes),
+        };
+      });
+      return times;
+    }
+
+    function validateSetupScheduleTimes(times) {
+      const invalid = SCHEDULE_TIME_FIELDS.find((field) => !times[field.key] || times[field.key].endMinutes <= times[field.key].startMinutes);
+      if (invalid) return `${invalid.label} needs an end time after its start time.`;
+      return "";
+    }
+
+    function getSetupModalSnapshot() {
+      if (!setupOverlay) return "";
+      const fields = Array.from(setupOverlay.querySelectorAll("input, textarea, select"))
+        .filter((el) => el.type !== "file")
+        .map((el) => ({
+          id: el.id || "",
+          name: el.name || "",
+          type: el.type || el.tagName.toLowerCase(),
+          checked: !!el.checked,
+          value: el.value ?? "",
+        }))
+        .sort((a, b) => (a.id + a.name + a.type).localeCompare(b.id + b.name + b.type));
+      return JSON.stringify({ fields, jobs: setupJobsDraft || [] });
+    }
+
+    function setupHasUnsavedChanges() {
+      if (!setupOverlay || !setupOverlay.classList.contains("show")) return false;
+      return setupInitialSnapshot && getSetupModalSnapshot() !== setupInitialSnapshot;
+    }
+
+    function confirmDiscardSetupChanges() {
+      if (!setupHasUnsavedChanges()) return true;
+      return confirm("Close Setup without saving changes?\n\nChoose OK to discard changes, or Cancel to keep editing.");
+    }
+
     function openSetupModal() {
       if (!setupOverlay) return;
       const profile = state.profile || {};
@@ -7592,18 +8241,26 @@ if (tab === "jobs") {
       if (setupSpringStartInput) setupSpringStartInput.value = spring?.start || "";
       if (setupSpringEndInput) setupSpringEndInput.value = spring?.end || "";
       if (setupExtraBreakRangesInput) setupExtraBreakRangesInput.value = formatExtraBreakRangesForSetup();
+      setupJobsDraft = cloneJobsForSetup();
+      renderSetupWeeklySchedule(false);
+      renderSetupJobs();
+      renderSetupScheduleTimes(false);
       renderRosterPhotoManager();
       renderPhotoMatchPreview();
+      setupInitialSnapshot = getSetupModalSnapshot();
 
       setupOverlay.classList.add("show");
       setupOverlay.setAttribute("aria-hidden", "false");
       setTimeout(() => setupClassNameInput?.focus(), 0);
     }
 
-    function closeSetupModal() {
+    function closeSetupModal(force = false) {
       if (!setupOverlay) return;
+      if (!force && !confirmDiscardSetupChanges()) return;
       setupOverlay.classList.remove("show");
       setupOverlay.setAttribute("aria-hidden", "true");
+      setupJobsDraft = null;
+      setupInitialSnapshot = "";
     }
 
     function parseSetupStudentNames() {
@@ -7649,7 +8306,7 @@ if (tab === "jobs") {
       });
       cleanupSeatingAssignmentsForRoster();
       ensureRotationCapacity(0);
-      clampRotationIndicesOnly();
+      repairRotationIndicesPreservingWherePossible();
     }
 
     function parseExtraBreakRanges() {
@@ -7699,9 +8356,26 @@ if (tab === "jobs") {
         return;
       }
       state.breakRanges = collectSetupBreakRanges();
+      state.jobs = collectSetupJobs();
+      ensureRotationCapacity(0);
+      repairRotationIndicesPreservingWherePossible();
+
+      const scheduleTimes = collectSetupScheduleTimes();
+      const scheduleError = validateSetupScheduleTimes(scheduleTimes);
+      if (scheduleError) {
+        alert(scheduleError);
+        return;
+      }
+      state.schedule ??= {};
+      state.schedule.week = collectSetupScheduleSubjects();
+      state.schedule.breaks = state.schedule.breaks || cloneDefaultBreakSchedule();
+      applyScheduleTimesToWeek(scheduleTimes);
+      normalizeScheduleState();
 
       const setupNames = parseSetupStudentNames();
       syncStudentsFromSetupNames(setupNames);
+      ensureRotationCapacity(0);
+      repairRotationIndicesPreservingWherePossible();
       state.meta ??= {};
       state.meta.setupCompleted = true;
       state.meta.schemaVersion = 16;
@@ -7713,7 +8387,7 @@ if (tab === "jobs") {
       saveState();
       applyHeaderBranding();
       renderAll();
-      closeSetupModal();
+      closeSetupModal(true);
     }
 
     function clampInt(n, min, max) {
@@ -7730,6 +8404,7 @@ if (tab === "jobs") {
       renderWeeklyMiniJobs();
       renderStudentsTable();
       renderAttendancePanel();
+      renderRotationSetup();
       renderSeatingPlan();
     }
 
@@ -7750,7 +8425,6 @@ if (tab === "jobs") {
       renderUndoPointButton();
       renderFocusMode();
       renderEodJobsVisibilityToggle();
-      renderAgendaEditor();
       renderAgendaDisplay();
       renderNextRibbon();
       renderNowNextStrip();
