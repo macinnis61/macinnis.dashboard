@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Classroom Dashboard · Build 16.9.7</title>
+  <title>Classroom Dashboard · Build 16.9.10</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Poppins + Trocchi fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Trocchi&display=swap" rel="stylesheet">
@@ -1167,7 +1167,7 @@
       flex-wrap: wrap;
     }
 
-    /* Build 16.9.7: keep Setup save/cancel reachable while scrolling long setup sections */
+    /* Build 16.9.10: keep Setup save/cancel reachable while scrolling long setup sections */
     .setup-modal .modal-actions{
       position: sticky;
       bottom: 0;
@@ -1584,7 +1584,7 @@
 .version-notes-list li{margin:3px 0;font-size:.84rem;color:#475569;line-height:1.4;}
 
 
-/* Build 16.9.7: Jobs Setup */
+/* Build 16.9.10: Jobs Setup */
 .jobs-setup-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 0;}
 .jobs-setup-warning{display:none;margin:10px 0 0;padding:9px 11px;border-radius:12px;background:#fff1f2;border:1px solid #fecdd3;color:#b91c1c;font-size:.8rem;line-height:1.4;}
 .jobs-setup-warning.show{display:block;}
@@ -1850,7 +1850,7 @@
   <div class="app-shell">
     <header>
       <div class="title-block">
-        <h1 id="app-title">Classroom Dashboard <span id="build-version-text" class="build-pill">Build 16.9.7</span></h1>
+        <h1 id="app-title">Classroom Dashboard <span id="build-version-text" class="build-pill">Build 16.9.10</span></h1>
         <p id="app-subtitle"><span class="hint" data-tip="Teacher view, jobs rotation, and a student-facing screen in one lightweight dashboard.">i</span></p>
       </div>
       <div>
@@ -2333,7 +2333,7 @@
     <div class="modal setup-modal" role="dialog" aria-modal="true" aria-labelledby="setup-title">
       <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;">
         <div>
-          <h2 id="setup-title">Start-of-Year Setup <span id="setup-version-pill" class="build-pill version-notes-trigger" role="button" tabindex="0" title="Build notes" data-build-label>Build 16.9.7</span></h2>
+          <h2 id="setup-title">Start-of-Year Setup <span id="setup-version-pill" class="build-pill version-notes-trigger" role="button" tabindex="0" title="Build notes" data-build-label>Build 16.9.10</span></h2>
           <div class="modal-sub">Use Basic Setup for the September essentials. Advanced Setup is available for settings that are useful, but not required on day one.</div>
         </div>
         <button class="btn-ghost btn-xs" id="setup-close-btn">Close</button>
@@ -2583,16 +2583,16 @@ Pro-D Week, 2026-10-19, 2026-10-23"></textarea>
       <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;">
         <div>
           <h2 id="version-notes-title">Build notes</h2>
-          <div class="modal-sub" id="version-notes-current-build" data-build-label>Build 16.9.7</div>
+          <div class="modal-sub" id="version-notes-current-build" data-build-label>Build 16.9.10</div>
         </div>
         <button class="btn-ghost btn-xs" id="version-notes-close-btn" type="button">Close</button>
       </div>
       <div class="version-notes-list">
-        <h3>Build 16.9.7</h3>
+        <h3>Build 16.9.10</h3>
         <ul>
-          <li>Adds Escape-key closing for Setup, Build Notes, Data & Templates, and job detail popups.</li>
-          <li>Protects unsaved Setup changes with a confirmation before closing without saving.</li>
-          <li>Makes Setup actions sticky so Save setup and Cancel stay reachable while scrolling.</li>
+          <li>Makes the Ferris wheel the direct source of truth for permanent job assignments.</li>
+          <li>Fixes cases where Student View job tiles could show stale or garbled names even when Rotation Setup looked correct.</li>
+          <li>Keeps Extra Jobs Today as manual assignments, separate from the permanent Ferris wheel rotation.</li>
         </ul>
         <h3>Build 16.9.6</h3>
         <ul>
@@ -2723,7 +2723,7 @@ Pro-D Week, 2026-10-19, 2026-10-23"></textarea>
     <div class="modal template-modal" role="dialog" aria-modal="true" aria-labelledby="templates-title">
       <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;">
         <div>
-          <h2 id="templates-title">Data & Templates <span id="templates-version-pill" class="build-pill" data-build-label>Build 16.9.7</span></h2>
+          <h2 id="templates-title">Data & Templates <span id="templates-version-pill" class="build-pill" data-build-label>Build 16.9.10</span></h2>
           <div class="modal-sub">Backups restore the whole dashboard. Templates save reusable structure without daily classroom state.</div>
         </div>
         <button class="btn-ghost btn-xs" id="templates-close-btn">Close</button>
@@ -2787,7 +2787,7 @@ Pro-D Week, 2026-10-19, 2026-10-23"></textarea>
     function $(id){ return document.getElementById(id); }
 const STORAGE_KEY = "class_points_dashboard_v10";
     const TEMPLATE_STORAGE_KEY = "classroom_dashboard_templates_v16";
-    const BUILD_VERSION = "16.9.7";
+    const BUILD_VERSION = "16.9.10";
 
     // Rotation positions for dropdown
     const ROTATION_POSITIONS = [
@@ -2905,11 +2905,17 @@ function getDisplayLabelForJobKey(jobKey) {
 
 function getEnabledRotationJobKeys() {
 		const jobs = Array.isArray(state?.jobs) ? state.jobs : [];
-		const enabled = jobs
-			.filter((job) => job && job.enabled !== false && inferJobKey(job))
-			.map((job) => inferJobKey(job));
-		if (enabled.length) return enabled;
-		return ROTATION_JOB_ORDER.slice();
+		const enabledByKey = new Map();
+		jobs.forEach((job, index) => {
+			const key = inferJobKey(job, index);
+			if (key) enabledByKey.set(key, job.enabled !== false);
+		});
+
+		// Build 16.9.10: keep the Ferris wheel order stable by internal job key.
+		// Job names can be customized freely, but the rotation order should not drift
+		// just because the Setup list was reordered or a display label changed.
+		const enabled = ROTATION_JOB_ORDER.filter((jobKey) => enabledByKey.get(jobKey) !== false);
+		return enabled.length ? enabled : ROTATION_JOB_ORDER.slice();
 }
 
 function isJobEnabled(job) {
@@ -2977,7 +2983,7 @@ function clampRotationIndicesOnly() {
 		});
 }
 
-// Build 16.9.7: keep each student on a unique Ferris wheel slot whenever capacity allows.
+// Build 16.9.10: keep each student on a unique Ferris wheel slot whenever capacity allows.
 // This repairs older states where changing the On-Call count could leave duplicate saved positions.
 function repairRotationIndicesPreservingWherePossible() {
 		ensureRotationCapacity(0);
@@ -3722,6 +3728,7 @@ function getFirstFreeRotationIndex() {
     // Ensure rotation has enough slots for the roster (auto-add On Call positions as needed)
     ensureRotationCapacity();
     repairRotationIndicesPreservingWherePossible();
+    applyRotationToJobs();
     safeSaveState();
 
 
@@ -3934,6 +3941,48 @@ function safeSaveState(){ try{ saveState(); } catch(e){ console.warn('saveState 
       });
     }
 
+
+    function getRotationIndexForJob(job) {
+      const jobKey = inferJobKey(job);
+      if (!jobKey) return -1;
+      return getRotationSequence().findIndex((descriptor) => descriptor && descriptor.type === "job" && descriptor.jobKey === jobKey);
+    }
+
+    function getStudentAtRotationIndex(index, excludeStudentId = null) {
+      return (state.students || []).find((student) => student.rotationIndex === index && student.id !== excludeStudentId) || null;
+    }
+
+    // Build 16.9.10: permanent job assignments are derived directly from the Ferris wheel.
+    // This prevents Student View tiles from showing stale job.assignedStudentId values when
+    // the Rotation Setup screen is otherwise correct. Extra Jobs Today still use their
+    // direct assignedStudentId because they are not part of the Ferris wheel.
+    function getAssignedStudentIdForJob(job) {
+      if (!job) return null;
+      const jobKey = inferJobKey(job);
+      const isPermanentJob = !!jobKey && (state.jobs || []).some((candidate) => candidate === job || inferJobKey(candidate) === jobKey);
+      if (isPermanentJob) {
+        const targetIndex = getRotationIndexForJob(job);
+        if (targetIndex < 0) return null;
+        const student = getStudentAtRotationIndex(targetIndex);
+        return student ? student.id : null;
+      }
+      return job.assignedStudentId || null;
+    }
+
+    function moveStudentToRotationIndex(studentId, targetIndex) {
+      const selectedStudent = getStudentById(studentId);
+      if (!selectedStudent || targetIndex < 0) return false;
+      const oldIndex = selectedStudent.rotationIndex;
+      const otherStudent = getStudentAtRotationIndex(targetIndex, selectedStudent.id);
+      selectedStudent.rotationIndex = targetIndex;
+      if (otherStudent && oldIndex !== undefined && oldIndex !== null) {
+        otherStudent.rotationIndex = oldIndex;
+      }
+      repairRotationIndicesPreservingWherePossible();
+      applyRotationToJobs();
+      return true;
+    }
+
     function getOnCallStudents() {
       return state.students.filter((s) => {
         const idx = s.rotationIndex % getRotationLength();
@@ -4007,7 +4056,7 @@ function computeAbsenceOverridesForEod() {
   let idx = 0;
 
   eodJobs.forEach(job => {
-    const assigned = job.assignedStudentId;
+    const assigned = getAssignedStudentIdForJob(job);
     if (!assigned) return;
     if (!absent[assigned]) return;
 
@@ -4025,7 +4074,7 @@ function computeAbsenceOverridesForEod() {
 }
 
 function getEffectiveAssigneeIdForStudentView(job) {
-  const assigned = job.assignedStudentId;
+  const assigned = getAssignedStudentIdForJob(job);
   const absent = state.absentToday || {};
   if (!assigned) return null;
   if (absent[assigned]) {
@@ -4299,7 +4348,7 @@ const exportBtn = document.getElementById("export-data-btn");
         tr.appendChild(tdName);
 
         const tdJob = document.createElement("td");
-        const job = state.jobs.find((j) => j.assignedStudentId === student.id);
+        const job = state.jobs.find((j) => getAssignedStudentIdForJob(j) === student.id);
         tdJob.textContent = job ? job.label : "—";
         tr.appendChild(tdJob);
 
@@ -4356,7 +4405,10 @@ const exportBtn = document.getElementById("export-data-btn");
     function renderJobsList() {
       jobsListEl.innerHTML = "";
 
-      const activeJobs = (state.jobs || []).filter((job) => job.enabled !== false);
+      const activeJobs = (state.jobs || [])
+        .filter((job) => job.enabled !== false)
+        .slice()
+        .sort((a, b) => getRotationIndexForJob(a) - getRotationIndexForJob(b));
 
       if (!activeJobs.length) {
         jobsListEl.appendChild(
@@ -4401,21 +4453,26 @@ const exportBtn = document.getElementById("export-data-btn");
         const select = createElement("select", {
           onchange: (e) => {
             const val = e.target.value || null;
-            job.assignedStudentId = val || null;
+            if (!val) return;
+            const targetIndex = getRotationIndexForJob(job);
+            if (targetIndex >= 0) {
+              moveStudentToRotationIndex(val, targetIndex);
+            } else {
+              job.assignedStudentId = val;
+            }
             saveState();
-            renderStudentsTable();
             renderJobSurfaces();
           },
         });
 
-        const optNone = createElement("option", { value: "", text: "Unassigned" });
+        const optNone = createElement("option", { value: "", text: "Choose student…" });
         select.appendChild(optNone);
         state.students.forEach((s) => {
           const opt = createElement("option", {
             value: s.id,
             text: s.displayName || s.name || "Unnamed",
           });
-          if (job.assignedStudentId === s.id) opt.selected = true;
+          if (getAssignedStudentIdForJob(job) === s.id) opt.selected = true;
           select.appendChild(opt);
         });
         assignCell.appendChild(select);
@@ -4458,7 +4515,7 @@ const exportBtn = document.getElementById("export-data-btn");
     }
 
     function renderOnCallLists() {
-      const onCall = getOnCallStudents();
+      const onCall = getOnCallStudentsOrderedBySlot();
 
       // Chips in Jobs tab
       oncallChipsEl.innerHTML = "";
@@ -4502,17 +4559,26 @@ const exportBtn = document.getElementById("export-data-btn");
 function renderWeeklyMiniJobs() {
       computeAbsenceOverridesForEod();
 
+  const section = document.getElementById("weekly-jobs-mini-section");
   const grid = document.getElementById("weekly-jobs-mini-grid");
   const oncallLine = document.getElementById("mini-oncall-line");
   if (!grid || !oncallLine) return;
 
+  const showJobs = state.settings.showEodJobs !== false;
+  if (section) section.style.display = showJobs ? "block" : "none";
   grid.innerHTML = "";
+  oncallLine.innerHTML = "";
+  if (!showJobs) return;
 
-  // Non-EOD jobs only (important === false). Cleanup jobs use the larger tiles below.
-  const miniJobs = (state.jobs || []).filter((j) => j.enabled !== false && !j.important);
+  // Weekly jobs: enabled jobs that are not configured as large cleanup tiles.
+  const miniJobs = (state.jobs || [])
+    .filter((j) => j.enabled !== false && !j.important)
+    .slice()
+    .sort((a, b) => getRotationIndexForJob(a) - getRotationIndexForJob(b));
 
   miniJobs.forEach((job) => {
-    const assigneeName = job.assignedStudentId ? getStudentNameById(getEffectiveAssigneeIdForStudentView(job)) : "—";
+    const effectiveAssigneeId = getEffectiveAssigneeIdForStudentView(job);
+    const assigneeName = effectiveAssigneeId ? getStudentNameById(effectiveAssigneeId) : "—";
     const tile = document.createElement("div");
     tile.className = "mini-job-tile";
     if (job.doneToday) tile.classList.add("is-done");
@@ -4557,7 +4623,7 @@ function renderWeeklyMiniJobs() {
   });
 
   // On Call line (Option B)
-  const onCallStudents = (typeof getOnCallStudents === "function") ? getOnCallStudents() : [];
+  const onCallStudents = (typeof getOnCallStudentsOrderedBySlot === "function") ? getOnCallStudentsOrderedBySlot() : ((typeof getOnCallStudents === "function") ? getOnCallStudents() : []);
 
   // Future: if on-call kids cover absences, mark them unavailable (strikethrough)
   const coverIds = new Set(
@@ -4695,7 +4761,7 @@ function renderWeeklyMiniJobs() {
             value: s.id,
             text: s.displayName || s.name || "Unnamed",
           });
-          if (job.assignedStudentId === s.id) opt.selected = true;
+          if (getAssignedStudentIdForJob(job) === s.id) opt.selected = true;
           select.appendChild(opt);
         });
         assignCell.appendChild(select);
@@ -4983,7 +5049,8 @@ function getJobDetailTheme(job) {
 function openJobDetail(job) {
   if (!job || !jobDetailOverlay || !jobDetailTitle || !jobDetailBody || !jobDetailHead) return;
   const description = ensureJobDescription(job);
-  const assigneeName = job.assignedStudentId ? getStudentNameById(getEffectiveAssigneeIdForStudentView(job)) : 'Unassigned';
+  const detailAssigneeId = getEffectiveAssigneeIdForStudentView(job);
+  const assigneeName = detailAssigneeId ? getStudentNameById(detailAssigneeId) : 'Unassigned';
   const theme = getJobDetailTheme(job);
   jobDetailTitle.textContent = String(job.label || '').toUpperCase();
   jobDetailSub.textContent = assigneeName === 'Unassigned' ? 'No student is currently assigned.' : ('Assigned to ' + assigneeName);
@@ -5059,8 +5126,9 @@ function renderEodJobs() {
       );
 
       function addCardForJob(job, isExtra = false, container = eodJobsGrid) {
-        const assigneeName = job.assignedStudentId
-          ? getStudentNameById(getEffectiveAssigneeIdForStudentView(job))
+        const effectiveAssigneeId = getEffectiveAssigneeIdForStudentView(job);
+        const assigneeName = effectiveAssigneeId
+          ? getStudentNameById(effectiveAssigneeId)
           : "Unassigned";
 
         const themeClass = getJobThemeClass(job.label);
@@ -6195,7 +6263,7 @@ resetJobsTodayBtn.addEventListener("click", () => {
     if (setupSaveBtn) setupSaveBtn.addEventListener("click", saveSetupModal);
     if (setupOverlay) {
       setupOverlay.addEventListener("click", (e) => {
-        // Build 16.9.7: avoid accidental dismissal of a long setup form by outside-clicking.
+        // Build 16.9.10: avoid accidental dismissal of a long setup form by outside-clicking.
         if (e.target === setupOverlay) e.stopPropagation();
       });
     }
@@ -7926,7 +7994,7 @@ if (tab === "jobs") {
     }
 
     function renderSetupSubjectOptions() {
-      // Build 16.9.7: schedule fields are plain text inputs.
+      // Build 16.9.10: schedule fields are plain text inputs.
       // Default subjects remain real values, while blank fields use a simple placeholder.
     }
 
@@ -7984,7 +8052,7 @@ if (tab === "jobs") {
     }
 
     function renderSetupJobsCapacityWarning() {
-      // Build 16.9.7: capacity status belongs with the Ferris wheel / On-Call controls,
+      // Build 16.9.10: capacity status belongs with the Ferris wheel / On-Call controls,
       // not inside Jobs Setup where teachers cannot adjust On-Call slots.
       if (!setupJobsCapacityWarning) return;
       setupJobsCapacityWarning.textContent = "";
@@ -8039,10 +8107,14 @@ if (tab === "jobs") {
         studentView.disabled = job.enabled === false;
         studentView.addEventListener("change", () => { job.showOnStudentView = !!studentView.checked; job.important = !!studentView.checked; });
         studentViewLabel.appendChild(studentView);
-        studentViewLabel.appendChild(document.createTextNode("Show on Student View"));
+        studentViewLabel.appendChild(document.createTextNode("Large cleanup tile"));
         toggles.appendChild(enabledLabel);
         toggles.appendChild(studentViewLabel);
         main.appendChild(toggles);
+        const displayHelp = document.createElement("div");
+        displayHelp.className = "jobs-setup-key";
+        displayHelp.textContent = job.showOnStudentView ? "Displays as a large cleanup tile on Student View." : "Displays in the smaller Weekly Jobs section when enabled.";
+        main.appendChild(displayHelp);
 
         const colour = document.createElement("label");
         colour.className = "jobs-setup-colour";
@@ -8058,22 +8130,9 @@ if (tab === "jobs") {
 
         const order = document.createElement("div");
         order.className = "jobs-setup-order";
-        const up = createElement("button", { class: "btn-outline btn-xs", type: "button", text: "↑" });
-        up.disabled = index === 0;
-        up.addEventListener("click", () => {
-          if (index <= 0) return;
-          [setupJobsDraft[index - 1], setupJobsDraft[index]] = [setupJobsDraft[index], setupJobsDraft[index - 1]];
-          renderSetupJobs();
-        });
-        const down = createElement("button", { class: "btn-outline btn-xs", type: "button", text: "↓" });
-        down.disabled = index === setupJobsDraft.length - 1;
-        down.addEventListener("click", () => {
-          if (index >= setupJobsDraft.length - 1) return;
-          [setupJobsDraft[index + 1], setupJobsDraft[index]] = [setupJobsDraft[index], setupJobsDraft[index + 1]];
-          renderSetupJobs();
-        });
-        order.appendChild(up);
-        order.appendChild(down);
+        const orderNote = createElement("span", { class: "jobs-setup-key", text: "Rotation order locked" });
+        orderNote.title = "Build 16.9.10 keeps the Ferris wheel in a stable internal order so existing assignments do not drift when jobs are renamed or customized.";
+        order.appendChild(orderNote);
 
         const desc = document.createElement("textarea");
         desc.className = "jobs-setup-description";
@@ -8397,6 +8456,7 @@ if (tab === "jobs") {
 
 
     function renderJobSurfaces() {
+      applyRotationToJobs();
       renderJobsList();
       renderExtraJobsList();
       renderOnCallLists();
@@ -8410,6 +8470,7 @@ if (tab === "jobs") {
 
     // Main render
     function renderAll() {
+      applyRotationToJobs();
       applyHeaderBranding();
 
       renderStudentsTable();
