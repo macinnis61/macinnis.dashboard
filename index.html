@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Classroom Dashboard · Build 16.9.14</title>
+  <title>Classroom Dashboard · Build 16.13.3</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Poppins + Trocchi fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Trocchi&display=swap" rel="stylesheet">
@@ -416,7 +416,7 @@
       font-size: 0.8rem;
     }
 
-    /* Extra jobs today */
+    /* Extra Jobs Today */
     .extra-jobs {
       margin-top: 8px;
       padding-top: 6px;
@@ -858,7 +858,7 @@
       background-color: #3b82f6;
     }
     .job-theme-supply {
-      background-color: #0f766e;
+      background-color: #1d4ed8; /* deep blue, distinct from Chair Check */
     }
     .job-theme-nametags {
       background-color: #db2777;
@@ -1603,10 +1603,200 @@
   .schedule-time-grid .schedule-setup-head:first-child{display:block;}
 }
 
+
+/* Build 16.13.1: Subject colour setup foundation */
+.subject-colour-panel{
+  margin-top:12px;
+  padding:12px;
+  border:1px solid #dbeafe;
+  border-radius:14px;
+  background:#ffffff;
+}
+.subject-colour-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.subject-colour-title{
+  font-size:.9rem;
+  font-weight:800;
+  color:var(--accent-strong);
+}
+.subject-colour-help{
+  margin:3px 0 0;
+  font-size:.78rem;
+  color:var(--text-muted);
+  line-height:1.4;
+}
+.subject-colour-list{
+  margin-top:10px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:8px;
+}
+.subject-colour-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:8px 10px;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  background:#f8fafc;
+}
+.subject-colour-chip{
+  min-width:104px;
+  max-width:150px;
+  padding:5px 10px;
+  border-radius:999px;
+  font-size:.78rem;
+  font-weight:800;
+  text-align:center;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  box-shadow:0 2px 6px rgba(15,23,42,.10);
+}
+.subject-colour-meta{
+  min-width:0;
+  flex:1;
+}
+.subject-colour-name{
+  font-size:.84rem;
+  font-weight:700;
+  color:#0f172a;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.subject-colour-note{
+  font-size:.68rem;
+  color:#94a3b8;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.subject-colour-input{
+  width:36px;
+  height:30px;
+  padding:0;
+  border:none;
+  background:transparent;
+  cursor:pointer;
+  flex:0 0 auto;
+}
+.next-ribbon-chip.subject-tinted{
+  border:1px solid rgba(255,255,255,.40);
+  box-shadow:0 2px 7px rgba(15,23,42,.18);
+}
+
 .version-notes-list h3{margin:12px 0 4px;font-size:.9rem;color:var(--accent-strong);}
 .version-notes-list ul{margin:0 0 8px;padding-left:1.2rem;}
 .version-notes-list li{margin:3px 0;font-size:.84rem;color:#475569;line-height:1.4;}
 
+
+
+
+/* Build 16.13.1: Consolidated Class Job Board */
+.jobs-system-map{
+  margin:0 0 12px;
+  padding:10px 12px;
+  border:1px solid #dbeafe;
+  border-radius:16px;
+  background:linear-gradient(135deg,#eff6ff,#f8fafc);
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+}
+.jobs-system-step{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:14px;
+  padding:9px 10px;
+  min-width:0;
+}
+.jobs-system-step-title{
+  font-size:.76rem;
+  font-weight:800;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:#0f172a;
+  margin-bottom:3px;
+}
+.jobs-system-step-text{
+  font-size:.76rem;
+  color:#64748b;
+  line-height:1.35;
+}
+.jobs-link-row{
+  margin-top:8px;
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.jobs-context-note{
+  margin:0;
+  padding:9px 11px;
+  border:1px dashed #cbd5e1;
+  border-radius:14px;
+  background:#fff;
+  color:#64748b;
+  font-size:.78rem;
+  line-height:1.4;
+}
+.class-job-board-card{gap:12px;}
+.job-board-toolbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  padding:10px 12px;
+  border:1px solid #e5e7eb;
+  border-radius:16px;
+  background:#f8fafc;
+}
+.job-board-toolbar .left,.job-board-toolbar .right{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.job-board-wrap{overflow:auto;border:1px solid #e5e7eb;border-radius:16px;background:#fff;}
+.job-board-table{width:100%;border-collapse:separate;border-spacing:0;font-size:.82rem;min-width:760px;}
+.job-board-table th{position:sticky;top:0;z-index:1;background:#f8fafc;border-bottom:1px solid #e5e7eb;color:#64748b;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 10px;}
+.job-board-table td{padding:8px 10px;border-bottom:1px solid #f1f5f9;vertical-align:middle;}
+.job-board-table tr:last-child td{border-bottom:none;}
+.job-board-table tbody tr:hover td{background:#f8fafc;}
+.job-board-order{width:44px;text-align:right;color:#94a3b8;font-variant-numeric:tabular-nums;font-weight:700;}
+.job-board-job-title{font-weight:800;color:#0f172a;line-height:1.15;}
+.job-board-job-meta{margin-top:3px;font-size:.7rem;color:#64748b;display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+.job-board-dot{width:12px;height:12px;border-radius:999px;border:1px solid rgba(15,23,42,.16);display:inline-block;vertical-align:middle;}
+.job-board-assignment select{width:100%;min-width:190px;}
+.job-board-badge{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:3px 8px;font-size:.68rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;background:#e5e7eb;color:#475569;white-space:nowrap;}
+.job-board-badge.large{background:#dbeafe;color:#1e3a8a;}
+.job-board-badge.weekly{background:#ecfdf5;color:#166534;}
+.job-board-badge.oncall{background:#0f172a;color:#f9fafb;}
+.job-board-badge.hidden{background:#fee2e2;color:#991b1b;}
+.job-board-status{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.job-board-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:nowrap;white-space:nowrap;}
+.job-board-actions .btn-xs{white-space:nowrap;}
+.job-board-oncall-row td{background:#fbfdff;}
+.job-board-oncall-row:hover td{background:#eff6ff!important;}
+.job-board-section-row td{background:#f1f5f9;color:#475569;font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:7px 10px;}
+.job-board-extra-panel{border:1px solid #e5e7eb;border-radius:16px;background:#f8fafc;padding:12px;}
+.job-board-advanced{border:1px solid #e5e7eb;border-radius:16px;background:#fff;padding:0;overflow:hidden;}
+.job-board-advanced summary{cursor:pointer;padding:12px 14px;font-weight:800;color:#0f172a;background:#f8fafc;display:flex;justify-content:space-between;gap:10px;align-items:center;}
+.job-board-advanced[open] summary{border-bottom:1px solid #e5e7eb;}
+.job-board-advanced-body{padding:12px 14px;display:flex;flex-direction:column;gap:10px;}
+.rotation-list.compact{max-height:260px;}
+@media (max-width: 900px){
+  .jobs-system-map{grid-template-columns:1fr;}
+  .job-board-toolbar{align-items:flex-start;}
+}
 
 /* Build 16.9.14: Jobs Setup */
 .jobs-setup-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 0;}
@@ -1874,7 +2064,7 @@
   <div class="app-shell">
     <header>
       <div class="title-block">
-        <h1 id="app-title">Classroom Dashboard <span id="build-version-text" class="build-pill">Build 16.9.14</span></h1>
+        <h1 id="app-title">Classroom Dashboard <span id="build-version-text" class="build-pill">Build 16.13.3</span></h1>
         <p id="app-subtitle"><span class="hint" data-tip="Teacher view, jobs rotation, and a student-facing screen in one lightweight dashboard.">i</span></p>
       </div>
       <div>
@@ -1893,8 +2083,6 @@
         <div class="toolbar-group" style="margin-left:auto;">
           <button class="btn-primary setup-cta-btn" id="open-setup-btn">Setup</button>
           <button class="btn-outline" id="open-templates-btn">Data & Templates</button>
-          <button class="btn-ghost" id="export-data-btn">Backup data</button>
-          <button class="btn-ghost" id="import-data-btn">Restore data</button>
           <input type="file" id="import-file-input" style="display:none" />
           <input type="file" id="template-file-input" accept=".json,application/json" style="display:none" />
         </div>
@@ -1978,123 +2166,91 @@
 
       <!-- Jobs & Rotation tab -->
       <section id="tab-jobs" style="display:none;">
-        <div class="grid">
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <div class="card-title">
-                  Jobs (including end-of-day)
-                </div>
-                <div class="card-subtitle">
-                  Use this screen for this week’s active job assignments, daily completion, and one-off extra jobs.
-                </div>
-              </div>
-            </div>
-            <div id="jobs-weekly-banner"></div>
-            <div class="divider"></div>
-            <div class="jobs-list" id="jobs-list">
-              <!-- Filled by JS -->
-            </div>
+        <div class="jobs-system-map" aria-label="How jobs are organized">
+          <div class="jobs-system-step">
+            <div class="jobs-system-step-title">Setup defines the board</div>
+            <div class="jobs-system-step-text">Permanent job order, names, colours, descriptions, tile type, disabled jobs, and On-Call settings.</div>
+          </div>
+          <div class="jobs-system-step">
+            <div class="jobs-system-step-title">This screen runs the week</div>
+            <div class="jobs-system-step-text">One ordered job board shows assignments, daily completion, On-Call rows, and details in one place.</div>
+          </div>
+          <div class="jobs-system-step">
+            <div class="jobs-system-step-title">Rotation works underneath</div>
+            <div class="jobs-system-step-text">Students still advance around the wheel weekly, but the visible board is organized by job.</div>
+          </div>
+        </div>
 
-            <!-- On Call list -->
-            <div class="oncall-list">
-              <div class="card-title" style="font-size:0.85rem;">
-                On Call (rotation)
-              </div>
-              <div class="subtext">
-                <span id="oncall-rotation-note">These students are in the On Call part of the rotation. They return to regular weekly jobs after moving through these slots.</span>
-              </div>
-              <div class="oncall-chips" id="oncall-chips">
-                <!-- chips here -->
-              </div>
-            </div>
-
-            <!-- Extra jobs today -->
-            <div class="extra-jobs">
-              <div class="card-header" style="padding:0;">
-                <div>
-                  <div class="card-title">Extra jobs today</div>
-                  <div class="card-subtitle">
-                    One-off tasks like headphones, pencil crayons, or special errands. Optional: show them on the Student View.
-                  </div>
-                </div>
-              </div>
-              <div class="extra-jobs-form">
-                <input type="text" id="extra-job-name" placeholder="Job name (e.g., Headphones)" />
-                <select id="extra-job-student">
-                  <!-- filled by JS -->
-                </select>
-                <label class="extra-job-colour-label">
-                  Colour
-                  <input type="color" id="extra-job-color" value="#6b7280" />
-                </label>
-                <label style="display:inline-flex;align-items:center;gap:4px;font-size:0.78rem;">
-                  <input type="checkbox" id="extra-job-featured" />
-                  Show on Student View
-                </label>
-                <textarea id="extra-job-description" class="extra-job-description-input" rows="3" placeholder="Optional description. Use hyphen bullets and colons for checklist cards.&#10;&#10;- First task: Explain what to do.&#10;- Second task: Add another step."></textarea>
-                <button class="btn-primary btn-xs" id="add-extra-job-btn">Add extra job</button>
-              </div>
-              <div id="extra-jobs-list">
-                <!-- extra jobs rows -->
-              </div>
+        <div class="card class-job-board-card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Class Job Board</div>
+              <div class="card-subtitle">The main board for weekly jobs. Change the permanent order in Setup to match a physical classroom job board.</div>
             </div>
           </div>
 
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <div class="card-title">Job Controls & Rotation</div>
-                <div class="card-subtitle">
-                  Daily controls for job completion, Student View visibility, and this week’s Ferris wheel positions.
-                </div>
-              </div>
-            </div>
-            <div class="divider"></div>
-            <div style="display:flex;flex-direction:column;gap:8px;">
-              <button class="btn-outline" id="reset-jobs-today-btn">
-                Reset “done today” status
-              </button>
-              <button class="btn-ghost btn-xs" id="clear-extra-jobs-btn">
-                Clear today's extra jobs
-              </button>
-              <div class="jobs-visibility-row">
-                <span class="subtext">Show jobs on Student View:</span>
+          <div class="job-board-toolbar">
+            <div class="left">
+              <button class="btn-outline btn-xs" id="reset-jobs-today-btn">Reset “done today” status</button>
+              <button class="btn-ghost btn-xs" id="clear-extra-jobs-btn">Clear today's extra jobs</button>
+              <div class="jobs-visibility-row" style="margin-top:0;">
+                <span class="subtext">Student View jobs:</span>
                 <button class="btn-outline btn-xs" id="toggle-eod-jobs-btn"></button>
               </div>
-              <p class="subtext">
-                Weekly rotation auto-advances on school weeks only (skipping winter and spring breaks as configured).
-              </p>
             </div>
+            <div class="right">
+              <button class="btn-outline btn-xs" id="open-jobs-setup-from-jobs-btn" type="button">Edit job board in Setup</button>
+            </div>
+          </div>
 
-            <div class="divider"></div>
+          <div id="jobs-weekly-banner"></div>
+          <div id="jobs-list" class="job-board-wrap">
+            <!-- Filled by JS -->
+          </div>
 
-            <!-- Rotation setup -->
-            <div class="rotation-setup">
-              <div class="card-header" style="padding:0;">
-                <div>
-                  <div class="card-title">Rotation Setup (Ferris Wheel)</div>
-                  <div class="card-subtitle">
-                    Set each student's current position for this week. From here, the wheel advances one school Monday at a time.
-                  </div>
-                </div>
+          <div class="oncall-list" style="margin-top:0;">
+            <div class="card-title" style="font-size:0.85rem;">On Call summary</div>
+            <div class="subtext"><span id="oncall-rotation-note">These students are available to cover absent classmates before returning to regular weekly jobs as the rotation advances.</span></div>
+            <div class="oncall-chips" id="oncall-chips"></div>
+          </div>
+
+          <div class="job-board-extra-panel">
+            <div class="card-header" style="padding:0;">
+              <div>
+                <div class="card-title">Extra Jobs Today</div>
+                <div class="card-subtitle">One-off daily tasks, separate from the permanent rotation. These can optionally appear on Student View.</div>
               </div>
+            </div>
+            <div class="extra-jobs-form">
+              <input type="text" id="extra-job-name" placeholder="Job name (e.g., Headphones)" />
+              <select id="extra-job-student"><!-- filled by JS --></select>
+              <label class="extra-job-colour-label">Colour <input type="color" id="extra-job-color" value="#6b7280" /></label>
+              <label style="display:inline-flex;align-items:center;gap:4px;font-size:0.78rem;"><input type="checkbox" id="extra-job-featured" /> Show on Student View</label>
+              <textarea id="extra-job-description" class="extra-job-description-input" rows="3" placeholder="Optional description. Use hyphen bullets and colons for checklist cards.&#10;&#10;- First task: Explain what to do.&#10;- Second task: Add another step."></textarea>
+              <button class="btn-primary btn-xs" id="add-extra-job-btn">Add extra job</button>
+            </div>
+            <div id="extra-jobs-list"><!-- extra jobs rows --></div>
+          </div>
+
+          <details class="job-board-advanced">
+            <summary>
+              <span>Advanced Rotation Details</span>
+              <span class="small-text">Open only for wheel troubleshooting or rare manual placement changes</span>
+            </summary>
+            <div class="job-board-advanced-body">
+              <p class="jobs-context-note">The board above is the normal teacher view. This advanced list shows the underlying wheel positions for the current week.</p>
               <div class="rotation-controls">
                 <label>
                   On-Call slots
                   <select id="oncall-slot-count-select"></select>
                 </label>
                 <div id="rotation-capacity-status" class="rotation-capacity-status" role="status" aria-live="polite"></div>
-                <p class="small-text">
-                  Choose how many students should be On-Call. If there are more students than open spots, the dashboard will still add extra On-Call slots automatically so nobody loses a place on the wheel.
-                </p>
+                <p class="small-text">Choose how many students should be On-Call. The dashboard keeps enough wheel positions for the whole roster so nobody loses a place.</p>
               </div>
-              <div class="rotation-list" id="rotation-list">
-                <!-- filled by JS -->
-              </div>
+              <div class="rotation-list compact" id="rotation-list"><!-- filled by JS --></div>
               <p class="small-text" id="rotation-order-hint"></p>
             </div>
-          </div>
+          </details>
         </div>
       </section>
 
@@ -2358,8 +2514,8 @@
     <div class="modal setup-modal" role="dialog" aria-modal="true" aria-labelledby="setup-title">
       <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;">
         <div>
-          <h2 id="setup-title">Start-of-Year Setup <span id="setup-version-pill" class="build-pill version-notes-trigger" role="button" tabindex="0" title="Build notes" data-build-label>Build 16.9.14</span></h2>
-          <div class="modal-sub">Use Basic Setup for the September essentials. Advanced Setup is available for settings that are useful, but not required on day one.</div>
+          <h2 id="setup-title">Start-of-Year Setup <span id="setup-version-pill" class="build-pill version-notes-trigger" role="button" tabindex="0" title="Build notes" data-build-label>Build 16.13.3</span></h2>
+          <div class="modal-sub">Use Basic Setup for the September essentials. Advanced Setup is available for settings that are useful, but not required on day one. To move a setup between browsers, devices, or app versions, use Data & Templates.</div>
         </div>
         <button class="btn-ghost btn-xs" id="setup-close-btn">Close</button>
       </div>
@@ -2376,7 +2532,7 @@
       <details class="setup-section setup-basic-section" id="setup-basic-section" open>
         <summary>
           <span class="setup-section-title">Basic setup</span>
-          <span class="setup-section-subtitle">These choices make the dashboard usable for a new class on a clean browser.</span>
+          <span class="setup-section-subtitle">These choices make the dashboard usable for a new class in this browser.</span>
         </summary>
         <div class="modal-grid">
           <div class="modal-field">
@@ -2422,15 +2578,25 @@ Student 3"></textarea>
           <button class="btn-outline btn-xs" id="schedule-reset-subjects-btn" type="button">Reset subjects to defaults</button>
           <span class="schedule-reset-note">This only resets subject names. It will not change roster, jobs, seating, or photos.</span>
         </div>
+        <div class="subject-colour-panel">
+          <div class="subject-colour-head">
+            <div>
+              <div class="subject-colour-title">Subject colours</div>
+              <p class="subject-colour-help">Colours follow the subject name wherever it appears in the schedule. For example, Science keeps the same colour even if it moves to a different day or block.</p>
+            </div>
+            <button class="btn-outline btn-xs" id="schedule-reset-colours-btn" type="button">Reset colours</button>
+          </div>
+          <div id="setup-subject-colour-list" class="subject-colour-list"></div>
+        </div>
       </details>
 
       <details class="setup-section" id="setup-jobs-section">
         <summary>
           <span class="setup-section-title">Jobs Setup</span>
-          <span class="setup-section-subtitle">Rename, disable, reorder, and choose which permanent jobs show on Student View.</span>
+          <span class="setup-section-subtitle">Structural job settings: names, colours, descriptions, enabled/disabled status, and Student View tile type.</span>
         </summary>
         <div class="jobs-setup-controls">
-          <span class="small-text">Disabled jobs are removed from the Ferris wheel and daily Jobs & Rotation view, but keep their name, colour, and description here for later.</span>
+          <span class="small-text">Use this for structural changes. Disabled jobs are removed from the wheel and daily Jobs view, but keep their name, colour, description, and previous Student View tile setting for later.</span>
         </div>
         <div id="setup-jobs-capacity-warning" class="jobs-setup-warning" role="status" aria-live="polite"></div>
         <div id="setup-jobs-list" class="jobs-setup-list"></div>
@@ -2536,7 +2702,7 @@ Student 3"></textarea>
             <li><strong>Quick import:</strong> choose image files already named with student names, such as <code>6_Last_First_7.jpg</code> or <code>Last_First_7_6.jpg</code>.</li>
             <li><strong>HTML key import:</strong> choose the whole-school HTML key and photo folder, then attach only the matches for the current dashboard roster.</li>
             <li><strong>Advanced photo tools:</strong> Advanced photo tools can create a renamed ZIP copy of the full photo folder. This only exports renamed files; it does not add students to your dashboard roster.</li>
-            <li>Imported images are resized before saving. Use Backup Current Dashboard if you want attached photos preserved in a backup file.</li>
+            <li>Imported images are resized before saving. Use Export Full Dashboard Backup if you want attached photos preserved in a backup file.</li>
           </ul>
         </details>
         <input class="file-input" type="file" id="quick-photo-folder-input" accept="image/*" multiple webkitdirectory />
@@ -2608,11 +2774,50 @@ Pro-D Week, 2026-10-19, 2026-10-23"></textarea>
       <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;">
         <div>
           <h2 id="version-notes-title">Build notes</h2>
-          <div class="modal-sub" id="version-notes-current-build" data-build-label>Build 16.9.14</div>
+          <div class="modal-sub" id="version-notes-current-build" data-build-label>Build 16.13.3</div>
         </div>
         <button class="btn-ghost btn-xs" id="version-notes-close-btn" type="button">Close</button>
       </div>
       <div class="version-notes-list">
+        <h3>Build 16.13.3</h3>
+        <ul>
+          <li>Fixes version drift so the title, setup badge, Data &amp; Templates badge, build notes, and runtime build label all show the same current build.</li>
+          <li>Keeps the Build 16.13.1 schedule colour and Jobs Setup wording polish intact.</li>
+        </ul>
+        <h3>Build 16.13.3</h3>
+        <ul>
+          <li>Keeps Weekly Schedule text input fields in a normal font weight while preserving subject-style formatting elsewhere.</li>
+          <li>Leaves Exploratory as the lighter-weight subject in Subject Colours, Student View agenda blocks, and the Now/Next ribbon.</li>
+          <li>Keeps the Build 16.13.2 version-consistency fix intact.</li>
+        </ul>
+        <h3>Build 16.13.1</h3>
+        <ul>
+          <li>Renames the visible Permanent Jobs Setup wording to Jobs Setup.</li>
+          <li>Updates the Jobs &amp; Rotation shortcut button to Edit job board in Setup.</li>
+          <li>Keeps Exploratory schedule blocks in normal font weight while leaving core subject blocks bold.</li>
+          <li>Applies the lighter Exploratory treatment in schedule setup, subject colour chips, Student View agenda blocks, and the Now/Next ribbon.</li>
+        </ul>
+        <h3>Build 16.11.0</h3>
+        <ul>
+          <li>Added a Jobs &amp; Rotation orientation strip that explains Setup, the live jobs screen, and the weekly rotation as parts of one system.</li>
+          <li>Renamed the live jobs areas so permanent job setup is separated from daily/weekly job operation.</li>
+          <li>Renamed Rotation Setup to This Week's Rotation and clarified that it adjusts wheel positions, not the permanent job list.</li>
+          <li>Added a direct button from Jobs &amp; Rotation to Jobs Setup.</li>
+        </ul>
+        <h3>Build 16.10.2</h3>
+        <ul>
+          <li>Moved full Backup/Restore access into Data &amp; Templates so export actions sit beside clearer privacy guidance.</li>
+          <li>Renamed exported JSON files to clearly distinguish full dashboard backups from roster-free templates.</li>
+          <li>Attempted a same-day Today's Reminders persistence patch; reminder persistence remains under review.</li>
+          <li>Changed the default Supply Check colour so it is distinct from Chair Check while staying readable with white text.</li>
+        </ul>
+        <h3>Build 16.10.0</h3>
+        <ul>
+          <li>Updates Data & Templates copy so browser storage and Backup/Restore behaviour are explained without naming a specific hosting service.</li>
+          <li>Adds gentle privacy notes near dashboard backups, where exported files may include student and classroom data.</li>
+          <li>Preserves a disabled job’s previous large cleanup tile setting and restores it when the job is re-enabled.</li>
+          <li>Keeps this as a stability checkpoint before the Build 17 schedule-view work.</li>
+        </ul>
         <h3>Build 16.9.14</h3>
         <ul>
           <li>Refreshes the Ferris Wheel immediately after setup changes such as job renames.</li>
@@ -2775,25 +2980,28 @@ Pro-D Week, 2026-10-19, 2026-10-23"></textarea>
     <div class="modal template-modal" role="dialog" aria-modal="true" aria-labelledby="templates-title">
       <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;">
         <div>
-          <h2 id="templates-title">Data & Templates <span id="templates-version-pill" class="build-pill" data-build-label>Build 16.9.14</span></h2>
-          <div class="modal-sub">Backups restore the whole dashboard. Templates save reusable structure without daily classroom state.</div>
+          <h2 id="templates-title">Data & Templates <span id="templates-version-pill" class="build-pill" data-build-label>Build 16.13.3</span></h2>
+          <div class="modal-sub">Use this space to move, restore, or reuse dashboard data. Data is saved in this browser for this app location; export files only when you intentionally want a copy.</div>
         </div>
         <button class="btn-ghost btn-xs" id="templates-close-btn">Close</button>
       </div>
 
       <div class="template-grid">
         <div class="template-panel">
-          <div class="template-panel-title">Backup / Restore</div>
-          <p class="template-note">Use this when you want an exact copy of the current dashboard, including students, job assignments, absences, reminders, and daily completion states.</p>
+          <div class="template-panel-title">Full Dashboard Backup</div>
+          <p class="template-note">Use this when you want an exact copy of the current dashboard, including students, job assignments, seating plans, photos, today's reminders, absences, and daily completion states.</p>
+          <p class="template-note"><strong>Privacy note:</strong> Full dashboard backup files may include student names, seating plans, photos, jobs, reminders, and classroom setup details. Store or share backup files carefully.</p>
+          <p class="template-note">Opening the dashboard in a different browser, on another device, or from a different app location may start fresh. Use Backup and Restore here when you intentionally want to move your full setup.</p>
           <div class="template-actions-row">
-            <button class="btn-outline" id="templates-backup-btn" type="button">Backup Current Dashboard</button>
-            <button class="btn-ghost" id="templates-restore-btn" type="button">Restore Dashboard Backup</button>
+            <button class="btn-outline" id="templates-backup-btn" type="button">Export Full Dashboard Backup</button>
+            <button class="btn-ghost" id="templates-restore-btn" type="button">Restore Full Dashboard Backup</button>
           </div>
         </div>
 
         <div class="template-panel">
           <div class="template-panel-title">Templates</div>
           <p class="template-note">Use this to save reusable setup work, especially job descriptions and colours. Templates do not include students or daily status unless a future version explicitly asks you to include them.</p>
+          <p class="template-note">Templates are useful for sharing structure without sharing a class roster. Template exports are named differently from full backups so they are easier to recognize.</p>
           <div class="template-actions-row">
             <button class="btn-primary" id="save-local-template-btn" type="button">Save Current Setup as Template</button>
             <button class="btn-outline" id="import-template-btn" type="button">Import Template File</button>
@@ -2803,12 +3011,12 @@ Pro-D Week, 2026-10-19, 2026-10-23"></textarea>
 
       <div class="setup-section" style="margin-top:12px;">
         <div class="setup-section-title">Saved local templates</div>
-        <div class="setup-section-subtitle">These are saved in this browser. Export a template file if you want to archive it or share it with another teacher.</div>
+        <div class="setup-section-subtitle">These are saved in this browser for this app location. Export a template file if you want to archive it or share it with another teacher.</div>
         <div id="local-templates-list" class="template-list"></div>
       </div>
 
       <div class="setup-version-note">
-        Templates apply reusable structure such as weekly schedule, job names, descriptions, colours, On Call settings, break ranges, and display preferences. Your current student roster stays unchanged by default.
+        Templates apply reusable structure such as weekly schedule, job names, descriptions, colours, On Call settings, break ranges, and display preferences. Your current student roster stays unchanged by default. Backups are different: they are meant to move or restore a whole dashboard and may include student data.
       </div>
 
       <div class="modal-actions">
@@ -2838,8 +3046,9 @@ Pro-D Week, 2026-10-19, 2026-10-23"></textarea>
     
     function $(id){ return document.getElementById(id); }
 const STORAGE_KEY = "class_points_dashboard_v10";
+    const DAILY_REMINDERS_STORAGE_KEY = "classroom_dashboard_daily_reminders_v1";
     const TEMPLATE_STORAGE_KEY = "classroom_dashboard_templates_v16";
-    const BUILD_VERSION = "16.9.14";
+    const BUILD_VERSION = "16.13.3";
 
     // Rotation positions for dropdown
     const ROTATION_POSITIONS = [
@@ -2957,17 +3166,27 @@ function getDisplayLabelForJobKey(jobKey) {
 
 function getEnabledRotationJobKeys() {
 		const jobs = Array.isArray(state?.jobs) ? state.jobs : [];
+		const seen = new Set();
+		const ordered = [];
+
+		// Build 16.13.1: the Jobs Setup order is now the visible job-board order
+		// and the weekly rotation order. Stable internal job keys still protect renamed jobs.
+		jobs.forEach((job, index) => {
+			const key = inferJobKey(job, index);
+			if (!key || seen.has(key) || job.enabled === false) return;
+			seen.add(key);
+			ordered.push(key);
+		});
+
+		if (ordered.length) return ordered;
+
 		const enabledByKey = new Map();
 		jobs.forEach((job, index) => {
 			const key = inferJobKey(job, index);
 			if (key) enabledByKey.set(key, job.enabled !== false);
 		});
-
-		// Build 16.9.14: keep the Ferris wheel order stable by internal job key.
-		// Job names can be customized freely, but the rotation order should not drift
-		// just because the Setup list was reordered or a display label changed.
-		const enabled = ROTATION_JOB_ORDER.filter((jobKey) => enabledByKey.get(jobKey) !== false);
-		return enabled.length ? enabled : ROTATION_JOB_ORDER.slice();
+		const fallback = ROTATION_JOB_ORDER.filter((jobKey) => enabledByKey.get(jobKey) !== false);
+		return fallback.length ? fallback : ROTATION_JOB_ORDER.slice();
 }
 
 function isJobEnabled(job) {
@@ -3275,7 +3494,7 @@ function getFirstFreeRotationIndex() {
     }
 
     function normalizeScheduleState(targetState = state) {
-      targetState.subjects = Array.isArray(targetState.subjects) && targetState.subjects.length ? targetState.subjects : JSON.parse(JSON.stringify(SUBJECTS));
+      normalizeSubjectColours(targetState);
       targetState.schedule ??= {};
       targetState.schedule.week ??= cloneDefaultWeekSchedule();
       targetState.schedule.breaks ??= cloneDefaultBreakSchedule();
@@ -3363,6 +3582,25 @@ function getFirstFreeRotationIndex() {
 
     function getSubjects() {
       return Array.isArray(state?.subjects) && state.subjects.length ? state.subjects : SUBJECTS;
+    }
+
+    function getDefaultSubjectById(id) {
+      return SUBJECTS.find((s) => s.id === id) || null;
+    }
+
+    function normalizeSubjectColours(targetState = state) {
+      targetState.subjects = Array.isArray(targetState.subjects) && targetState.subjects.length ? targetState.subjects : JSON.parse(JSON.stringify(SUBJECTS));
+      targetState.subjects.forEach((subject) => {
+        const def = getDefaultSubjectById(subject.id);
+        subject.label = subject.label || def?.label || subject.id || "Subject";
+        subject.bg = normalizeHexColor(subject.bg) || def?.bg || "#ffffff";
+        subject.textColor = normalizeHexColor(subject.textColor) || getContrastingTextColor(subject.bg);
+        subject.fontWeight = Number(subject.fontWeight || def?.fontWeight || 700);
+      });
+      SUBJECTS.forEach((def) => {
+        if (!targetState.subjects.some((subject) => subject.id === def.id)) targetState.subjects.push({ ...def });
+      });
+      return targetState.subjects;
     }
 
     function subjectById(id) {
@@ -3702,6 +3940,7 @@ function getFirstFreeRotationIndex() {
         seating: createDefaultSeatingState(),
         extraJobsToday: [],
         remindersToday: "",
+        remindersDate: todayIso(),
         pointUndoStack: [],
         absentToday: {},
         absenceOverrides: {},
@@ -3754,6 +3993,17 @@ function getFirstFreeRotationIndex() {
 
       parsed.extraJobsToday ??= [];
       parsed.remindersToday ??= "";
+      parsed.remindersDate ??= todayIso();
+      const savedDailyReminders = readDailyRemindersRecord();
+      if (savedDailyReminders) {
+        parsed.remindersToday = savedDailyReminders.text;
+        parsed.remindersDate = savedDailyReminders.date;
+      } else if (parsed.remindersDate !== todayIso()) {
+        parsed.remindersToday = "";
+        parsed.remindersDate = todayIso();
+      } else {
+        writeDailyRemindersRecord(parsed.remindersToday || "");
+      }
       parsed.pointUndoStack ??= [];
       parsed.absentToday ??= {};
       parsed.absenceOverrides ??= {};
@@ -3796,6 +4046,7 @@ function getFirstFreeRotationIndex() {
     }
 
     var state = loadState();
+    syncDailyRemindersFromStorage();
     // Ensure rotation has enough slots for the roster (auto-add On Call positions as needed)
     ensureRotationCapacity();
     repairRotationIndicesPreservingWherePossible();
@@ -3819,6 +4070,7 @@ function getFirstFreeRotationIndex() {
       state.meta.rosterSchemaVersion = 2;
       state.meta.buildVersion = BUILD_VERSION;
       state.meta.lastSavedAt = new Date().toISOString();
+      writeDailyRemindersRecord(state.remindersToday || "");
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       if (shouldBroadcast) notifyStateUpdated();
     }
@@ -3832,6 +4084,45 @@ function getFirstFreeRotationIndex() {
 
 
 function safeSaveState(){ try{ saveState(); } catch(e){ console.warn('saveState failed', e); } }
+
+    function readDailyRemindersRecord() {
+      try {
+        const raw = localStorage.getItem(DAILY_REMINDERS_STORAGE_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (!parsed || parsed.date !== todayIso()) {
+          localStorage.removeItem(DAILY_REMINDERS_STORAGE_KEY);
+          return null;
+        }
+        return { date: parsed.date, text: String(parsed.text || "") };
+      } catch (e) {
+        console.warn("Could not read daily reminders:", e);
+        return null;
+      }
+    }
+
+    function writeDailyRemindersRecord(text) {
+      try {
+        const cleanText = String(text || "");
+        const record = { date: todayIso(), text: cleanText, updatedAt: new Date().toISOString() };
+        localStorage.setItem(DAILY_REMINDERS_STORAGE_KEY, JSON.stringify(record));
+      } catch (e) {
+        console.warn("Could not save daily reminders:", e);
+      }
+    }
+
+    function syncDailyRemindersFromStorage() {
+      const record = readDailyRemindersRecord();
+      if (record) {
+        state.remindersToday = record.text;
+        state.remindersDate = record.date;
+      } else if (state.remindersDate !== todayIso()) {
+        state.remindersToday = "";
+        state.remindersDate = todayIso();
+      } else {
+        writeDailyRemindersRecord(state.remindersToday || "");
+      }
+    }
 
     window.addEventListener("storage", (event) => {
       if (event.key === STORAGE_KEY) handleExternalStateUpdate();
@@ -4474,6 +4765,36 @@ const exportBtn = document.getElementById("export-data-btn");
       }
     }
 
+    function getRotationIndexForOnCallSlot(slotNumber) {
+      const label = getOnCallSlotLabel(slotNumber);
+      return getRotationSequence().findIndex((descriptor) => descriptor && descriptor.type === "oncall" && descriptor.label === label);
+    }
+
+    function buildStudentSelectForRotationIndex(targetIndex, selectedStudentId, emptyText = "— Empty position —") {
+      const select = createElement("select", {
+        onchange: (e) => {
+          const val = e.target.value || null;
+          if (!val) return;
+          moveStudentToRotationIndex(val, targetIndex);
+          saveState();
+          renderJobSurfaces();
+        },
+      });
+      const occupant = targetIndex >= 0 ? getStudentAtRotationIndex(targetIndex) : null;
+      const emptyOpt = createElement("option", { value: "", text: emptyText });
+      if (!selectedStudentId && !occupant) emptyOpt.selected = true;
+      select.appendChild(emptyOpt);
+      state.students.forEach((s) => {
+        const opt = createElement("option", {
+          value: s.id,
+          text: s.displayName || s.name || "Unnamed",
+        });
+        if (selectedStudentId === s.id || (!selectedStudentId && occupant && occupant.id === s.id)) opt.selected = true;
+        select.appendChild(opt);
+      });
+      return select;
+    }
+
     function renderJobsList() {
       jobsListEl.innerHTML = "";
 
@@ -4482,108 +4803,128 @@ const exportBtn = document.getElementById("export-data-btn");
         .slice()
         .sort((a, b) => getRotationIndexForJob(a) - getRotationIndexForJob(b));
 
-      if (!activeJobs.length) {
-        jobsListEl.appendChild(
-          createElement("p", { class: "subtext", text: "No active jobs are enabled. Turn jobs back on in Setup → Jobs Setup." })
-        );
+      if (!activeJobs.length && !state.students.length) {
+        jobsListEl.appendChild(createElement("p", { class: "subtext", text: "Add students and enable jobs to build the class job board." }));
         return;
       }
 
-      const setupNote = createElement("p", {
-        class: "small-text",
-        text: "Job names, colours, descriptions, display settings, and disabled jobs are managed in Setup → Jobs Setup."
-      });
-      jobsListEl.appendChild(setupNote);
+      const table = document.createElement("table");
+      table.className = "job-board-table";
+      table.innerHTML = `
+        <thead>
+          <tr>
+            <th class="job-board-order">#</th>
+            <th>Job / Position</th>
+            <th>Student this week</th>
+            <th style="text-align:right;">Actions</th>
+          </tr>
+        </thead>
+      `;
+      const tbody = document.createElement("tbody");
+      table.appendChild(tbody);
 
-      const header = createElement(
-        "div",
-        { class: "job-row" },
-        [
-          createElement("div", { class: "small-text muted", text: "Active job" }),
-          createElement("div", { class: "small-text muted", text: "Assigned to" }),
-          createElement("div", { class: "small-text muted nowrap", text: "Daily status" }),
-        ]
-      );
-      jobsListEl.appendChild(header);
-      jobsListEl.appendChild(createElement("div", { class: "divider" }));
+      const sectionRow = document.createElement("tr");
+      sectionRow.className = "job-board-section-row";
+      sectionRow.innerHTML = `<td colspan="4">Permanent weekly rotation jobs</td>`;
+      tbody.appendChild(sectionRow);
 
-      activeJobs.forEach((job) => {
-        const row = document.createElement("div");
-        row.className = "job-row";
+      if (!activeJobs.length) {
+        const empty = document.createElement("tr");
+        empty.innerHTML = `<td colspan="4" class="subtext">No active jobs are enabled. Turn jobs back on in Setup → Jobs Setup.</td>`;
+        tbody.appendChild(empty);
+      }
 
-        const labelCell = document.createElement("div");
-        const label = createElement("div", { class: "job-label", text: job.label });
-        labelCell.appendChild(label);
-        if (job.important) {
-          labelCell.appendChild(
-            createElement("div", { class: "chip-important", text: "Cleanup Job" })
-          );
+      activeJobs.forEach((job, boardIndex) => {
+        const targetIndex = getRotationIndexForJob(job);
+        const assignedStudentId = getAssignedStudentIdForJob(job);
+        const row = document.createElement("tr");
+
+        const colour = normalizeHexColor(job.tileColor) || getJobThemeColor(job) || "#6b7280";
+        const tileBadgeClass = job.important ? "large" : "weekly";
+        const tileBadgeText = job.important ? "Large" : "Small";
+
+        const orderCell = document.createElement("td");
+        orderCell.className = "job-board-order";
+        orderCell.textContent = String(boardIndex + 1);
+        row.appendChild(orderCell);
+
+        const jobCell = document.createElement("td");
+        jobCell.innerHTML = `
+          <div class="job-board-job-title">${escapeHtml(job.label || "Unnamed job")}</div>
+          <div class="job-board-job-meta"><span class="job-board-dot" style="background:${escapeHtml(colour)}"></span><span class="job-board-badge ${tileBadgeClass}">${tileBadgeText}</span></div>
+        `;
+        row.appendChild(jobCell);
+
+        const assignCell = document.createElement("td");
+        assignCell.className = "job-board-assignment";
+        if (targetIndex >= 0) {
+          assignCell.appendChild(buildStudentSelectForRotationIndex(targetIndex, assignedStudentId, "Choose student…"));
+        } else {
+          assignCell.textContent = "Not in rotation";
+          assignCell.className += " subtext";
         }
-        row.appendChild(labelCell);
+        row.appendChild(assignCell);
 
-        const assignCell = document.createElement("div");
-        const select = createElement("select", {
-          onchange: (e) => {
-            const val = e.target.value || null;
-            if (!val) return;
-            const targetIndex = getRotationIndexForJob(job);
-            if (targetIndex >= 0) {
-              moveStudentToRotationIndex(val, targetIndex);
-            } else {
-              job.assignedStudentId = val;
-            }
+        const actionsCell = document.createElement("td");
+        actionsCell.className = "job-board-actions";
+        const doneBtn = createElement("button", {
+          class: job.doneToday ? "btn-xs btn-outline" : "btn-xs btn-primary",
+          onclick: () => {
+            job.doneToday = !job.doneToday;
             saveState();
             renderJobSurfaces();
           },
-        });
+        }, [job.doneToday ? "Done — reset" : "Mark done"]);
+        const detailsBtn = createElement("button", {
+          class: "btn-xs btn-outline",
+          onclick: () => openJobDetail(job),
+        }, ["View details"]);
+        actionsCell.appendChild(doneBtn);
+        actionsCell.appendChild(detailsBtn);
+        row.appendChild(actionsCell);
 
-        const optNone = createElement("option", { value: "", text: "Choose student…" });
-        select.appendChild(optNone);
-        state.students.forEach((s) => {
-          const opt = createElement("option", {
-            value: s.id,
-            text: s.displayName || s.name || "Unnamed",
-          });
-          if (getAssignedStudentIdForJob(job) === s.id) opt.selected = true;
-          select.appendChild(opt);
-        });
-        assignCell.appendChild(select);
+        tbody.appendChild(row);
+      });
+
+      const onCallCount = getOnCallSlotCount();
+      const onCallSection = document.createElement("tr");
+      onCallSection.className = "job-board-section-row";
+      onCallSection.innerHTML = `<td colspan="4">On Call rotation buffer · coverage is pulled from On Call 1 first</td>`;
+      tbody.appendChild(onCallSection);
+
+      for (let slot = onCallCount; slot >= 1; slot--) {
+        const targetIndex = getRotationIndexForOnCallSlot(slot);
+        const occupant = targetIndex >= 0 ? getStudentAtRotationIndex(targetIndex) : null;
+        const row = document.createElement("tr");
+        row.className = "job-board-oncall-row";
+
+        const displayOrder = activeJobs.length + (onCallCount - slot + 1);
+        const orderCell = document.createElement("td");
+        orderCell.className = "job-board-order";
+        orderCell.textContent = String(displayOrder);
+        row.appendChild(orderCell);
+
+        const jobCell = document.createElement("td");
+        const entryNote = slot === onCallCount ? "Rotation enters here after the final regular job" : "Rotation buffer";
+        const coverageNote = slot === 1 ? " · first called for coverage" : "";
+        jobCell.innerHTML = `<div class="job-board-job-title">On Call ${slot}</div><div class="job-board-job-meta"><span class="job-board-badge oncall">On-Call</span><span>${entryNote}${coverageNote}</span></div>`;
+        row.appendChild(jobCell);
+
+        const assignCell = document.createElement("td");
+        assignCell.className = "job-board-assignment";
+        if (targetIndex >= 0) assignCell.appendChild(buildStudentSelectForRotationIndex(targetIndex, occupant ? occupant.id : null));
+        else assignCell.textContent = "Missing slot";
         row.appendChild(assignCell);
 
-        const statusCell = document.createElement("div");
-        if (job.doneToday) {
-          const resetBtn = createElement(
-            "button",
-            {
-              class: "btn-xs btn-outline",
-              onclick: () => {
-                job.doneToday = false;
-                saveState();
-                renderJobSurfaces();
-              },
-            },
-            ["Done — reset"]
-          );
-          statusCell.appendChild(resetBtn);
-        } else {
-          const btn = createElement(
-            "button",
-            {
-              class: "btn-xs btn-primary",
-              onclick: () => {
-                job.doneToday = true;
-                saveState();
-                renderJobSurfaces();
-              },
-            },
-            ["Mark done"]
-          );
-          statusCell.appendChild(btn);
-        }
-        row.appendChild(statusCell);
+        const actionsCell = document.createElement("td");
+        actionsCell.className = "job-board-actions";
+        actionsCell.innerHTML = `<span class="small-text">Covers absences</span>`;
+        row.appendChild(actionsCell);
 
-        jobsListEl.appendChild(row);
-      });
+        tbody.appendChild(row);
+      }
+
+      jobsListEl.appendChild(table);
     }
 
     function renderOnCallLists() {
@@ -4782,7 +5123,7 @@ function renderWeeklyMiniJobs() {
         case "whiteboards": return "#3b82f6";
         case "name_tags": return "#db2777";
         case "floor_check": return "#c2410c";
-        case "supply_check": return "#0f766e";
+        case "supply_check": return "#1d4ed8";
         case "chromebooks": return "#2563eb";
         case "handouts_1":
         case "handouts_2": return "#0891b2";
@@ -4798,7 +5139,7 @@ function renderWeeklyMiniJobs() {
         case "chair check": return "#0f766e";
         case "cubby check": return "#f59e0b";
         case "whiteboards": return "#3b82f6";
-        case "supply check": return "#0f766e";
+        case "supply check": return "#1d4ed8";
         case "name tags": return "#db2777";
         case "rug rats": return "#16a34a";
         case "chromebooks": return "#2563eb";
@@ -5559,9 +5900,15 @@ if (["broom_detail_1", "broom_detail_2", "broom_detail_3"].includes(job.jobKey))
           const timeStr = `${minutesToTimeString(slot.startMinutes)}–${minutesToTimeString(
             slot.endMinutes
           )}`;
-          const chip = createElement("span", { class: "next-ribbon-chip" });
+          const chip = createElement("span", { class: "next-ribbon-chip subject-tinted" });
+          if (subj) {
+            chip.style.background = subj.bg;
+            chip.style.color = subj.textColor;
+          }
           chip.appendChild(createElement("span", { class: "label", text: prefix }));
-          chip.appendChild(createElement("span", { class: "subject", text: subjectName }));
+          const subjectSpan = createElement("span", { class: "subject", text: subjectName });
+          if (subj) subjectSpan.style.fontWeight = subj.fontWeight;
+          chip.appendChild(subjectSpan);
           chip.appendChild(createElement("span", { class: "time", text: `(${timeStr})` }));
           nextRibbonEl.appendChild(chip);
         };
@@ -5588,8 +5935,14 @@ if (["broom_detail_1", "broom_detail_2", "broom_detail_3"].includes(job.jobKey))
           block.endMinutes
         )}`;
 
-        const chip = createElement("span", { class: "next-ribbon-chip" });
-        chip.appendChild(createElement("span", { class: "subject", text: subjectName }));
+        const chip = createElement("span", { class: "next-ribbon-chip subject-tinted" });
+        if (subj) {
+          chip.style.background = subj.bg;
+          chip.style.color = subj.textColor;
+        }
+        const subjectSpan = createElement("span", { class: "subject", text: subjectName });
+        if (subj) subjectSpan.style.fontWeight = subj.fontWeight;
+        chip.appendChild(subjectSpan);
         chip.appendChild(createElement("span", { class: "time", text: `(${timeStr})` }));
         nextRibbonEl.appendChild(chip);
       });
@@ -5620,12 +5973,12 @@ if (["broom_detail_1", "broom_detail_2", "broom_detail_3"].includes(job.jobKey))
             text: slotLabelMap[slotId],
           })
         );
-        block.appendChild(
-          createElement("div", {
-            class: "agenda-block-subject",
-            text: subj.label,
-          })
-        );
+        const agendaSubjectEl = createElement("div", {
+          class: "agenda-block-subject",
+          text: subj.label,
+        });
+        agendaSubjectEl.style.fontWeight = subj.fontWeight;
+        block.appendChild(agendaSubjectEl);
         block.appendChild(
           createElement("div", {
             class: "agenda-block-time",
@@ -5928,7 +6281,7 @@ function clearPointUndoStack() {
       const exportPayload = { ...state, meta: { ...(state.meta || {}), schemaVersion: 16, buildVersion: BUILD_VERSION, exportedAt: new Date().toISOString(), exportType: "dashboard-backup" } };
       const date = new Date();
       const ts = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
-      downloadJsonFile(exportPayload, `class-dashboard-backup-${ts}.json`);
+      downloadJsonFile(exportPayload, `classroom-dashboard-full-backup-student-data-${ts}.json`);
     }
 
     function loadLocalTemplates() {
@@ -6127,6 +6480,8 @@ function clearPointUndoStack() {
       }));
       state.extraJobsToday = [];
       state.remindersToday = "";
+      state.remindersDate = todayIso();
+      writeDailyRemindersRecord("");
       state.absentToday = {};
       state.absenceOverrides = {};
       state.pointUndoStack = [];
@@ -6155,7 +6510,7 @@ function clearPointUndoStack() {
       const payload = { ...normalized, exportedAt: new Date().toISOString() };
       const date = new Date();
       const ts = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
-      downloadJsonFile(payload, `dashboard-template-${slugifyFilename(normalized.name)}-${ts}.json`);
+      downloadJsonFile(payload, `classroom-dashboard-template-no-roster-${slugifyFilename(normalized.name)}-${ts}.json`);
     }
 
     function exportLocalTemplateByIndex(index) {
@@ -6212,11 +6567,11 @@ function clearPointUndoStack() {
       reader.readAsText(file);
     }
 
-    exportBtn.addEventListener("click", exportDashboardBackup);
+    if (exportBtn) exportBtn.addEventListener("click", exportDashboardBackup);
 
-    importBtn.addEventListener("click", () => importFileInput.click());
+    if (importBtn) importBtn.addEventListener("click", () => importFileInput.click());
 
-    importFileInput.addEventListener("change", (e) => {
+    if (importFileInput) importFileInput.addEventListener("change", (e) => {
       const file = e.target.files[0];
       if (!file) return;
       const reader = new FileReader();
@@ -6265,6 +6620,8 @@ function clearPointUndoStack() {
         if (todayRemindersInput) {
       todayRemindersInput.addEventListener("input", () => {
         state.remindersToday = todayRemindersInput.value;
+        state.remindersDate = todayIso();
+        writeDailyRemindersRecord(state.remindersToday);
         saveState();
         renderReminders();
       });
@@ -6303,6 +6660,7 @@ resetJobsTodayBtn.addEventListener("click", () => {
     const buildVersionTextEl = document.getElementById("build-version-text");
     const safeModeBtn = document.getElementById("safe-mode-btn");
     const openSetupBtn = document.getElementById("open-setup-btn");
+    const openJobsSetupFromJobsBtn = document.getElementById("open-jobs-setup-from-jobs-btn");
     const jobDetailOverlay = document.getElementById("job-detail-overlay");
     const jobDetailHead = document.getElementById("job-detail-head");
     const jobDetailTitle = document.getElementById("job-detail-title");
@@ -6349,8 +6707,10 @@ resetJobsTodayBtn.addEventListener("click", () => {
     let setupJobsDraft = null;
     let setupInitialSnapshot = "";
     const setupScheduleTimesGrid = document.getElementById("setup-schedule-times-grid");
+    const setupSubjectColourList = document.getElementById("setup-subject-colour-list");
     const scheduleResetSubjectsBtn = document.getElementById("schedule-reset-subjects-btn");
     const scheduleResetTimesBtn = document.getElementById("schedule-reset-times-btn");
+    const scheduleResetColoursBtn = document.getElementById("schedule-reset-colours-btn");
     const setupVersionPill = document.getElementById("setup-version-pill");
     const versionNotesOverlay = document.getElementById("version-notes-overlay");
     const versionNotesCloseBtn = document.getElementById("version-notes-close-btn");
@@ -6384,6 +6744,7 @@ resetJobsTodayBtn.addEventListener("click", () => {
     }
 
     if (openSetupBtn) openSetupBtn.addEventListener("click", openSetupModal);
+    if (openJobsSetupFromJobsBtn) openJobsSetupFromJobsBtn.addEventListener("click", openPermanentJobsSetup);
     if (setupCloseBtn) setupCloseBtn.addEventListener("click", closeSetupModal);
     if (setupCancelBtn) setupCancelBtn.addEventListener("click", closeSetupModal);
     if (setupSaveBtn) setupSaveBtn.addEventListener("click", saveSetupModal);
@@ -6394,10 +6755,13 @@ resetJobsTodayBtn.addEventListener("click", () => {
       });
     }
     if (scheduleResetSubjectsBtn) {
-      scheduleResetSubjectsBtn.addEventListener("click", () => renderSetupWeeklySchedule(true));
+      scheduleResetSubjectsBtn.addEventListener("click", () => { renderSetupWeeklySchedule(true); renderSetupSubjectColours(true); });
     }
     if (scheduleResetTimesBtn) {
       scheduleResetTimesBtn.addEventListener("click", () => renderSetupScheduleTimes(true));
+    }
+    if (scheduleResetColoursBtn) {
+      scheduleResetColoursBtn.addEventListener("click", () => renderSetupSubjectColours(true));
     }
 
 
@@ -8218,8 +8582,21 @@ if (tab === "jobs") {
         enabled.type = "checkbox";
         enabled.checked = job.enabled !== false;
         enabled.addEventListener("change", () => {
-          job.enabled = !!enabled.checked;
-          if (!job.enabled) job.showOnStudentView = false;
+          const nowEnabled = !!enabled.checked;
+          if (!nowEnabled) {
+            job.previousShowOnStudentViewBeforeDisable = !!job.showOnStudentView;
+            job.showOnStudentView = false;
+            job.important = false;
+          } else {
+            const def = getJobDefinition(job.jobKey);
+            const shouldRestoreLargeTile = job.previousShowOnStudentViewBeforeDisable === true
+              || (job.previousShowOnStudentViewBeforeDisable === undefined && !!def?.important);
+            if (shouldRestoreLargeTile) {
+              job.showOnStudentView = true;
+              job.important = true;
+            }
+          }
+          job.enabled = nowEnabled;
           renderSetupJobs();
         });
         enabledLabel.appendChild(enabled);
@@ -8256,8 +8633,34 @@ if (tab === "jobs") {
 
         const order = document.createElement("div");
         order.className = "jobs-setup-order";
-        const orderNote = createElement("span", { class: "jobs-setup-key", text: "Rotation order locked" });
-        orderNote.title = "Build 16.9.14 keeps the Ferris wheel in a stable internal order so existing assignments do not drift when jobs are renamed or customized.";
+        const upBtn = createElement("button", {
+          type: "button",
+          class: "btn-outline btn-xs",
+          title: "Move this job up on the Class Job Board",
+          disabled: index === 0,
+          onclick: () => {
+            if (index <= 0) return;
+            const moved = setupJobsDraft.splice(index, 1)[0];
+            setupJobsDraft.splice(index - 1, 0, moved);
+            renderSetupJobs();
+          }
+        }, ["↑"]);
+        const downBtn = createElement("button", {
+          type: "button",
+          class: "btn-outline btn-xs",
+          title: "Move this job down on the Class Job Board",
+          disabled: index === setupJobsDraft.length - 1,
+          onclick: () => {
+            if (index >= setupJobsDraft.length - 1) return;
+            const moved = setupJobsDraft.splice(index, 1)[0];
+            setupJobsDraft.splice(index + 1, 0, moved);
+            renderSetupJobs();
+          }
+        }, ["↓"]);
+        const orderNote = createElement("span", { class: "jobs-setup-key", text: "Board order" });
+        orderNote.title = "This order controls the Class Job Board and the weekly rotation order.";
+        order.appendChild(upBtn);
+        order.appendChild(downBtn);
         order.appendChild(orderNote);
 
         const desc = document.createElement("textarea");
@@ -8291,9 +8694,19 @@ if (tab === "jobs") {
           tileColor: normalizeHexColor(job.tileColor) || null,
           tileTextColor: job.tileColor ? (normalizeHexColor(job.tileTextColor) || getContrastingTextColor(job.tileColor)) : null,
           description: typeof job.description === "string" ? job.description : "",
+          previousShowOnStudentViewBeforeDisable: job.previousShowOnStudentViewBeforeDisable === undefined ? undefined : !!job.previousShowOnStudentViewBeforeDisable,
         };
       });
       return jobs;
+    }
+
+    function getScheduleSubjectFontWeightByLabel(label) {
+      return String(label || "").trim().toLowerCase() === "exploratory" ? "400" : "700";
+    }
+
+    function applyScheduleSubjectInputWeight(input) {
+      if (!input) return;
+      input.style.fontWeight = getScheduleSubjectFontWeightByLabel(input.value);
     }
 
     function renderSetupWeeklySchedule(useDefaults = false) {
@@ -8323,6 +8736,79 @@ if (tab === "jobs") {
           setupWeeklyScheduleGrid.appendChild(input);
         });
       });
+    }
+
+
+    function getSubjectIdsUsedInSchedule() {
+      normalizeScheduleState();
+      const ids = new Set();
+      SCHEDULE_DAYS.forEach(({ dow }) => {
+        (state.schedule.week?.[dow] || []).forEach((block) => { if (block?.subjectId) ids.add(block.subjectId); });
+      });
+      Object.values(state.schedule.breaks || {}).forEach((block) => { if (block?.subjectId) ids.add(block.subjectId); });
+      return ids;
+    }
+
+    function renderSetupSubjectColours(useDefaults = false) {
+      if (!setupSubjectColourList) return;
+      normalizeScheduleState();
+      const usedIds = getSubjectIdsUsedInSchedule();
+      const subjects = normalizeSubjectColours(state)
+        .filter((subject) => usedIds.has(subject.id) || SUBJECTS.some((def) => def.id === subject.id))
+        .sort((a, b) => {
+          const ai = SUBJECTS.findIndex((def) => def.id === a.id);
+          const bi = SUBJECTS.findIndex((def) => def.id === b.id);
+          if (ai !== -1 || bi !== -1) return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+          return String(a.label || '').localeCompare(String(b.label || ''));
+        });
+      setupSubjectColourList.innerHTML = "";
+      subjects.forEach((subject) => {
+        const def = getDefaultSubjectById(subject.id);
+        const bg = useDefaults && def ? def.bg : (normalizeHexColor(subject.bg) || def?.bg || "#ffffff");
+        const textColor = getContrastingTextColor(bg);
+        const row = createElement("div", { class: "subject-colour-row", "data-subject-id": subject.id });
+        const chip = createElement("div", { class: "subject-colour-chip", text: subject.label || subject.id });
+        chip.style.background = bg;
+        chip.style.color = textColor;
+        chip.style.fontWeight = getScheduleSubjectFontWeightByLabel(subject.label || subject.id);
+        const meta = createElement("div", { class: "subject-colour-meta" });
+        const nameEl = createElement("div", { class: "subject-colour-name", text: subject.label || subject.id });
+        nameEl.style.fontWeight = getScheduleSubjectFontWeightByLabel(subject.label || subject.id);
+        meta.appendChild(nameEl);
+        meta.appendChild(createElement("div", { class: "subject-colour-note", text: def ? "Default schedule subject" : "Custom subject" }));
+        const input = createElement("input", {
+          type: "color",
+          class: "subject-colour-input",
+          value: bg,
+          "data-subject-id": subject.id,
+          "aria-label": `${subject.label || subject.id} colour`,
+        });
+        input.addEventListener("input", () => {
+          const val = normalizeHexColor(input.value) || bg;
+          chip.style.background = val;
+          chip.style.color = getContrastingTextColor(val);
+        });
+        row.appendChild(chip);
+        row.appendChild(meta);
+        row.appendChild(input);
+        setupSubjectColourList.appendChild(row);
+      });
+    }
+
+    function collectSetupSubjectColours() {
+      normalizeScheduleState();
+      const subjects = normalizeSubjectColours(state).map((subject) => ({ ...subject }));
+      const inputs = Array.from(setupSubjectColourList?.querySelectorAll(".subject-colour-input") || []);
+      inputs.forEach((input) => {
+        const id = input.getAttribute("data-subject-id");
+        const subject = subjects.find((s) => s.id === id);
+        if (!subject) return;
+        const bg = normalizeHexColor(input.value) || subject.bg || "#ffffff";
+        subject.bg = bg;
+        subject.textColor = getContrastingTextColor(bg);
+        subject.fontWeight = Number(subject.fontWeight || getDefaultSubjectById(id)?.fontWeight || 700);
+      });
+      return subjects;
     }
 
     function renderSetupScheduleTimes(useDefaults = false) {
@@ -8428,6 +8914,7 @@ if (tab === "jobs") {
       if (setupExtraBreakRangesInput) setupExtraBreakRangesInput.value = formatExtraBreakRangesForSetup();
       setupJobsDraft = cloneJobsForSetup();
       renderSetupWeeklySchedule(false);
+      renderSetupSubjectColours(false);
       renderSetupJobs();
       renderSetupScheduleTimes(false);
       renderRosterPhotoManager();
@@ -8437,6 +8924,14 @@ if (tab === "jobs") {
       setupOverlay.classList.add("show");
       setupOverlay.setAttribute("aria-hidden", "false");
       setTimeout(() => setupClassNameInput?.focus(), 0);
+    }
+
+    function openPermanentJobsSetup() {
+      openSetupModal();
+      const jobsSection = document.getElementById("setup-jobs-section");
+      if (!jobsSection) return;
+      jobsSection.open = true;
+      setTimeout(() => jobsSection.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
     }
 
     function closeSetupModal(force = false) {
@@ -8551,6 +9046,7 @@ if (tab === "jobs") {
         alert(scheduleError);
         return;
       }
+      state.subjects = collectSetupSubjectColours();
       state.schedule ??= {};
       state.schedule.week = collectSetupScheduleSubjects();
       state.schedule.breaks = state.schedule.breaks || cloneDefaultBreakSchedule();
