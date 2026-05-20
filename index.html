@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Classroom Dashboard · Build 16.13.3</title>
+  <title>Classroom Dashboard · Build 16.14.2</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Poppins + Trocchi fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Trocchi&display=swap" rel="stylesheet">
@@ -1692,6 +1692,156 @@
   box-shadow:0 2px 7px rgba(15,23,42,.18);
 }
 
+
+/* Build 16.14.2: Optional Student View weekly timetable */
+.student-weekly-schedule-card{
+  background:#ffffff;
+  border:1px solid #d9d9d2;
+  border-radius:18px;
+  padding:0;
+  overflow:hidden;
+  box-shadow:0 8px 18px rgba(15,23,42,.06);
+}
+.student-weekly-schedule-card summary{
+  cursor:pointer;
+  list-style:none;
+  padding:9px 14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  background:#f8fafc;
+  border-bottom:1px solid #e5e7eb;
+}
+.student-weekly-schedule-card summary::-webkit-details-marker{display:none;}
+.student-weekly-schedule-card summary::after{
+  content:"Show";
+  font-size:.75rem;
+  font-weight:800;
+  color:#475569;
+  border:1px solid #cbd5e1;
+  border-radius:999px;
+  padding:3px 10px;
+  background:#ffffff;
+}
+.student-weekly-schedule-card[open] summary::after{content:"Hide";}
+.student-weekly-schedule-title{font-size:1rem;font-weight:800;color:#0f172a;}
+.student-weekly-schedule-subtitle{font-size:.78rem;color:var(--text-muted);margin-top:2px;}
+.weekly-timetable-wrap{padding:10px 12px;overflow-x:auto;background:#ffffff;}
+.weekly-timetable{
+  min-width:940px;
+  display:grid;
+  grid-template-columns:180px repeat(5, minmax(140px, 1fr));
+  border:2px solid #111;
+  border-top:none;
+  background:#111;
+  gap:2px;
+  font-family:"Poppins",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+.weekly-timetable-title{
+  grid-column:1 / -1;
+  background:#000;
+  color:#fff;
+  font-size:1.7rem;
+  line-height:1.05;
+  font-weight:800;
+  text-align:center;
+  padding:10px 12px 12px;
+  letter-spacing:.02em;
+}
+.weekly-timetable-corner,
+.weekly-timetable-day{
+  background:#fff;
+  color:#111;
+  padding:6px 8px;
+  min-height:30px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1rem;
+  font-weight:500;
+}
+.weekly-timetable-time-cell{
+  background:#fff;
+  color:#000;
+  min-height:74px;
+  padding:7px 8px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  line-height:1.1;
+}
+.weekly-timetable-time-cell .block-label{font-size:.9rem;font-weight:400;margin-bottom:3px;}
+.weekly-timetable-time-cell .time-range{font-size:1.14rem;font-weight:800;letter-spacing:-.02em;}
+.weekly-timetable-time-cell .duration{font-size:.82rem;font-weight:400;margin-top:3px;}
+.weekly-timetable-subject-cell{
+  min-height:74px;
+  padding:6px 10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  overflow:hidden;
+}
+.weekly-timetable-subject-name{
+  font-size:1.22rem;
+  line-height:1.04;
+  font-weight:800;
+  letter-spacing:-.02em;
+  overflow-wrap:anywhere;
+}
+.weekly-timetable-subject-name.exploratory{font-weight:400;}
+.weekly-timetable-break-time{
+  background:#fff;
+  color:#000;
+  min-height:26px;
+  padding:4px 8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-size:.9rem;
+  font-weight:800;
+  line-height:1.1;
+}
+.weekly-timetable-break-label{
+  grid-column:2 / -1;
+  min-height:26px;
+  padding:4px 10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-size:.88rem;
+  line-height:1.1;
+  font-weight:800;
+  color:#fff;
+  background:#555;
+}
+.weekly-timetable-break-label.light{color:#000;background:#20e6e6;}
+.weekly-timetable-empty{padding:18px;color:var(--text-muted);font-size:.9rem;}
+.schedule-view-option{
+  margin-top:10px;
+  padding:10px 12px;
+  border:1px solid #dbeafe;
+  border-radius:14px;
+  background:#f8fbff;
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  font-size:.84rem;
+  color:#334155;
+}
+.schedule-view-option strong{color:#0f172a;}
+@media (max-width:900px){
+  .weekly-timetable{min-width:820px;grid-template-columns:150px repeat(5, minmax(120px,1fr));}
+  .weekly-timetable-title{font-size:1.55rem;}
+  .weekly-timetable-subject-name{font-size:1.15rem;}
+  .weekly-timetable-time-cell .time-range{font-size:1.1rem;}
+}
+
 .version-notes-list h3{margin:12px 0 4px;font-size:.9rem;color:var(--accent-strong);}
 .version-notes-list ul{margin:0 0 8px;padding-left:1.2rem;}
 .version-notes-list li{margin:3px 0;font-size:.84rem;color:#475569;line-height:1.4;}
@@ -2064,7 +2214,7 @@
   <div class="app-shell">
     <header>
       <div class="title-block">
-        <h1 id="app-title">Classroom Dashboard <span id="build-version-text" class="build-pill">Build 16.13.3</span></h1>
+        <h1 id="app-title">Classroom Dashboard <span id="build-version-text" class="build-pill">Build 16.14.2</span></h1>
         <p id="app-subtitle"><span class="hint" data-tip="Teacher view, jobs rotation, and a student-facing screen in one lightweight dashboard.">i</span></p>
       </div>
       <div>
@@ -2121,6 +2271,19 @@
     </div>
   </details>
 </div>
+<div class="divider"></div>
+          <div class="agenda-editor teacher-timetable-panel" id="teacher-weekly-schedule-control-row" style="display:none;">
+            <div class="card-header" style="padding:0;">
+              <div>
+                <div class="card-title">Weekly Timetable</div>
+                <div class="card-subtitle">Expand or collapse the weekly schedule card on Student View without touching the projected screen.</div>
+              </div>
+            </div>
+            <div class="daily-state-row">
+              <button class="btn-outline btn-xs" id="teacher-weekly-schedule-toggle-btn" type="button">Expand on Student View</button>
+              <span class="teacher-timetable-status" id="teacher-weekly-schedule-status">Enable the timetable module in Setup first.</span>
+            </div>
+          </div>
 <div class="divider"></div>
           <details class="roster-details" style="margin-top:6px;">
   <summary class="subtext" style="cursor:pointer;"><strong>Class roster</strong> — edit names or remove students. For larger setup changes, use Setup.</summary>
@@ -2468,6 +2631,19 @@
               </div>
             </div>
 
+            <!-- Optional weekly timetable -->
+            <div id="student-weekly-schedule-section" class="student-weekly-schedule-section" style="display:none;">
+              <details id="student-weekly-schedule-details" class="student-weekly-schedule-card">
+                <summary>
+                  <div>
+                    <div class="student-weekly-schedule-title">This Week's Schedule</div>
+                    <div class="student-weekly-schedule-subtitle">Full-week timetable from Setup.</div>
+                  </div>
+                </summary>
+                <div id="student-weekly-schedule-grid" class="weekly-timetable-wrap"></div>
+              </details>
+            </div>
+
             
 <!-- Weekly Jobs (mini tiles) -->
 <div id="weekly-jobs-mini-section">
@@ -2514,7 +2690,7 @@
     <div class="modal setup-modal" role="dialog" aria-modal="true" aria-labelledby="setup-title">
       <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;">
         <div>
-          <h2 id="setup-title">Start-of-Year Setup <span id="setup-version-pill" class="build-pill version-notes-trigger" role="button" tabindex="0" title="Build notes" data-build-label>Build 16.13.3</span></h2>
+          <h2 id="setup-title">Start-of-Year Setup <span id="setup-version-pill" class="build-pill version-notes-trigger" role="button" tabindex="0" title="Build notes" data-build-label>Build 16.14.2</span></h2>
           <div class="modal-sub">Use Basic Setup for the September essentials. Advanced Setup is available for settings that are useful, but not required on day one. To move a setup between browsers, devices, or app versions, use Data & Templates.</div>
         </div>
         <button class="btn-ghost btn-xs" id="setup-close-btn">Close</button>
@@ -2588,6 +2764,11 @@ Student 3"></textarea>
           </div>
           <div id="setup-subject-colour-list" class="subject-colour-list"></div>
         </div>
+        <label class="schedule-view-option">
+          <input type="checkbox" id="setup-show-weekly-schedule" />
+          <span><strong>Show weekly timetable on Student View</strong><br><span class="small-text">Adds a collapsed full-week schedule grid based on this setup. It is hidden by default.</span></span>
+        </label>
+
       </details>
 
       <details class="setup-section" id="setup-jobs-section">
@@ -2774,21 +2955,39 @@ Pro-D Week, 2026-10-19, 2026-10-23"></textarea>
       <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;">
         <div>
           <h2 id="version-notes-title">Build notes</h2>
-          <div class="modal-sub" id="version-notes-current-build" data-build-label>Build 16.13.3</div>
+          <div class="modal-sub" id="version-notes-current-build" data-build-label>Build 16.14.2</div>
         </div>
         <button class="btn-ghost btn-xs" id="version-notes-close-btn" type="button">Close</button>
       </div>
       <div class="version-notes-list">
-        <h3>Build 16.13.3</h3>
+        <h3>Build 16.14.2</h3>
         <ul>
-          <li>Fixes version drift so the title, setup badge, Data &amp; Templates badge, build notes, and runtime build label all show the same current build.</li>
-          <li>Keeps the Build 16.13.1 schedule colour and Jobs Setup wording polish intact.</li>
+          <li>Moves the live weekly timetable expand/collapse control to Teacher View so it can be controlled without touching Student View.</li>
+          <li>Makes Library use a black block with bold white text by default, including for older saved schedules that still had the earlier blue Library style.</li>
+          <li>Keeps the timetable compacted vertically while preserving the full-width weekly layout.</li>
+        </ul>
+        <h3>Build 16.14.1</h3>
+        <ul>
+          <li>Compacts the weekly timetable vertically while keeping the full screen-width layout.</li>
+          <li>Adds Teacher View controls for expanding or collapsing the timetable on Student View.</li>
+          <li>Separates the 16.14.1 and 16.14.0 build notes.</li>
+        </ul>
+        <h3>Build 16.14.0</h3>
+        <ul>
+          <li>Adds an optional collapsed weekly timetable on Student View, populated from Weekly Schedule setup.</li>
+          <li>Uses the saved class name in the timetable title and saved subject colours in the Monday–Friday grid.</li>
+          <li>Adds editable Advisory and Silent Reading times to Advanced schedule times while leaving music pull-out labels for a future build.</li>
         </ul>
         <h3>Build 16.13.3</h3>
         <ul>
           <li>Keeps Weekly Schedule text input fields in a normal font weight while preserving subject-style formatting elsewhere.</li>
           <li>Leaves Exploratory as the lighter-weight subject in Subject Colours, Student View agenda blocks, and the Now/Next ribbon.</li>
           <li>Keeps the Build 16.13.2 version-consistency fix intact.</li>
+        </ul>
+        <h3>Build 16.13.2</h3>
+        <ul>
+          <li>Fixes version drift so the title, setup badge, Data &amp; Templates badge, build notes, and runtime build label all show the same current build.</li>
+          <li>Keeps the Build 16.13.1 schedule colour and Jobs Setup wording polish intact.</li>
         </ul>
         <h3>Build 16.13.1</h3>
         <ul>
@@ -2980,7 +3179,7 @@ Pro-D Week, 2026-10-19, 2026-10-23"></textarea>
     <div class="modal template-modal" role="dialog" aria-modal="true" aria-labelledby="templates-title">
       <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;">
         <div>
-          <h2 id="templates-title">Data & Templates <span id="templates-version-pill" class="build-pill" data-build-label>Build 16.13.3</span></h2>
+          <h2 id="templates-title">Data & Templates <span id="templates-version-pill" class="build-pill" data-build-label>Build 16.14.2</span></h2>
           <div class="modal-sub">Use this space to move, restore, or reuse dashboard data. Data is saved in this browser for this app location; export files only when you intentionally want a copy.</div>
         </div>
         <button class="btn-ghost btn-xs" id="templates-close-btn">Close</button>
@@ -3048,7 +3247,7 @@ Pro-D Week, 2026-10-19, 2026-10-23"></textarea>
 const STORAGE_KEY = "class_points_dashboard_v10";
     const DAILY_REMINDERS_STORAGE_KEY = "classroom_dashboard_daily_reminders_v1";
     const TEMPLATE_STORAGE_KEY = "classroom_dashboard_templates_v16";
-    const BUILD_VERSION = "16.13.3";
+    const BUILD_VERSION = "16.14.2";
 
     // Rotation positions for dropdown
     const ROTATION_POSITIONS = [
@@ -3363,9 +3562,11 @@ function getFirstFreeRotationIndex() {
       { id: "health", label: "Health", bg: "#ff89ff", textColor: "#000000", fontWeight: 700 },
       { id: "flex", label: "Flex", bg: "#ffffff", textColor: "#000000", fontWeight: 700 },
       { id: "exploratory", label: "Exploratory", bg: "#ffffff", textColor: "#000000", fontWeight: 400 },
-      { id: "library", label: "Library", bg: "#0ea5e9", textColor: "#ffffff", fontWeight: 500 },
-      { id: "nutrition", label: "Nutrition Break", bg: "#000000", textColor: "#ffffff", fontWeight: 600 },
-      { id: "lunch", label: "Lunch", bg: "#000000", textColor: "#ffffff", fontWeight: 600 },
+      { id: "library", label: "Library", bg: "#000000", textColor: "#ffffff", fontWeight: 700 },
+      { id: "advisory", label: "Advisory", bg: "#555555", textColor: "#ffffff", fontWeight: 600 },
+      { id: "nutrition", label: "Nutrition Break", bg: "#555555", textColor: "#ffffff", fontWeight: 600 },
+      { id: "lunch", label: "Lunch", bg: "#555555", textColor: "#ffffff", fontWeight: 600 },
+      { id: "silent_reading", label: "Advisory: Silent Reading", bg: "#22e6e6", textColor: "#000000", fontWeight: 700 },
     ];
 
     const AGENDA_SLOT_ORDER = ["now", "next", "then", "later"];
@@ -3427,21 +3628,25 @@ function getFirstFreeRotationIndex() {
     ];
 
     const DEFAULT_SCHEDULE_TIMES = {
+      advisory: { label: "Advisory", startMinutes: 8*60+40, endMinutes: 8*60+52, subjectId: "advisory" },
       block1: { label: "Block 1", startMinutes: 8*60+52, endMinutes: 9*60+48 },
       nutrition: { label: "Nutrition Break", startMinutes: 9*60+48, endMinutes: 10*60+3, subjectId: "nutrition" },
       block2: { label: "Block 2", startMinutes: 10*60+2, endMinutes: 10*60+59 },
       block3: { label: "Block 3", startMinutes: 10*60+59, endMinutes: 11*60+55 },
       lunch: { label: "Lunch", startMinutes: 11*60+55, endMinutes: 12*60+40, subjectId: "lunch" },
-      block4: { label: "Block 4", startMinutes: 12*60+57, endMinutes: 13*60+54 },
+      silent: { label: "Advisory: Silent Reading", startMinutes: 12*60+40, endMinutes: 12*60+58, subjectId: "silent_reading" },
+      block4: { label: "Block 4", startMinutes: 12*60+58, endMinutes: 13*60+54 },
       block5: { label: "Block 5", startMinutes: 13*60+54, endMinutes: 14*60+50 },
     };
 
     const SCHEDULE_TIME_FIELDS = [
+      { key: "advisory", label: "Advisory" },
       { key: "block1", label: "Block 1" },
       { key: "nutrition", label: "Nutrition Break" },
       { key: "block2", label: "Block 2" },
       { key: "block3", label: "Block 3" },
       { key: "lunch", label: "Lunch" },
+      { key: "silent", label: "Advisory: Silent Reading" },
       { key: "block4", label: "Block 4" },
       { key: "block5", label: "Block 5" },
     ];
@@ -3452,8 +3657,10 @@ function getFirstFreeRotationIndex() {
 
     function cloneDefaultBreakSchedule() {
       return {
+        advisory: { startMinutes: DEFAULT_SCHEDULE_TIMES.advisory.startMinutes, endMinutes: DEFAULT_SCHEDULE_TIMES.advisory.endMinutes, subjectId: "advisory" },
         nutrition: { startMinutes: DEFAULT_SCHEDULE_TIMES.nutrition.startMinutes, endMinutes: DEFAULT_SCHEDULE_TIMES.nutrition.endMinutes, subjectId: "nutrition" },
         lunch: { startMinutes: DEFAULT_SCHEDULE_TIMES.lunch.startMinutes, endMinutes: DEFAULT_SCHEDULE_TIMES.lunch.endMinutes, subjectId: "lunch" },
+        silent: { startMinutes: DEFAULT_SCHEDULE_TIMES.silent.startMinutes, endMinutes: DEFAULT_SCHEDULE_TIMES.silent.endMinutes, subjectId: "silent_reading" },
       };
     }
 
@@ -3523,7 +3730,7 @@ function getFirstFreeRotationIndex() {
 
       const currentBreaks = targetState.schedule.breaks || {};
       const normalizedBreaks = {};
-      ["nutrition", "lunch"].forEach((key) => {
+      ["advisory", "nutrition", "lunch", "silent"].forEach((key) => {
         const timeDef = DEFAULT_SCHEDULE_TIMES[key];
         const current = currentBreaks[key] || {};
         normalizedBreaks[key] = {
@@ -3546,7 +3753,7 @@ function getFirstFreeRotationIndex() {
           state.schedule.week[dow][index].endMinutes = t.endMinutes;
         });
       });
-      ["nutrition", "lunch"].forEach((key) => {
+      ["advisory", "nutrition", "lunch", "silent"].forEach((key) => {
         const t = times[key] || DEFAULT_SCHEDULE_TIMES[key];
         state.schedule.breaks[key] = { startMinutes: t.startMinutes, endMinutes: t.endMinutes, subjectId: DEFAULT_SCHEDULE_TIMES[key].subjectId };
       });
@@ -3596,6 +3803,14 @@ function getFirstFreeRotationIndex() {
         subject.bg = normalizeHexColor(subject.bg) || def?.bg || "#ffffff";
         subject.textColor = normalizeHexColor(subject.textColor) || getContrastingTextColor(subject.bg);
         subject.fontWeight = Number(subject.fontWeight || def?.fontWeight || 700);
+        if (subject.id === "library") {
+          const legacyLibraryColours = new Set(["#0000ff", "#3b82f6", "#2563eb", "#ffffff"]);
+          if (legacyLibraryColours.has(String(subject.bg || "").toLowerCase()) || Number(subject.fontWeight) < 700) {
+            subject.bg = "#000000";
+            subject.textColor = "#ffffff";
+            subject.fontWeight = 700;
+          }
+        }
       });
       SUBJECTS.forEach((def) => {
         if (!targetState.subjects.some((subject) => subject.id === def.id)) targetState.subjects.push({ ...def });
@@ -3930,6 +4145,8 @@ function getFirstFreeRotationIndex() {
           hideDisabledJobs: false,
           safeMode: false,
           className: "Classroom Dashboard",
+          showWeeklyScheduleOnStudentView: false,
+          weeklyScheduleExpandedOnStudentView: false,
         },
         breakRanges: JSON.parse(JSON.stringify(DEFAULT_NON_ROTATION_RANGES)),
         subjects: JSON.parse(JSON.stringify(SUBJECTS)),
@@ -3967,6 +4184,8 @@ function getFirstFreeRotationIndex() {
       parsed.settings.showClockSeconds ??= true;
       parsed.settings.showCountdownSeconds ??= true;
       parsed.settings.safeMode ??= false;
+      parsed.settings.showWeeklyScheduleOnStudentView ??= false;
+      parsed.settings.weeklyScheduleExpandedOnStudentView ??= false;
       parsed.settings.onCallSlotsCount ??= 6;
       parsed.settings.showStudentPoints ??= false;
       parsed.settings.showStudentLeaderboard ??= false;
@@ -4567,6 +4786,12 @@ const exportBtn = document.getElementById("export-data-btn");
     const resetJobsTodayBtn = document.getElementById("reset-jobs-today-btn");
     const todayRemindersInput = document.getElementById("today-reminders-input");
     const agendaBlocksEl = document.getElementById("agenda-blocks");
+    const studentWeeklyScheduleSection = document.getElementById("student-weekly-schedule-section");
+    const studentWeeklyScheduleDetails = document.getElementById("student-weekly-schedule-details");
+    const studentWeeklyScheduleGrid = document.getElementById("student-weekly-schedule-grid");
+    const teacherWeeklyScheduleControlRow = document.getElementById("teacher-weekly-schedule-control-row");
+    const teacherWeeklyScheduleToggleBtn = document.getElementById("teacher-weekly-schedule-toggle-btn");
+    const teacherWeeklyScheduleStatus = document.getElementById("teacher-weekly-schedule-status");
     const addStudentBtn = document.getElementById("add-student-btn");
     const newStudentNameInput = document.getElementById("new-student-name");
     const rotationListEl = document.getElementById("rotation-list");
@@ -5948,6 +6173,106 @@ if (["broom_detail_1", "broom_detail_2", "broom_detail_3"].includes(job.jobKey))
       });
     }
 
+
+
+    function minutesToTimeRangeLabel(minutes) {
+      const safe = Number.isFinite(Number(minutes)) ? Number(minutes) : 0;
+      let h = Math.floor(safe / 60);
+      const m = safe % 60;
+      let h12 = h % 12;
+      if (h12 === 0) h12 = 12;
+      return `${h12}:${pad(m)}`;
+    }
+
+    function minutesToTimetableRange(startMinutes, endMinutes) {
+      return `${minutesToTimeRangeLabel(startMinutes)} – ${minutesToTimeRangeLabel(endMinutes)}`;
+    }
+
+    function getTimetableClassName() {
+      const raw = state.settings?.className || state.profile?.className || "Classroom";
+      return String(raw || "Classroom").trim() || "Classroom";
+    }
+
+    function buildTimetableRows() {
+      normalizeScheduleState();
+      return [
+        { type: "break", key: "advisory", label: "Advisory" },
+        { type: "block", key: "block1", index: 0, label: "Block 1" },
+        { type: "break", key: "nutrition", label: "Nutrition Break" },
+        { type: "block", key: "block2", index: 1, label: "Block 2" },
+        { type: "block", key: "block3", index: 2, label: "Block 3" },
+        { type: "break", key: "lunch", label: "Lunch" },
+        { type: "break", key: "silent", label: "Advisory: Silent Reading", light: true },
+        { type: "block", key: "block4", index: 3, label: "Block 4" },
+        { type: "block", key: "block5", index: 4, label: "Block 5" },
+      ];
+    }
+
+    function renderTeacherWeeklyScheduleControl() {
+      if (!teacherWeeklyScheduleControlRow || !teacherWeeklyScheduleToggleBtn || !teacherWeeklyScheduleStatus) return;
+      const available = !!state.settings?.showWeeklyScheduleOnStudentView;
+      teacherWeeklyScheduleControlRow.style.display = available ? "flex" : "none";
+      if (!available) {
+        teacherWeeklyScheduleToggleBtn.textContent = "Show on Student View";
+        teacherWeeklyScheduleStatus.textContent = "Enable the timetable module in Setup first.";
+        return;
+      }
+      const expanded = !!state.settings?.weeklyScheduleExpandedOnStudentView;
+      teacherWeeklyScheduleToggleBtn.textContent = expanded ? "Collapse on Student View" : "Expand on Student View";
+      teacherWeeklyScheduleStatus.textContent = expanded ? "Timetable card is expanded." : "Timetable card is available but collapsed.";
+    }
+
+    function renderStudentWeeklySchedule() {
+      if (!studentWeeklyScheduleSection || !studentWeeklyScheduleGrid) return;
+      const shouldShow = !!state.settings?.showWeeklyScheduleOnStudentView;
+      studentWeeklyScheduleSection.style.display = shouldShow ? "block" : "none";
+      if (!shouldShow) {
+        studentWeeklyScheduleGrid.innerHTML = "";
+        if (studentWeeklyScheduleDetails) studentWeeklyScheduleDetails.open = false;
+        renderTeacherWeeklyScheduleControl();
+        return;
+      }
+      if (studentWeeklyScheduleDetails) studentWeeklyScheduleDetails.open = !!state.settings.weeklyScheduleExpandedOnStudentView;
+      normalizeScheduleState();
+      studentWeeklyScheduleGrid.innerHTML = "";
+      const table = createElement("div", { class: "weekly-timetable" });
+      table.appendChild(createElement("div", { class: "weekly-timetable-title", text: `${getTimetableClassName()} Timetable` }));
+      table.appendChild(createElement("div", { class: "weekly-timetable-corner", text: "" }));
+      SCHEDULE_DAYS.forEach(({ label }) => table.appendChild(createElement("div", { class: "weekly-timetable-day", text: label })));
+
+      buildTimetableRows().forEach((row) => {
+        if (row.type === "break") {
+          const t = state.schedule.breaks?.[row.key] || DEFAULT_SCHEDULE_TIMES[row.key];
+          const duration = Math.max(0, Number(t.endMinutes) - Number(t.startMinutes));
+          table.appendChild(createElement("div", { class: "weekly-timetable-break-time", text: minutesToTimetableRange(t.startMinutes, t.endMinutes) }));
+          const labelText = duration ? `${row.label} (${duration} minutes)` : row.label;
+          table.appendChild(createElement("div", { class: `weekly-timetable-break-label${row.light ? " light" : ""}`, text: labelText }));
+          return;
+        }
+
+        const t = (state.schedule.week?.[1]?.[row.index]) || DEFAULT_SCHEDULE_TIMES[row.key];
+        const duration = Math.max(0, Number(t.endMinutes) - Number(t.startMinutes));
+        const timeCell = createElement("div", { class: "weekly-timetable-time-cell" });
+        timeCell.appendChild(createElement("div", { class: "block-label", text: row.label }));
+        timeCell.appendChild(createElement("div", { class: "time-range", text: minutesToTimetableRange(t.startMinutes, t.endMinutes) }));
+        if (duration) timeCell.appendChild(createElement("div", { class: "duration", text: `(${duration} minutes)` }));
+        table.appendChild(timeCell);
+
+        SCHEDULE_DAYS.forEach(({ dow }) => {
+          const block = state.schedule.week?.[dow]?.[row.index] || WEEK_MAIN_SCHEDULE[dow]?.[row.index] || {};
+          const subj = subjectById(block.subjectId) || SUBJECTS.find((subject) => subject.id === block.subjectId);
+          const cell = createElement("div", { class: "weekly-timetable-subject-cell" });
+          cell.style.background = subj?.bg || "#ffffff";
+          cell.style.color = subj?.textColor || getContrastingTextColor(subj?.bg || "#ffffff");
+          const name = createElement("div", { class: "weekly-timetable-subject-name", text: subj?.label || "" });
+          if ((subj?.label || "").trim().toLowerCase() === "exploratory") name.classList.add("exploratory");
+          name.style.fontWeight = subj?.fontWeight || 700;
+          cell.appendChild(name);
+          table.appendChild(cell);
+        });
+      });
+      studentWeeklyScheduleGrid.appendChild(table);
+    }
     // Agenda (Student View)
     function renderAgendaDisplay() {
       agendaBlocksEl.innerHTML = "";
@@ -6627,6 +6952,27 @@ function clearPointUndoStack() {
       });
     }
 
+    if (teacherWeeklyScheduleToggleBtn) {
+      teacherWeeklyScheduleToggleBtn.addEventListener("click", () => {
+        if (!state.settings.showWeeklyScheduleOnStudentView) return;
+        state.settings.weeklyScheduleExpandedOnStudentView = !state.settings.weeklyScheduleExpandedOnStudentView;
+        saveState();
+        renderStudentWeeklySchedule();
+        renderTeacherWeeklyScheduleControl();
+      });
+    }
+
+    if (studentWeeklyScheduleDetails) {
+      studentWeeklyScheduleDetails.addEventListener("toggle", () => {
+        if (!state.settings.showWeeklyScheduleOnStudentView) return;
+        const next = !!studentWeeklyScheduleDetails.open;
+        if (state.settings.weeklyScheduleExpandedOnStudentView === next) return;
+        state.settings.weeklyScheduleExpandedOnStudentView = next;
+        saveState();
+        renderTeacherWeeklyScheduleControl();
+      });
+    }
+
 resetJobsTodayBtn.addEventListener("click", () => {
       if (!confirm("Reset job completion status for today?")) return;
       state.jobs.forEach((j) => (j.doneToday = false));
@@ -6700,6 +7046,7 @@ resetJobsTodayBtn.addEventListener("click", () => {
     const setupDismissalMinute = document.getElementById("setup-dismissal-minute");
     const setupShowClockSeconds = document.getElementById("setup-show-clock-seconds");
     const setupShowCountdownSeconds = document.getElementById("setup-show-countdown-seconds");
+    const setupShowWeeklySchedule = document.getElementById("setup-show-weekly-schedule");
     const setupWeeklyScheduleGrid = document.getElementById("setup-weekly-schedule-grid");
     const setupJobsList = document.getElementById("setup-jobs-list");
     const setupJobsCapacityWarning = document.getElementById("setup-jobs-capacity-warning");
@@ -8472,7 +8819,7 @@ if (tab === "jobs") {
           endMinutes: block.endMinutes,
         };
       });
-      ["nutrition", "lunch"].forEach((key) => {
+      ["advisory", "nutrition", "lunch", "silent"].forEach((key) => {
         const block = state.schedule.breaks?.[key] || DEFAULT_SCHEDULE_TIMES[key];
         times[key] = {
           label: DEFAULT_SCHEDULE_TIMES[key].label,
@@ -8904,6 +9251,7 @@ if (tab === "jobs") {
       if (setupDismissalMinute) setupDismissalMinute.value = state.settings.dismissalMinute ?? 50;
       if (setupShowClockSeconds) setupShowClockSeconds.checked = state.settings.showClockSeconds ?? true;
       if (setupShowCountdownSeconds) setupShowCountdownSeconds.checked = state.settings.showCountdownSeconds ?? true;
+      if (setupShowWeeklySchedule) setupShowWeeklySchedule.checked = !!state.settings.showWeeklyScheduleOnStudentView;
 
       const winter = getBreakRangeByLabel("winter");
       const spring = getBreakRangeByLabel("spring");
@@ -9026,6 +9374,8 @@ if (tab === "jobs") {
       state.settings.dismissalMinute = clampInt(parseInt(setupDismissalMinute?.value ?? "50", 10), 0, 59);
       state.settings.showClockSeconds = !!setupShowClockSeconds?.checked;
       state.settings.showCountdownSeconds = !!setupShowCountdownSeconds?.checked;
+      state.settings.showWeeklyScheduleOnStudentView = !!setupShowWeeklySchedule?.checked;
+      if (!state.settings.showWeeklyScheduleOnStudentView) state.settings.weeklyScheduleExpandedOnStudentView = false;
 
       if (!isSetupDateRangeValid(setupWinterStartInput?.value, setupWinterEndInput?.value)) {
         alert("Winter Break dates need to run from the first day away to the last day away.");
@@ -9110,6 +9460,8 @@ if (tab === "jobs") {
       renderFocusMode();
       renderEodJobsVisibilityToggle();
       renderAgendaDisplay();
+      renderStudentWeeklySchedule();
+      renderTeacherWeeklyScheduleControl();
       renderNextRibbon();
       renderNowNextStrip();
       updateClock();
