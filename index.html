@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Classroom Dashboard · Build 16.14.2</title>
+  <title>Classroom Dashboard · Build 16.15.1</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Poppins + Trocchi fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Trocchi&display=swap" rel="stylesheet">
@@ -1572,11 +1572,12 @@
 .schedule-time-grid{
   margin-top:12px;
   display:grid;
-  grid-template-columns: 1.2fr 1fr 1fr;
+  grid-template-columns: 1.05fr 1.45fr 1fr 1fr;
   gap:8px;
   align-items:center;
 }
-.schedule-time-grid input[type="time"]{
+.schedule-time-grid input[type="time"],
+.schedule-time-grid input[type="text"]{
   border-radius:var(--radius-sm);
   border:1px solid var(--border);
   padding:6px 8px;
@@ -1693,7 +1694,7 @@
 }
 
 
-/* Build 16.14.2: Optional Student View weekly timetable */
+/* Build 16.14.3: Optional Student View weekly timetable */
 .student-weekly-schedule-card{
   background:#ffffff;
   border:1px solid #d9d9d2;
@@ -1725,6 +1726,12 @@
   background:#ffffff;
 }
 .student-weekly-schedule-card[open] summary::after{content:"Hide";}
+.student-collapsible-card{background:#ffffff;border:1px solid #d9d9d2;border-radius:18px;overflow:hidden;box-shadow:0 8px 18px rgba(15,23,42,.06);}
+.student-collapsible-card summary{cursor:pointer;list-style:none;padding:9px 14px;display:flex;justify-content:space-between;align-items:center;gap:12px;background:#f8fafc;border-bottom:1px solid #e5e7eb;}
+.student-collapsible-card summary::-webkit-details-marker{display:none;}
+.student-collapsible-card summary::after{content:"Show";font-size:.75rem;font-weight:800;color:#475569;border:1px solid #cbd5e1;border-radius:999px;padding:3px 10px;background:#ffffff;}
+.student-collapsible-card[open] summary::after{content:"Hide";}
+.student-collapsible-body{padding:10px 12px;}
 .student-weekly-schedule-title{font-size:1rem;font-weight:800;color:#0f172a;}
 .student-weekly-schedule-subtitle{font-size:.78rem;color:var(--text-muted);margin-top:2px;}
 .weekly-timetable-wrap{padding:10px 12px;overflow-x:auto;background:#ffffff;}
@@ -1732,10 +1739,10 @@
   min-width:940px;
   display:grid;
   grid-template-columns:180px repeat(5, minmax(140px, 1fr));
-  border:2px solid #111;
+  border:1px solid #111;
   border-top:none;
   background:#111;
-  gap:2px;
+  gap:1px;
   font-family:"Poppins",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 .weekly-timetable-title{
@@ -1764,8 +1771,8 @@
 .weekly-timetable-time-cell{
   background:#fff;
   color:#000;
-  min-height:74px;
-  padding:7px 8px;
+  min-height:70px;
+  padding:6px 8px;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -1777,7 +1784,7 @@
 .weekly-timetable-time-cell .time-range{font-size:1.14rem;font-weight:800;letter-spacing:-.02em;}
 .weekly-timetable-time-cell .duration{font-size:.82rem;font-weight:400;margin-top:3px;}
 .weekly-timetable-subject-cell{
-  min-height:74px;
+  min-height:70px;
   padding:6px 10px;
   display:flex;
   align-items:center;
@@ -1796,8 +1803,8 @@
 .weekly-timetable-break-time{
   background:#fff;
   color:#000;
-  min-height:26px;
-  padding:4px 8px;
+  min-height:24px;
+  padding:3px 8px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -1808,8 +1815,8 @@
 }
 .weekly-timetable-break-label{
   grid-column:2 / -1;
-  min-height:26px;
-  padding:4px 10px;
+  min-height:24px;
+  padding:3px 10px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -2060,13 +2067,18 @@
 .seating-chip-name{font-size:.86rem;font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .seating-empty{font-size:.82rem;color:var(--text-muted);padding:10px;text-align:center;}
 .seating-canvas-card{min-width:0;}
-.seating-canvas-wrap{position:relative;overflow:auto;border:1px solid #e5e7eb;border-radius:18px;background:#f7f7f4;min-height:520px;max-height:calc(100vh - 260px);}
+.seating-canvas-wrap{position:relative;overflow:auto;border:1px solid #e5e7eb;border-radius:18px;background-color:#f7f7f4;background-image:linear-gradient(rgba(15,23,42,.075) 1px, transparent 1px),linear-gradient(90deg, rgba(15,23,42,.075) 1px, transparent 1px);background-size:20px 20px;min-height:520px;max-height:calc(100vh - 260px);}
 .seating-perspective-alert{display:none;position:sticky;top:0;z-index:7;margin:8px 10px 0;padding:8px 12px;border-radius:14px;background:#fef3c7;border:1px solid #fbbf24;color:#78350f;font-size:.8rem;font-weight:600;box-shadow:0 6px 14px rgba(15,23,42,.08);}
 .seating-front-banner{position:sticky;top:0;z-index:5;text-align:center;padding:8px 12px;font-size:.72rem;font-weight:800;letter-spacing:.14em;color:#64748b;background:#eeeeea;border-bottom:1px solid #d8d8d2;}
 .seating-canvas-wrap.front-perspective-mode{display:flex;flex-direction:column;align-items:flex-start;}
 .seating-canvas-wrap.front-perspective-mode .seating-front-banner{order:3;position:sticky;top:auto;bottom:0;align-self:stretch;border-top:1px solid #d8d8d2;border-bottom:none;background:#eeeeea;}
 .seating-canvas-wrap.front-perspective-mode .seating-canvas{order:2;}
-.seating-canvas{position:relative;width:1120px;min-width:1120px;min-height:520px;background-image:linear-gradient(rgba(15,23,42,.045) 1px, transparent 1px),linear-gradient(90deg, rgba(15,23,42,.045) 1px, transparent 1px);background-size:20px 20px;transform-origin:top left;}
+.seating-canvas{position:relative;width:1120px;min-width:1120px;min-height:520px;background:transparent;transform-origin:top left;}
+.seating-room-boundary{position:absolute;left:0;top:0;border:2px solid rgba(15,23,42,.45);border-radius:12px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.6);pointer-events:none;z-index:0;}
+.seating-room-boundary::after{content:"Room boundary";position:absolute;right:8px;bottom:6px;font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:rgba(15,23,42,.56);background:rgba(255,255,255,.78);border:1px solid rgba(15,23,42,.12);border-radius:999px;padding:2px 7px;}
+.seating-desk{z-index:1;}
+.seating-room-size-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;background:#fff;border:1px solid #e5e7eb;border-radius:999px;padding:4px 8px;}
+.seating-room-size-row input[type="number"]{width:74px;text-align:center;padding:4px 6px;}
 .seating-desk{position:absolute;width:120px;background:#fff;border:1.5px solid #d9d9d2;border-radius:12px;box-shadow:0 4px 12px rgba(15,23,42,.08);z-index:1;overflow:visible;}
 .seating-desk:hover{z-index:3;box-shadow:0 8px 18px rgba(15,23,42,.14);}
 .seating-desk.locked{border:2px solid #f59e0b;z-index:4;}
@@ -2102,7 +2114,7 @@
 .seating-canvas.hide-photos .seating-chip-avatar{width:30px;}
 .seating-perspective-row{margin-top:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .seating-perspective-label{font-size:.78rem;color:var(--text-muted);font-variant-numeric:tabular-nums;}
-.seating-canvas.front-perspective{background-image:linear-gradient(rgba(15,23,42,.06) 1px, transparent 1px),linear-gradient(90deg, rgba(15,23,42,.06) 1px, transparent 1px);}
+.seating-canvas.front-perspective{background:transparent;}
 
 
 
@@ -2214,7 +2226,7 @@
   <div class="app-shell">
     <header>
       <div class="title-block">
-        <h1 id="app-title">Classroom Dashboard <span id="build-version-text" class="build-pill">Build 16.14.2</span></h1>
+        <h1 id="app-title">Classroom Dashboard <span id="build-version-text" class="build-pill">Build 16.15.1</span></h1>
         <p id="app-subtitle"><span class="hint" data-tip="Teacher view, jobs rotation, and a student-facing screen in one lightweight dashboard.">i</span></p>
       </div>
       <div>
@@ -2516,6 +2528,13 @@
                   
                   <label class="seating-checkbox-label"><input type="checkbox" id="seating-show-photos-toggle" /> Photos</label>
                 </div>
+                <div class="seating-room-size-row" title="Adjust the visible room boundary without changing student assignments.">
+                  <span class="seating-tool-label">Room</span>
+                  <label for="seating-room-width-input">W</label>
+                  <input type="number" id="seating-room-width-input" min="760" max="1800" step="20" />
+                  <label for="seating-room-height-input">H</label>
+                  <input type="number" id="seating-room-height-input" min="420" max="1200" step="20" />
+                </div>
               </div>
               <div id="seating-perspective-alert" class="seating-perspective-alert">Flipped Perspective — viewing from the front of the room. Saved desk positions are unchanged.</div>
               <div id="seating-front-banner" class="seating-front-banner">▲ FRONT OF ROOM ▲</div>
@@ -2582,18 +2601,23 @@
           </div>
 
             <div id="student-seating-broadcast" class="student-seating-broadcast">
-              <div class="time-card broadcast-card">
-                <div class="broadcast-title-row">
+              <details id="student-seating-details" class="student-collapsible-card" open>
+                <summary>
                   <div>
-                    <div class="time-label">Seating Plan</div>
+                    <div class="student-weekly-schedule-title">Seating Plan</div>
+                    <div class="student-weekly-schedule-subtitle">Projected seating display.</div>
+                  </div>
+                </summary>
+                <div class="student-collapsible-body">
+                  <div class="time-card broadcast-card">
+                    <div id="student-seating-broadcast-front-top" class="broadcast-front-banner">▲ FRONT OF ROOM ▲</div>
+                    <div id="student-seating-broadcast-wrap" class="broadcast-map-wrap">
+                      <div id="student-seating-broadcast-map" class="broadcast-map"></div>
+                    </div>
+                    <div id="student-seating-broadcast-front-bottom" class="broadcast-front-banner" style="display:none;">▼ FRONT OF ROOM ▼</div>
                   </div>
                 </div>
-                <div id="student-seating-broadcast-front-top" class="broadcast-front-banner">▲ FRONT OF ROOM ▲</div>
-                <div id="student-seating-broadcast-wrap" class="broadcast-map-wrap">
-                  <div id="student-seating-broadcast-map" class="broadcast-map"></div>
-                </div>
-                <div id="student-seating-broadcast-front-bottom" class="broadcast-front-banner" style="display:none;">▼ FRONT OF ROOM ▼</div>
-              </div>
+              </details>
             </div>
 
             <div class="time-card points-card" id="eod-points-card" style="display:none;">
@@ -2616,6 +2640,19 @@
               </div>
             </div>
 
+            <!-- Optional weekly timetable -->
+            <div id="student-weekly-schedule-section" class="student-weekly-schedule-section" style="display:none;">
+              <details id="student-weekly-schedule-details" class="student-weekly-schedule-card">
+                <summary>
+                  <div>
+                    <div class="student-weekly-schedule-title">This Week's Schedule</div>
+                    <div class="student-weekly-schedule-subtitle">Full-week timetable from Setup.</div>
+                  </div>
+                </summary>
+                <div id="student-weekly-schedule-grid" class="weekly-timetable-wrap"></div>
+              </details>
+            </div>
+
             <!-- Agenda display -->
             <div class="agenda-display">
               <div class="card-header" style="padding:0 2px 4px;">
@@ -2631,20 +2668,6 @@
               </div>
             </div>
 
-            <!-- Optional weekly timetable -->
-            <div id="student-weekly-schedule-section" class="student-weekly-schedule-section" style="display:none;">
-              <details id="student-weekly-schedule-details" class="student-weekly-schedule-card">
-                <summary>
-                  <div>
-                    <div class="student-weekly-schedule-title">This Week's Schedule</div>
-                    <div class="student-weekly-schedule-subtitle">Full-week timetable from Setup.</div>
-                  </div>
-                </summary>
-                <div id="student-weekly-schedule-grid" class="weekly-timetable-wrap"></div>
-              </details>
-            </div>
-
-            
 <!-- Weekly Jobs (mini tiles) -->
 <div id="weekly-jobs-mini-section">
   <div class="card-header" style="padding:0 2px 4px;">
@@ -2678,6 +2701,8 @@
                 Jobs are currently hidden on this screen. Toggle visibility from the Jobs & Rotation tab.
               </div>
                           </div>
+
+
           </div>
         </div>
       </section>
@@ -2690,7 +2715,7 @@
     <div class="modal setup-modal" role="dialog" aria-modal="true" aria-labelledby="setup-title">
       <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;">
         <div>
-          <h2 id="setup-title">Start-of-Year Setup <span id="setup-version-pill" class="build-pill version-notes-trigger" role="button" tabindex="0" title="Build notes" data-build-label>Build 16.14.2</span></h2>
+          <h2 id="setup-title">Start-of-Year Setup <span id="setup-version-pill" class="build-pill version-notes-trigger" role="button" tabindex="0" title="Build notes" data-build-label>Build 16.15.1</span></h2>
           <div class="modal-sub">Use Basic Setup for the September essentials. Advanced Setup is available for settings that are useful, but not required on day one. To move a setup between browsers, devices, or app versions, use Data & Templates.</div>
         </div>
         <button class="btn-ghost btn-xs" id="setup-close-btn">Close</button>
@@ -2777,7 +2802,7 @@ Student 3"></textarea>
           <span class="setup-section-subtitle">Structural job settings: names, colours, descriptions, enabled/disabled status, and Student View tile type.</span>
         </summary>
         <div class="jobs-setup-controls">
-          <span class="small-text">Use this for structural changes. Disabled jobs are removed from the wheel and daily Jobs view, but keep their name, colour, description, and previous Student View tile setting for later.</span>
+          <span class="small-text">Use this for structural changes. The order controls the Class Job Board and weekly rotation path. Disabled jobs are removed from the wheel and daily Jobs view, but keep their name, colour, description, and previous Student View tile setting for later.</span>
         </div>
         <div id="setup-jobs-capacity-warning" class="jobs-setup-warning" role="status" aria-live="polite"></div>
         <div id="setup-jobs-list" class="jobs-setup-list"></div>
@@ -2955,15 +2980,55 @@ Pro-D Week, 2026-10-19, 2026-10-23"></textarea>
       <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;">
         <div>
           <h2 id="version-notes-title">Build notes</h2>
-          <div class="modal-sub" id="version-notes-current-build" data-build-label>Build 16.14.2</div>
+          <div class="modal-sub" id="version-notes-current-build" data-build-label>Build 16.15.1</div>
         </div>
         <button class="btn-ghost btn-xs" id="version-notes-close-btn" type="button">Close</button>
       </div>
       <div class="version-notes-list">
+        <h3>Build 16.15.1</h3>
+        <ul>
+          <li>Hotfixes the failed 16.15.0 cleanup by restoring the stable 16.14.9 code path.</li>
+          <li>Keeps the visible build label moving forward without removing any additional JavaScript.</li>
+        </ul>
+        <h3>Build 16.14.9</h3>
+        <ul>
+          <li>Makes the Seating Plan canvas use one consistent draft-grid background across the full visible classroom planning area.</li>
+          <li>Keeps the visible, adjustable room boundary from 16.14.8 without changing assignment or drag logic.</li>
+        </ul>
+        <h3>Build 16.14.8</h3>
+        <ul>
+          <li>Routes renamed break/advisory labels into Student View agenda chips and the Now/Next ribbon.</li>
+          <li>Moves This Week's Schedule below the Seating Plan and gives the Seating Plan a matching Show/Hide wrapper.</li>
+          <li>Restores thin black timetable grid lines, strengthens the backup privacy note, and adds visible/adjustable room bounds for the seating canvas.</li>
+        </ul>
+        <h3>Build 16.14.6</h3>
+        <ul>
+          <li>Adds a performance cleanup pass that avoids rebuilding heavier Seating Plan and rotation details when those tabs are not visible.</li>
+          <li>Keeps the weekly timetable lazy-rendered while collapsed, and only fits the broadcast seating map when Student View is active.</li>
+          <li>Checks and restores the missing 16.14.x changelog sequence.</li>
+        </ul>
+        <h3>Build 16.14.5</h3>
+        <ul>
+          <li>Moves the optional weekly timetable lower on Student View so Today's Agenda and jobs stay together.</li>
+          <li>Lazy-renders the weekly timetable only when expanded, reducing unnecessary DOM work when the module is collapsed.</li>
+          <li>Keeps the 16.14.4 job-order stability fixes intact.</li>
+        </ul>
+        <h3>Build 16.14.4</h3>
+        <ul>
+          <li>Fixes Jobs Setup up/down arrows and the button helper issue that could disable controls unexpectedly.</li>
+          <li>Makes saved job order control the Class Job Board and weekly rotation path while preserving current placements where possible.</li>
+          <li>Adds setup copy explaining that job order affects both the board and rotation path.</li>
+        </ul>
+        <h3>Build 16.14.3</h3>
+        <ul>
+          <li>Adds editable labels for Advisory, Nutrition Break, Lunch, and the afternoon advisory/silent reading row in Advanced Schedule Times.</li>
+          <li>Softens the weekly timetable grid borders and tightens the timetable spacing slightly.</li>
+          <li>Keeps the timetable row keys stable so renamed labels do not break schedule logic.</li>
+        </ul>
         <h3>Build 16.14.2</h3>
         <ul>
-          <li>Moves the live weekly timetable expand/collapse control to Teacher View so it can be controlled without touching Student View.</li>
           <li>Makes Library use a black block with bold white text by default, including for older saved schedules that still had the earlier blue Library style.</li>
+          <li>Adds a more visible Teacher View control for expanding or collapsing the weekly timetable on Student View.</li>
           <li>Keeps the timetable compacted vertically while preserving the full-width weekly layout.</li>
         </ul>
         <h3>Build 16.14.1</h3>
@@ -3179,7 +3244,7 @@ Pro-D Week, 2026-10-19, 2026-10-23"></textarea>
     <div class="modal template-modal" role="dialog" aria-modal="true" aria-labelledby="templates-title">
       <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;">
         <div>
-          <h2 id="templates-title">Data & Templates <span id="templates-version-pill" class="build-pill" data-build-label>Build 16.14.2</span></h2>
+          <h2 id="templates-title">Data & Templates <span id="templates-version-pill" class="build-pill" data-build-label>Build 16.15.1</span></h2>
           <div class="modal-sub">Use this space to move, restore, or reuse dashboard data. Data is saved in this browser for this app location; export files only when you intentionally want a copy.</div>
         </div>
         <button class="btn-ghost btn-xs" id="templates-close-btn">Close</button>
@@ -3189,7 +3254,7 @@ Pro-D Week, 2026-10-19, 2026-10-23"></textarea>
         <div class="template-panel">
           <div class="template-panel-title">Full Dashboard Backup</div>
           <p class="template-note">Use this when you want an exact copy of the current dashboard, including students, job assignments, seating plans, photos, today's reminders, absences, and daily completion states.</p>
-          <p class="template-note"><strong>Privacy note:</strong> Full dashboard backup files may include student names, seating plans, photos, jobs, reminders, and classroom setup details. Store or share backup files carefully.</p>
+          <p class="template-note" style="color:#991b1b;background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px 10px;"><strong>Privacy note:</strong> Full dashboard backup files may include student names, seating plans, photos, jobs, reminders, and classroom setup details. Store or share backup files carefully.</p>
           <p class="template-note">Opening the dashboard in a different browser, on another device, or from a different app location may start fresh. Use Backup and Restore here when you intentionally want to move your full setup.</p>
           <div class="template-actions-row">
             <button class="btn-outline" id="templates-backup-btn" type="button">Export Full Dashboard Backup</button>
@@ -3247,7 +3312,7 @@ Pro-D Week, 2026-10-19, 2026-10-23"></textarea>
 const STORAGE_KEY = "class_points_dashboard_v10";
     const DAILY_REMINDERS_STORAGE_KEY = "classroom_dashboard_daily_reminders_v1";
     const TEMPLATE_STORAGE_KEY = "classroom_dashboard_templates_v16";
-    const BUILD_VERSION = "16.14.2";
+    const BUILD_VERSION = "16.15.1";
 
     // Rotation positions for dropdown
     const ROTATION_POSITIONS = [
@@ -3447,6 +3512,47 @@ function getRotationSequence() {
 function getRotationLength() {
 		return getRotationSequence().length;
 }
+function getRotationDescriptorIdentity(descriptor) {
+		if (!descriptor) return null;
+		if (descriptor.type === "job") return `job:${descriptor.jobKey}`;
+		if (descriptor.type === "oncall") return `oncall:${descriptor.label}`;
+		return null;
+}
+
+function captureStudentRotationIdentities(sequence = getRotationSequence()) {
+		const identities = new Map();
+		const len = Array.isArray(sequence) ? sequence.length : 0;
+		if (!len) return identities;
+		(state.students || []).forEach((student) => {
+			const idx = ((Math.floor(Number(student.rotationIndex) || 0) % len) + len) % len;
+			const identity = getRotationDescriptorIdentity(sequence[idx]);
+			if (student?.id && identity) identities.set(student.id, identity);
+		});
+		return identities;
+}
+
+function remapRotationIndicesToCapturedIdentities(capturedIdentities) {
+		if (!(capturedIdentities instanceof Map) || !capturedIdentities.size) return false;
+		ensureRotationCapacity(0);
+		const sequence = getRotationSequence();
+		const identityToIndex = new Map();
+		sequence.forEach((descriptor, index) => {
+			const identity = getRotationDescriptorIdentity(descriptor);
+			if (identity && !identityToIndex.has(identity)) identityToIndex.set(identity, index);
+		});
+		let changed = false;
+		(state.students || []).forEach((student) => {
+			const identity = capturedIdentities.get(student.id);
+			if (!identity || !identityToIndex.has(identity)) return;
+			const nextIndex = identityToIndex.get(identity);
+			if (student.rotationIndex !== nextIndex) {
+				student.rotationIndex = nextIndex;
+				changed = true;
+			}
+		});
+		return changed;
+}
+
 
 // Ensure we always have at least one rotation position per student.
 // If the roster grows, we add additional On Call slots automatically.
@@ -3657,10 +3763,10 @@ function getFirstFreeRotationIndex() {
 
     function cloneDefaultBreakSchedule() {
       return {
-        advisory: { startMinutes: DEFAULT_SCHEDULE_TIMES.advisory.startMinutes, endMinutes: DEFAULT_SCHEDULE_TIMES.advisory.endMinutes, subjectId: "advisory" },
-        nutrition: { startMinutes: DEFAULT_SCHEDULE_TIMES.nutrition.startMinutes, endMinutes: DEFAULT_SCHEDULE_TIMES.nutrition.endMinutes, subjectId: "nutrition" },
-        lunch: { startMinutes: DEFAULT_SCHEDULE_TIMES.lunch.startMinutes, endMinutes: DEFAULT_SCHEDULE_TIMES.lunch.endMinutes, subjectId: "lunch" },
-        silent: { startMinutes: DEFAULT_SCHEDULE_TIMES.silent.startMinutes, endMinutes: DEFAULT_SCHEDULE_TIMES.silent.endMinutes, subjectId: "silent_reading" },
+        advisory: { label: DEFAULT_SCHEDULE_TIMES.advisory.label, startMinutes: DEFAULT_SCHEDULE_TIMES.advisory.startMinutes, endMinutes: DEFAULT_SCHEDULE_TIMES.advisory.endMinutes, subjectId: "advisory" },
+        nutrition: { label: DEFAULT_SCHEDULE_TIMES.nutrition.label, startMinutes: DEFAULT_SCHEDULE_TIMES.nutrition.startMinutes, endMinutes: DEFAULT_SCHEDULE_TIMES.nutrition.endMinutes, subjectId: "nutrition" },
+        lunch: { label: DEFAULT_SCHEDULE_TIMES.lunch.label, startMinutes: DEFAULT_SCHEDULE_TIMES.lunch.startMinutes, endMinutes: DEFAULT_SCHEDULE_TIMES.lunch.endMinutes, subjectId: "lunch" },
+        silent: { label: DEFAULT_SCHEDULE_TIMES.silent.label, startMinutes: DEFAULT_SCHEDULE_TIMES.silent.startMinutes, endMinutes: DEFAULT_SCHEDULE_TIMES.silent.endMinutes, subjectId: "silent_reading" },
       };
     }
 
@@ -3734,6 +3840,7 @@ function getFirstFreeRotationIndex() {
         const timeDef = DEFAULT_SCHEDULE_TIMES[key];
         const current = currentBreaks[key] || {};
         normalizedBreaks[key] = {
+          label: String(current.label || timeDef.label || "").trim() || timeDef.label,
           startMinutes: Number.isFinite(Number(current.startMinutes)) ? Number(current.startMinutes) : timeDef.startMinutes,
           endMinutes: Number.isFinite(Number(current.endMinutes)) ? Number(current.endMinutes) : timeDef.endMinutes,
           subjectId: current.subjectId || timeDef.subjectId,
@@ -3755,7 +3862,12 @@ function getFirstFreeRotationIndex() {
       });
       ["advisory", "nutrition", "lunch", "silent"].forEach((key) => {
         const t = times[key] || DEFAULT_SCHEDULE_TIMES[key];
-        state.schedule.breaks[key] = { startMinutes: t.startMinutes, endMinutes: t.endMinutes, subjectId: DEFAULT_SCHEDULE_TIMES[key].subjectId };
+        state.schedule.breaks[key] = {
+          label: String(t.label || DEFAULT_SCHEDULE_TIMES[key].label || "").trim() || DEFAULT_SCHEDULE_TIMES[key].label,
+          startMinutes: t.startMinutes,
+          endMinutes: t.endMinutes,
+          subjectId: DEFAULT_SCHEDULE_TIMES[key].subjectId
+        };
       });
     }
 
@@ -3916,6 +4028,7 @@ function getFirstFreeRotationIndex() {
           slots.push({
             slotId,
             subjectId: block.subjectId,
+            label: block.label || subjectById(block.subjectId)?.label || "",
             startMinutes: block.startMinutes,
             endMinutes: block.endMinutes,
           });
@@ -3930,6 +4043,7 @@ function getFirstFreeRotationIndex() {
           slots.push({
             slotId,
             subjectId: block.subjectId,
+            label: block.label || subjectById(block.subjectId)?.label || "",
             startMinutes: block.startMinutes,
             endMinutes: block.endMinutes,
           });
@@ -4033,12 +4147,23 @@ function getFirstFreeRotationIndex() {
       }, displayName, rotationIndex);
     }
 
+    const SEATING_GRID = 10;
+    const SEATING_DESK_W = 120;
+    const SEATING_DESK_H = 92;
+    const SEATING_COL_GAP = 10;
+    const SEATING_ROW_H = 104;
+    const SEATING_CANVAS_MIN_W = 760;
+    const SEATING_CANVAS_MIN_H = 420;
+    const SEATING_CANVAS_PAD = 60;
+    const SEATING_START_X = 40;
+    const SEATING_START_Y = 60;
+
 
 
     function createDefaultSeatingState() {
       return {
         activeLayoutId: "layout_main",
-        layouts: [{ id: "layout_main", name: "Main Seating Plan", desksLocked: false, deskCounter: 0, desks: [] }],
+        layouts: [{ id: "layout_main", name: "Main Seating Plan", desksLocked: false, deskCounter: 0, roomWidth: 1120, roomHeight: 520, desks: [] }],
         zoom: 1,
         perspective: "back",
         showPhotos: false,
@@ -4062,6 +4187,8 @@ function getFirstFreeRotationIndex() {
         layout.name ||= layoutIndex === 0 ? "Main Seating Plan" : `Seating Plan ${layoutIndex + 1}`;
         layout.desksLocked = !!layout.desksLocked;
         layout.deskCounter = Number(layout.deskCounter || 0);
+        layout.roomWidth = clampInt(Number(layout.roomWidth || 1120), SEATING_CANVAS_MIN_W, 1800);
+        layout.roomHeight = clampInt(Number(layout.roomHeight || 520), SEATING_CANVAS_MIN_H, 1200);
         layout.desks = Array.isArray(layout.desks) ? layout.desks : [];
         layout.desks.forEach((desk, deskIndex) => {
           desk.id ||= `desk_${deskIndex + 1}`;
@@ -4098,6 +4225,8 @@ function getFirstFreeRotationIndex() {
         name: layout.name,
         desksLocked: !!layout.desksLocked,
         deskCounter: Number(layout.deskCounter || 0),
+        roomWidth: clampInt(Number(layout.roomWidth || 1120), SEATING_CANVAS_MIN_W, 1800),
+        roomHeight: clampInt(Number(layout.roomHeight || 520), SEATING_CANVAS_MIN_H, 1200),
         desks: (layout.desks || []).map((d) => ({ id: d.id, x: d.x, y: d.y, studentId: d.studentId || null, locked: !!d.locked })),
       }));
     }
@@ -4358,11 +4487,16 @@ function safeSaveState(){ try{ saveState(); } catch(e){ console.warn('saveState 
     function createElement(tag, attrs = {}, children = []) {
       const el = document.createElement(tag);
       Object.entries(attrs).forEach(([key, value]) => {
+        // Boolean attributes such as disabled must only be written when true.
+        // disabled="false" still disables a button in HTML, which broke Jobs Setup order controls.
+        if (value === false || value === null || value === undefined) return;
         if (key === "class") el.className = value;
         else if (key === "text") el.textContent = value;
         else if (key === "html") el.innerHTML = value;
         else if (key.startsWith("on") && typeof value === "function") {
           el.addEventListener(key.substring(2), value);
+        } else if (value === true) {
+          el.setAttribute(key, "");
         } else {
           el.setAttribute(key, value);
         }
@@ -4810,6 +4944,8 @@ const exportBtn = document.getElementById("export-data-btn");
     const seatingZoomSlider = document.getElementById("seating-zoom-slider");
     const seatingZoomValue = document.getElementById("seating-zoom-value");
     const seatingResetZoomBtn = document.getElementById("seating-reset-zoom-btn");
+    const seatingRoomWidthInput = document.getElementById("seating-room-width-input");
+    const seatingRoomHeightInput = document.getElementById("seating-room-height-input");
     const seatingFlipPerspectiveBtn = document.getElementById("seating-flip-perspective-btn");
     const seatingPerspectiveLabel = document.getElementById("seating-perspective-label");
     const seatingCanvasWrap = document.getElementById("seating-canvas-wrap");
@@ -6121,7 +6257,7 @@ if (["broom_detail_1", "broom_detail_2", "broom_detail_3"].includes(job.jobKey))
         const makeChip = (prefix, slot) => {
           if (!slot) return;
           const subj = subjectById(slot.subjectId);
-          const subjectName = subj ? subj.label : "—";
+          const subjectName = slot.label || (subj ? subj.label : "—");
           const timeStr = `${minutesToTimeString(slot.startMinutes)}–${minutesToTimeString(
             slot.endMinutes
           )}`;
@@ -6155,7 +6291,7 @@ if (["broom_detail_1", "broom_detail_2", "broom_detail_3"].includes(job.jobKey))
 
       nextSchedule.forEach((block) => {
         const subj = subjectById(block.subjectId);
-        const subjectName = subj ? subj.label : "—";
+        const subjectName = block.label || (subj ? subj.label : "—");
         const timeStr = `${minutesToTimeString(block.startMinutes)}–${minutesToTimeString(
           block.endMinutes
         )}`;
@@ -6193,16 +6329,23 @@ if (["broom_detail_1", "broom_detail_2", "broom_detail_3"].includes(job.jobKey))
       return String(raw || "Classroom").trim() || "Classroom";
     }
 
+    function getTimetableRowLabel(key) {
+      normalizeScheduleState();
+      const stored = state.schedule?.breaks?.[key]?.label;
+      const fallback = DEFAULT_SCHEDULE_TIMES[key]?.label || key;
+      return String(stored || fallback).trim() || fallback;
+    }
+
     function buildTimetableRows() {
       normalizeScheduleState();
       return [
-        { type: "break", key: "advisory", label: "Advisory" },
+        { type: "break", key: "advisory", label: getTimetableRowLabel("advisory") },
         { type: "block", key: "block1", index: 0, label: "Block 1" },
-        { type: "break", key: "nutrition", label: "Nutrition Break" },
+        { type: "break", key: "nutrition", label: getTimetableRowLabel("nutrition") },
         { type: "block", key: "block2", index: 1, label: "Block 2" },
         { type: "block", key: "block3", index: 2, label: "Block 3" },
-        { type: "break", key: "lunch", label: "Lunch" },
-        { type: "break", key: "silent", label: "Advisory: Silent Reading", light: true },
+        { type: "break", key: "lunch", label: getTimetableRowLabel("lunch") },
+        { type: "break", key: "silent", label: getTimetableRowLabel("silent"), light: true },
         { type: "block", key: "block4", index: 3, label: "Block 4" },
         { type: "block", key: "block5", index: 4, label: "Block 5" },
       ];
@@ -6232,7 +6375,13 @@ if (["broom_detail_1", "broom_detail_2", "broom_detail_3"].includes(job.jobKey))
         renderTeacherWeeklyScheduleControl();
         return;
       }
-      if (studentWeeklyScheduleDetails) studentWeeklyScheduleDetails.open = !!state.settings.weeklyScheduleExpandedOnStudentView;
+      const isExpanded = !!state.settings.weeklyScheduleExpandedOnStudentView;
+      if (studentWeeklyScheduleDetails) studentWeeklyScheduleDetails.open = isExpanded;
+      if (!isExpanded) {
+        studentWeeklyScheduleGrid.innerHTML = "";
+        renderTeacherWeeklyScheduleControl();
+        return;
+      }
       normalizeScheduleState();
       studentWeeklyScheduleGrid.innerHTML = "";
       const table = createElement("div", { class: "weekly-timetable" });
@@ -6300,7 +6449,7 @@ if (["broom_detail_1", "broom_detail_2", "broom_detail_3"].includes(job.jobKey))
         );
         const agendaSubjectEl = createElement("div", {
           class: "agenda-block-subject",
-          text: subj.label,
+          text: item.label || subj.label,
         });
         agendaSubjectEl.style.fontWeight = subj.fontWeight;
         block.appendChild(agendaSubjectEl);
@@ -6969,6 +7118,7 @@ function clearPointUndoStack() {
         if (state.settings.weeklyScheduleExpandedOnStudentView === next) return;
         state.settings.weeklyScheduleExpandedOnStudentView = next;
         saveState();
+        renderStudentWeeklySchedule();
         renderTeacherWeeklyScheduleControl();
       });
     }
@@ -7125,6 +7275,7 @@ tabButtons.forEach((btn) => {
          if (toolbarEl) toolbarEl.style.display = (tab === "eod") ? "none" : "flex";
         if (tab === "eod") {
           showStudentViewHelperIfNeeded();
+          renderStudentWeeklySchedule();
           renderSeatingBroadcast();
           scheduleSeatingBroadcastFit();
         }
@@ -7135,6 +7286,8 @@ if (tab === "jobs") {
         }
         if (tab === "seating") {
           renderSeatingPlan();
+          renderRosterPhotoManager();
+          renderSeatingBroadcastControls();
         }
       });
     });
@@ -7211,6 +7364,19 @@ if (tab === "jobs") {
       applySeatingZoom();
       saveState();
     });
+    const handleRoomSizeInput = () => {
+      const layout = getActiveSeatingLayout();
+      layout.roomWidth = clampInt(parseInt(seatingRoomWidthInput?.value || "1120", 10), SEATING_CANVAS_MIN_W, 1800);
+      layout.roomHeight = clampInt(parseInt(seatingRoomHeightInput?.value || "520", 10), SEATING_CANVAS_MIN_H, 1200);
+      (layout.desks || []).forEach((desk) => {
+        desk.x = clampDeskToRoom(desk.x, "x", layout);
+        desk.y = clampDeskToRoom(desk.y, "y", layout);
+      });
+      saveState();
+      renderSeatingPlan();
+    };
+    if (seatingRoomWidthInput) seatingRoomWidthInput.addEventListener("change", handleRoomSizeInput);
+    if (seatingRoomHeightInput) seatingRoomHeightInput.addEventListener("change", handleRoomSizeInput);
     if (seatingFlipPerspectiveBtn) seatingFlipPerspectiveBtn.addEventListener("click", () => {
       state.seating = normalizeSeatingState(state.seating);
       state.seating.perspective = state.seating.perspective === "front" ? "back" : "front";
@@ -7253,6 +7419,8 @@ if (tab === "jobs") {
       saveState(); renderSeatingBroadcast();
     });
     window.addEventListener("resize", () => { if (state?.seating?.broadcast?.enabled) scheduleSeatingBroadcastFit(); });
+    const studentSeatingDetails = document.getElementById("student-seating-details");
+    if (studentSeatingDetails) studentSeatingDetails.addEventListener("toggle", () => { if (studentSeatingDetails.open) scheduleSeatingBroadcastFit(); });
     if ("ResizeObserver" in window && studentSeatingBroadcastWrap) {
       const seatingBroadcastResizeObserver = new ResizeObserver(() => {
         if (state?.seating?.broadcast?.enabled) scheduleSeatingBroadcastFit();
@@ -7305,17 +7473,6 @@ if (tab === "jobs") {
 
 
 
-    const SEATING_GRID = 10;
-    const SEATING_DESK_W = 120;
-    const SEATING_DESK_H = 92;
-    const SEATING_COL_GAP = 10;
-    const SEATING_ROW_H = 104;
-    const SEATING_CANVAS_MIN_W = 760;
-    const SEATING_CANVAS_MIN_H = 420;
-    const SEATING_CANVAS_PAD = 60;
-    const SEATING_START_X = 40;
-    const SEATING_START_Y = 60;
-
     function snapSeatingGrid(value) {
       return Math.round(Number(value || 0) / SEATING_GRID) * SEATING_GRID;
     }
@@ -7325,15 +7482,40 @@ if (tab === "jobs") {
       return Number(state.seating.zoom || 1);
     }
 
+    function seatingRoomSize(layout = getActiveSeatingLayout()) {
+      return {
+        width: clampInt(Number(layout?.roomWidth || 1120), SEATING_CANVAS_MIN_W, 1800),
+        height: clampInt(Number(layout?.roomHeight || 520), SEATING_CANVAS_MIN_H, 1200),
+      };
+    }
+
     function seatingCanvasBaseSize() {
       const layout = getActiveSeatingLayout();
+      const room = seatingRoomSize(layout);
       const desks = layout?.desks || [];
-      const maxX = desks.reduce((max, desk) => Math.max(max, Number(desk.x || 0) + SEATING_DESK_W + SEATING_CANVAS_PAD), SEATING_CANVAS_MIN_W);
-      const maxY = desks.reduce((max, desk) => Math.max(max, Number(desk.y || 0) + SEATING_DESK_H + SEATING_CANVAS_PAD), SEATING_CANVAS_MIN_H);
+      const maxX = desks.reduce((max, desk) => Math.max(max, Number(desk.x || 0) + SEATING_DESK_W + SEATING_CANVAS_PAD), room.width);
+      const maxY = desks.reduce((max, desk) => Math.max(max, Number(desk.y || 0) + SEATING_DESK_H + SEATING_CANVAS_PAD), room.height);
       return {
         width: snapSeatingGrid(Math.max(SEATING_CANVAS_MIN_W, maxX)),
         height: snapSeatingGrid(Math.max(SEATING_CANVAS_MIN_H, maxY)),
       };
+    }
+
+    function clampDeskToRoom(value, axis, layout = getActiveSeatingLayout()) {
+      const room = seatingRoomSize(layout);
+      const max = axis === "x" ? room.width - SEATING_DESK_W : room.height - SEATING_DESK_H;
+      return Math.max(0, Math.min(snapSeatingGrid(value), snapSeatingGrid(Math.max(0, max))));
+    }
+
+    function renderSeatingRoomBoundary(layout = getActiveSeatingLayout()) {
+      if (!seatingCanvas) return;
+      const room = seatingRoomSize(layout);
+      const boundary = createElement("div", { class: "seating-room-boundary" });
+      boundary.style.width = `${room.width}px`;
+      boundary.style.height = `${room.height}px`;
+      seatingCanvas.appendChild(boundary);
+      if (seatingRoomWidthInput && Number(seatingRoomWidthInput.value || 0) !== room.width) seatingRoomWidthInput.value = String(room.width);
+      if (seatingRoomHeightInput && Number(seatingRoomHeightInput.value || 0) !== room.height) seatingRoomHeightInput.value = String(room.height);
     }
 
     function applySeatingZoom() {
@@ -7401,6 +7583,7 @@ if (tab === "jobs") {
       seatingCanvas.classList.toggle("desks-locked", !!layout.desksLocked);
       updateSeatingPerspectiveUi();
       seatingCanvas.innerHTML = "";
+      renderSeatingRoomBoundary(layout);
 
       const assigned = getAssignedSeatingIds(layout);
       seatingStudentPool.innerHTML = "";
@@ -7514,8 +7697,8 @@ if (tab === "jobs") {
         const dx = snapSeatingGrid((e.clientX - startX) / zoom);
         const dy = snapSeatingGrid((e.clientY - startY) / zoom);
         const direction = isFrontSeatingPerspective() ? -1 : 1;
-        desk.x = Math.max(0, snapSeatingGrid(origX + direction * dx));
-        desk.y = Math.max(0, snapSeatingGrid(origY + direction * dy));
+        desk.x = clampDeskToRoom(origX + direction * dx, "x", layout);
+        desk.y = clampDeskToRoom(origY + direction * dy, "y", layout);
         const visualPos = seatingVisualPositionForDesk(desk);
         el.style.left = `${visualPos.x}px`;
         el.style.top = `${visualPos.y}px`;
@@ -8822,7 +9005,7 @@ if (tab === "jobs") {
       ["advisory", "nutrition", "lunch", "silent"].forEach((key) => {
         const block = state.schedule.breaks?.[key] || DEFAULT_SCHEDULE_TIMES[key];
         times[key] = {
-          label: DEFAULT_SCHEDULE_TIMES[key].label,
+          label: String(block.label || DEFAULT_SCHEDULE_TIMES[key].label || "").trim() || DEFAULT_SCHEDULE_TIMES[key].label,
           startMinutes: block.startMinutes,
           endMinutes: block.endMinutes,
         };
@@ -8894,6 +9077,15 @@ if (tab === "jobs") {
       if (!setupJobsCapacityWarning) return;
       setupJobsCapacityWarning.textContent = "";
       setupJobsCapacityWarning.className = "jobs-setup-warning";
+    }
+
+    function moveSetupJob(fromIndex, direction) {
+      if (!Array.isArray(setupJobsDraft)) return;
+      const toIndex = fromIndex + direction;
+      if (fromIndex < 0 || fromIndex >= setupJobsDraft.length || toIndex < 0 || toIndex >= setupJobsDraft.length) return;
+      const moved = setupJobsDraft.splice(fromIndex, 1)[0];
+      setupJobsDraft.splice(toIndex, 0, moved);
+      renderSetupJobs();
     }
 
     function renderSetupJobs() {
@@ -8985,24 +9177,14 @@ if (tab === "jobs") {
           class: "btn-outline btn-xs",
           title: "Move this job up on the Class Job Board",
           disabled: index === 0,
-          onclick: () => {
-            if (index <= 0) return;
-            const moved = setupJobsDraft.splice(index, 1)[0];
-            setupJobsDraft.splice(index - 1, 0, moved);
-            renderSetupJobs();
-          }
+          onclick: () => moveSetupJob(index, -1)
         }, ["↑"]);
         const downBtn = createElement("button", {
           type: "button",
           class: "btn-outline btn-xs",
           title: "Move this job down on the Class Job Board",
           disabled: index === setupJobsDraft.length - 1,
-          onclick: () => {
-            if (index >= setupJobsDraft.length - 1) return;
-            const moved = setupJobsDraft.splice(index, 1)[0];
-            setupJobsDraft.splice(index + 1, 0, moved);
-            renderSetupJobs();
-          }
+          onclick: () => moveSetupJob(index, 1)
         }, ["↓"]);
         const orderNote = createElement("span", { class: "jobs-setup-key", text: "Board order" });
         orderNote.title = "This order controls the Class Job Board and the weekly rotation order.";
@@ -9163,11 +9345,20 @@ if (tab === "jobs") {
       const current = useDefaults ? DEFAULT_SCHEDULE_TIMES : getCurrentScheduleTimesForSetup();
       setupScheduleTimesGrid.innerHTML = "";
       setupScheduleTimesGrid.appendChild(createElement("div", { class: "schedule-setup-head", text: "Slot" }));
+      setupScheduleTimesGrid.appendChild(createElement("div", { class: "schedule-setup-head", text: "Display label" }));
       setupScheduleTimesGrid.appendChild(createElement("div", { class: "schedule-setup-head", text: "Start" }));
       setupScheduleTimesGrid.appendChild(createElement("div", { class: "schedule-setup-head", text: "End" }));
       SCHEDULE_TIME_FIELDS.forEach((field) => {
         const t = current[field.key] || DEFAULT_SCHEDULE_TIMES[field.key];
+        const isFixedRow = ["advisory", "nutrition", "lunch", "silent"].includes(field.key);
         setupScheduleTimesGrid.appendChild(createElement("div", { class: "schedule-day-label", text: field.label }));
+        if (isFixedRow) {
+          setupScheduleTimesGrid.appendChild(createElement("input", { type: "text", id: `setup-time-${field.key}-label`, value: t.label || field.label, "data-time-key": field.key, "data-time-part": "label", placeholder: field.label }));
+        } else {
+          const labelNote = createElement("div", { class: "small-text", text: field.label });
+          labelNote.style.alignSelf = "center";
+          setupScheduleTimesGrid.appendChild(labelNote);
+        }
         setupScheduleTimesGrid.appendChild(createElement("input", { type: "time", id: `setup-time-${field.key}-start`, value: minutesToTimeInput(t.startMinutes), "data-time-key": field.key, "data-time-part": "start" }));
         setupScheduleTimesGrid.appendChild(createElement("input", { type: "time", id: `setup-time-${field.key}-end`, value: minutesToTimeInput(t.endMinutes), "data-time-key": field.key, "data-time-part": "end" }));
       });
@@ -9200,8 +9391,10 @@ if (tab === "jobs") {
         const fallback = current[field.key] || DEFAULT_SCHEDULE_TIMES[field.key];
         const startInput = document.getElementById(`setup-time-${field.key}-start`);
         const endInput = document.getElementById(`setup-time-${field.key}-end`);
+        const labelInput = document.getElementById(`setup-time-${field.key}-label`);
+        const editableLabel = ["advisory", "nutrition", "lunch", "silent"].includes(field.key);
         times[field.key] = {
-          label: field.label,
+          label: editableLabel ? ((labelInput?.value || fallback.label || field.label).trim() || field.label) : field.label,
           startMinutes: timeInputToMinutes(startInput?.value, fallback.startMinutes),
           endMinutes: timeInputToMinutes(endInput?.value, fallback.endMinutes),
         };
@@ -9211,7 +9404,7 @@ if (tab === "jobs") {
 
     function validateSetupScheduleTimes(times) {
       const invalid = SCHEDULE_TIME_FIELDS.find((field) => !times[field.key] || times[field.key].endMinutes <= times[field.key].startMinutes);
-      if (invalid) return `${invalid.label} needs an end time after its start time.`;
+      if (invalid) return `${times[invalid.key]?.label || invalid.label} needs an end time after its start time.`;
       return "";
     }
 
@@ -9386,8 +9579,10 @@ if (tab === "jobs") {
         return;
       }
       state.breakRanges = collectSetupBreakRanges();
+      const capturedRotationIdentities = captureStudentRotationIdentities();
       state.jobs = collectSetupJobs();
       ensureRotationCapacity(0);
+      remapRotationIndicesToCapturedIdentities(capturedRotationIdentities);
       repairRotationIndicesPreservingWherePossible();
 
       const scheduleTimes = collectSetupScheduleTimes();
@@ -9407,6 +9602,7 @@ if (tab === "jobs") {
       syncStudentsFromSetupNames(setupNames);
       reconcileOnCallSlotCount({ allowShrink: true });
       ensureRotationCapacity(0);
+      remapRotationIndicesToCapturedIdentities(capturedRotationIdentities);
       repairRotationIndicesPreservingWherePossible();
       state.meta ??= {};
       state.meta.setupCompleted = true;
@@ -9428,6 +9624,11 @@ if (tab === "jobs") {
     }
 
 
+    function getActiveMainTab() {
+      const activeBtn = document.querySelector(".tab-btn.active");
+      return activeBtn?.getAttribute("data-tab") || "students";
+    }
+
     function renderJobSurfaces() {
       applyRotationToJobs();
       renderJobsList();
@@ -9437,12 +9638,14 @@ if (tab === "jobs") {
       renderWeeklyMiniJobs();
       renderStudentsTable();
       renderAttendancePanel();
-      renderRotationSetup();
-      renderSeatingPlan();
+      if (getActiveMainTab() === "jobs") renderRotationSetup();
+      // Seating is intentionally skipped here. It is one of the heavier surfaces
+      // and is rebuilt when the Seating tab is opened or when seating data changes.
     }
 
     // Main render
     function renderAll() {
+      const activeTab = getActiveMainTab();
       applyRotationToJobs();
       applyHeaderBranding();
 
@@ -9466,13 +9669,19 @@ if (tab === "jobs") {
       renderNowNextStrip();
       updateClock();
       applySafeModeUI();
-    
       renderAttendancePanel();
-      renderSeatingPlan();
-      renderRosterPhotoManager();
-      renderSeatingBroadcastControls();
-      renderSeatingBroadcast();
-      renderRotationSetup();
+
+      if (activeTab === "jobs") {
+        renderRotationSetup();
+      }
+      if (activeTab === "seating") {
+        renderSeatingPlan();
+        renderRosterPhotoManager();
+        renderSeatingBroadcastControls();
+      }
+      if (activeTab === "eod") {
+        renderSeatingBroadcast();
+      }
 }
 
     function maybeOpenFirstRunSetup() {
