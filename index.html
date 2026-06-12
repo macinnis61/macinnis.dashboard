@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Classroom Dashboard · Build 17.1.0</title>
+  <title>Classroom Dashboard · Build 17.1.4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Poppins + Trocchi fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Trocchi&display=swap" rel="stylesheet">
@@ -2424,7 +2424,7 @@
   line-height:1.1;
 }
 .schedule-builder-time-cell .block-label{font-size:clamp(.66rem, 1vw, .9rem);font-weight:500;margin-bottom:2px;}
-.schedule-builder-time-cell .time-range{font-size:clamp(.78rem, 1.2vw, 1.08rem);font-weight:800;letter-spacing:-.02em;}
+.schedule-builder-time-cell .time-range{font-size:clamp(.78rem, 1.2vw, 1.08rem);font-weight:800;letter-spacing:-.02em;white-space:nowrap;max-width:100%;display:block;}
 .schedule-builder-time-cell .duration{font-size:clamp(.62rem, .9vw, .8rem);font-weight:400;margin-top:2px;}
 .schedule-builder-cell{
   position:relative;
@@ -2437,6 +2437,14 @@
   overflow:hidden;
   cursor:pointer;
   transition:filter .12s ease, outline .12s ease, transform .12s ease;
+  user-select:none;
+  -webkit-user-select:none;
+  touch-action:none;
+}
+.schedule-builder-grid.is-dragging-block,
+.schedule-builder-grid.is-dragging-block *{
+  user-select:none;
+  -webkit-user-select:none;
 }
 .schedule-builder-cell:hover{filter:brightness(.96);}
 .schedule-builder-cell-name{font-size:clamp(.78rem, 1.25vw, 1.12rem);line-height:1.04;font-weight:800;overflow-wrap:anywhere;}
@@ -2509,7 +2517,11 @@
 .schedule-builder-grid.fit-compact .schedule-builder-time-cell,
 .schedule-builder-grid.fit-compact .schedule-builder-cell{min-height:48px;padding:4px 5px;}
 .schedule-builder-grid.fit-compact .schedule-builder-cell-name{font-size:clamp(.68rem,1vw,.9rem);}
-.schedule-builder-grid.fit-compact .schedule-builder-time-cell .time-range{font-size:clamp(.68rem,1vw,.9rem);}
+ .schedule-builder-grid.fit-compact .schedule-builder-time-cell .time-range{font-size:clamp(.66rem,.94vw,.86rem);}
+.schedule-builder-time-cell .time-range.time-fit-tight{font-size:clamp(.70rem,1.02vw,.96rem);letter-spacing:-.045em;}
+.schedule-builder-time-cell .time-range.time-fit-tighter{font-size:clamp(.64rem,.92vw,.86rem);letter-spacing:-.06em;}
+.schedule-builder-grid.fit-compact .schedule-builder-time-cell .time-range.time-fit-tight{font-size:clamp(.60rem,.82vw,.76rem);letter-spacing:-.055em;}
+.schedule-builder-grid.fit-compact .schedule-builder-time-cell .time-range.time-fit-tighter{font-size:clamp(.56rem,.74vw,.70rem);letter-spacing:-.07em;}
 .schedule-builder-grid.fit-compact .schedule-builder-time-cell .duration{display:none;}
 .schedule-builder-grid.fit-compact .schedule-builder-break-time,
 .schedule-builder-grid.fit-compact .schedule-builder-break-label{font-size:.64rem;min-height:18px;padding:1px 5px;}
@@ -2544,7 +2556,7 @@
   <div class="app-shell">
     <header>
       <div class="title-block">
-        <h1 id="app-title">Classroom Dashboard <span id="build-version-text" class="build-pill version-notes-trigger" role="button" tabindex="0" title="Build notes" data-build-label>Build 17.1.0</span></h1>
+        <h1 id="app-title">Classroom Dashboard <span id="build-version-text" class="build-pill version-notes-trigger" role="button" tabindex="0" title="Build notes" data-build-label>Build 17.1.4</span></h1>
         <p id="app-subtitle"><span class="hint" data-tip="Teacher view, jobs rotation, and a student-facing screen in one lightweight dashboard.">i</span></p>
       </div>
       <div>
@@ -2871,7 +2883,7 @@
           <div class="card-header">
             <div>
               <div class="card-title">Visual Schedule Builder</div>
-              <div class="card-subtitle">Drag subject blocks into the weekly grid. This updates the same schedule used by Setup, Today’s Agenda, and the Student View timetable.</div>
+              <div class="card-subtitle">Drag subject blocks into the weekly grid. Use Save schedule to update Setup, Today’s Agenda, and the Student View timetable. Preview shows the current draft without saving.</div>
             </div>
           </div>
           <div class="schedule-builder-actions">
@@ -3080,7 +3092,7 @@
     <div class="modal setup-modal" role="dialog" aria-modal="true" aria-labelledby="setup-title">
       <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;">
         <div>
-          <h2 id="setup-title">Start-of-Year Setup <span id="setup-version-pill" class="build-pill version-notes-trigger" role="button" tabindex="0" title="Build notes" data-build-label>Build 17.1.0</span></h2>
+          <h2 id="setup-title">Start-of-Year Setup <span id="setup-version-pill" class="build-pill version-notes-trigger" role="button" tabindex="0" title="Build notes" data-build-label>Build 17.1.4</span></h2>
           <div class="modal-sub">Use Basic Setup for the September essentials. Advanced Setup is available for settings that are useful, but not required on day one. To move a setup between browsers, devices, or app versions, use Data & Templates.</div>
         </div>
         <button class="btn-ghost btn-xs" id="setup-close-btn">Close</button>
@@ -3090,7 +3102,7 @@
         <a class="setup-nav-pill setup-basic-pill" href="#setup-basic-section">Basic</a>
         <a class="setup-nav-pill setup-weekly-pill" href="#setup-weekly-schedule-section">Weekly Schedule</a>
         <a class="setup-nav-pill setup-jobs-pill" href="#setup-jobs-section">Jobs Setup</a>
-        <a class="setup-nav-pill setup-schedule-times-pill" href="#setup-advanced-schedule-section">Schedule Times</a>
+        <a class="setup-nav-pill setup-schedule-times-pill" href="#setup-advanced-schedule-section">Advanced Schedule Times</a>
         <a class="setup-nav-pill setup-photos-pill" href="#setup-roster-photos-section">Roster & Photos</a>
         <a class="setup-nav-pill setup-advanced-pill" href="#setup-advanced-section">Advanced</a>
       </nav>
@@ -3179,7 +3191,7 @@ Student 3"></textarea>
 
       <details class="setup-section" id="setup-advanced-schedule-section">
         <summary>
-          <span class="setup-section-title">Advanced schedule times</span>
+          <span class="setup-section-title">Advanced Schedule Times</span>
           <span class="setup-section-subtitle">Use this only if your bell schedule changes. Subject setup above is usually all that is needed.</span>
         </summary>
         <div id="setup-schedule-times-grid" class="schedule-time-grid"></div>
@@ -3349,11 +3361,33 @@ Pro-D Week, 2026-10-19, 2026-10-23"></textarea>
       <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;">
         <div>
           <h2 id="version-notes-title">Build notes</h2>
-          <div class="modal-sub" id="version-notes-current-build" data-build-label>Build 17.1.0</div>
+          <div class="modal-sub" id="version-notes-current-build" data-build-label>Build 17.1.4</div>
         </div>
         <button class="btn-ghost btn-xs" id="version-notes-close-btn" type="button">Close</button>
       </div>
       <div class="version-notes-list">
+          <h3>Build 17.1.4</h3>
+          <ul>
+            <li>Adds automatic time-label fitting in the Schedule Builder so longer block times stay on one line in Fit Grid to Screen mode.</li>
+            <li>Keeps Schedule Builder time labels from wrapping awkwardly while preserving the saved Advanced Schedule Times source.</li>
+          </ul>
+          <h3>Build 17.1.3</h3>
+          <ul>
+            <li>Syncs Schedule Builder time labels with the saved Advanced Schedule Times instead of relying on stale draft block times.</li>
+            <li>Keeps Schedule Builder print/PDF and Student View timetable previews aligned with the saved block times.</li>
+            <li>Corrects the fresh-default Block 2 start time to 10:03 and capitalizes the Setup section as Advanced Schedule Times.</li>
+          </ul>
+          <h3>Build 17.1.2</h3>
+          <ul>
+            <li>Stops Schedule Builder preview from auto-saving unsaved grid edits before switching to Student View.</li>
+            <li>Makes Discard unsaved changes restore the last explicitly saved weekly schedule after previewing a draft.</li>
+            <li>Polishes the Schedule Builder print-preview button so it matches the dashboard button styling more closely.</li>
+          </ul>
+          <h3>Build 17.1.1</h3>
+          <ul>
+            <li>Prevents text from being selected when dragging an already-placed Schedule Builder block from one grid cell to another.</li>
+            <li>Keeps the existing Subjects-panel drag behaviour unchanged while adding the same selection guard to grid-based moves.</li>
+          </ul>
           <h3>Build 17.1.0</h3>
           <ul>
             <li>Promotes the Schedule Builder work to a stable 17.1 release.</li>
@@ -3453,7 +3487,7 @@ Pro-D Week, 2026-10-19, 2026-10-23"></textarea>
     <div class="modal template-modal" role="dialog" aria-modal="true" aria-labelledby="templates-title">
       <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;">
         <div>
-          <h2 id="templates-title">Data & Templates <span id="templates-version-pill" class="build-pill version-notes-trigger" role="button" tabindex="0" title="Build notes" data-build-label>Build 17.1.0</span></h2>
+          <h2 id="templates-title">Data & Templates <span id="templates-version-pill" class="build-pill version-notes-trigger" role="button" tabindex="0" title="Build notes" data-build-label>Build 17.1.4</span></h2>
           <div class="modal-sub">Use this space to move, restore, or reuse dashboard data. Data is saved in this browser for this app location; export files only when you intentionally want a copy.</div>
         </div>
         <button class="btn-ghost btn-xs" id="templates-close-btn">Close</button>
@@ -3521,7 +3555,7 @@ Pro-D Week, 2026-10-19, 2026-10-23"></textarea>
 const STORAGE_KEY = "class_points_dashboard_v10";
     const DAILY_REMINDERS_STORAGE_KEY = "classroom_dashboard_daily_reminders_v1";
     const TEMPLATE_STORAGE_KEY = "classroom_dashboard_templates_v16";
-    const BUILD_VERSION = "17.1.0";
+    const BUILD_VERSION = "17.1.4";
 
     // Rotation positions for dropdown
     const ROTATION_POSITIONS = [
@@ -3890,35 +3924,35 @@ function getFirstFreeRotationIndex() {
     const WEEK_MAIN_SCHEDULE = {
       1: [
         { startMinutes: 8*60+52, endMinutes: 9*60+48, subjectId: "math" },
-        { startMinutes:10*60+2,  endMinutes:10*60+59, subjectId: "french" },
+        { startMinutes:10*60+3,  endMinutes:10*60+59, subjectId: "french" },
         { startMinutes:10*60+59, endMinutes:11*60+55, subjectId: "science" },
         { startMinutes:12*60+57, endMinutes:13*60+54, subjectId: "exploratory" },
         { startMinutes:13*60+54, endMinutes:14*60+50, subjectId: "flex" },
       ],
       2: [
         { startMinutes: 8*60+52, endMinutes: 9*60+48, subjectId: "math" },
-        { startMinutes:10*60+2,  endMinutes:10*60+59, subjectId: "gym" },
+        { startMinutes:10*60+3,  endMinutes:10*60+59, subjectId: "gym" },
         { startMinutes:10*60+59, endMinutes:11*60+55, subjectId: "socials" },
         { startMinutes:12*60+57, endMinutes:13*60+54, subjectId: "exploratory" },
         { startMinutes:13*60+54, endMinutes:14*60+50, subjectId: "la" },
       ],
       3: [
         { startMinutes: 8*60+52, endMinutes: 9*60+48, subjectId: "math" },
-        { startMinutes:10*60+2,  endMinutes:10*60+59, subjectId: "library" },
+        { startMinutes:10*60+3,  endMinutes:10*60+59, subjectId: "library" },
         { startMinutes:10*60+59, endMinutes:11*60+55, subjectId: "gym" },
         { startMinutes:12*60+57, endMinutes:13*60+54, subjectId: "health" },
         { startMinutes:13*60+54, endMinutes:14*60+50, subjectId: "la" },
       ],
       4: [
         { startMinutes: 8*60+52, endMinutes: 9*60+48, subjectId: "math" },
-        { startMinutes:10*60+2,  endMinutes:10*60+59, subjectId: "la" },
+        { startMinutes:10*60+3,  endMinutes:10*60+59, subjectId: "la" },
         { startMinutes:10*60+59, endMinutes:11*60+55, subjectId: "science" },
         { startMinutes:12*60+57, endMinutes:13*60+54, subjectId: "exploratory" },
         { startMinutes:13*60+54, endMinutes:14*60+50, subjectId: "flex" },
       ],
       5: [
         { startMinutes: 8*60+52, endMinutes: 9*60+48, subjectId: "math" },
-        { startMinutes:10*60+2,  endMinutes:10*60+59, subjectId: "la" },
+        { startMinutes:10*60+3,  endMinutes:10*60+59, subjectId: "la" },
         { startMinutes:10*60+59, endMinutes:11*60+55, subjectId: "socials" },
         { startMinutes:12*60+57, endMinutes:13*60+54, subjectId: "french" },
         { startMinutes:13*60+54, endMinutes:14*60+50, subjectId: "gym" },
@@ -3946,7 +3980,7 @@ function getFirstFreeRotationIndex() {
       advisory: { label: "Advisory", startMinutes: 8*60+40, endMinutes: 8*60+52, subjectId: "advisory" },
       block1: { label: "Block 1", startMinutes: 8*60+52, endMinutes: 9*60+48 },
       nutrition: { label: "Nutrition Break", startMinutes: 9*60+48, endMinutes: 10*60+3, subjectId: "nutrition" },
-      block2: { label: "Block 2", startMinutes: 10*60+2, endMinutes: 10*60+59 },
+      block2: { label: "Block 2", startMinutes: 10*60+3, endMinutes: 10*60+59 },
       block3: { label: "Block 3", startMinutes: 10*60+59, endMinutes: 11*60+55 },
       lunch: { label: "Lunch", startMinutes: 11*60+55, endMinutes: 12*60+40, subjectId: "lunch" },
       silent: { label: "Advisory: Silent Reading", startMinutes: 12*60+40, endMinutes: 12*60+58, subjectId: "silent_reading" },
@@ -5153,6 +5187,7 @@ const exportBtn = document.getElementById("export-data-btn");
     const scheduleBuilderFitToggle = document.getElementById("schedule-builder-fit-toggle");
     let scheduleBuilderDraft = null;
     let scheduleBuilderDirty = false;
+    let scheduleBuilderPreviewWeek = null;
     let scheduleBuilderSelectedSubjectId = null;
     let scheduleBuilderPointerDrag = null;
     let scheduleBuilderSuppressNextClick = false;
@@ -6566,6 +6601,35 @@ if (["broom_detail_1", "broom_detail_2", "broom_detail_3"].includes(job.jobKey))
       return String(stored || fallback).trim() || fallback;
     }
 
+    function getMainBlockDisplayTime(blockKey, index) {
+      normalizeScheduleState();
+      const savedBlock = state.schedule?.week?.[1]?.[index] || state.schedule?.week?.["1"]?.[index];
+      const fallback = DEFAULT_SCHEDULE_TIMES[blockKey] || DEFAULT_SCHEDULE_TIMES[`block${Number(index) + 1}`] || {};
+      return {
+        label: fallback.label || blockKey || `Block ${Number(index) + 1}`,
+        startMinutes: Number.isFinite(Number(savedBlock?.startMinutes)) ? Number(savedBlock.startMinutes) : fallback.startMinutes,
+        endMinutes: Number.isFinite(Number(savedBlock?.endMinutes)) ? Number(savedBlock.endMinutes) : fallback.endMinutes,
+      };
+    }
+
+    function syncWeekScheduleTimesFromState(week) {
+      if (!week) return week;
+      normalizeScheduleState();
+      SCHEDULE_DAYS.forEach(({ dow }) => {
+        const dayKey = week[dow] ? dow : String(dow);
+        const day = week[dayKey];
+        if (!Array.isArray(day)) return;
+        SCHEDULE_MAIN_BLOCKS.forEach((blockDef, index) => {
+          const t = getMainBlockDisplayTime(blockDef.key, index);
+          day[index] ??= { blockKey: blockDef.key, subjectId: "" };
+          day[index].blockKey = blockDef.key;
+          day[index].startMinutes = t.startMinutes;
+          day[index].endMinutes = t.endMinutes;
+        });
+      });
+      return week;
+    }
+
     function buildTimetableRows() {
       normalizeScheduleState();
       return [
@@ -6595,9 +6659,13 @@ if (["broom_detail_1", "broom_detail_2", "broom_detail_3"].includes(job.jobKey))
       teacherWeeklyScheduleStatus.textContent = expanded ? "Timetable card is expanded." : "Timetable card is available but collapsed.";
     }
 
+    function getStudentWeeklyScheduleWeek() {
+      return scheduleBuilderPreviewWeek || state.schedule?.week || cloneDefaultWeekSchedule();
+    }
+
     function renderStudentWeeklySchedule() {
       if (!studentWeeklyScheduleSection || !studentWeeklyScheduleGrid) return;
-      const shouldShow = !!state.settings?.showWeeklyScheduleOnStudentView;
+      const shouldShow = !!state.settings?.showWeeklyScheduleOnStudentView || !!scheduleBuilderPreviewWeek;
       studentWeeklyScheduleSection.style.display = shouldShow ? "block" : "none";
       if (!shouldShow) {
         studentWeeklyScheduleGrid.innerHTML = "";
@@ -6605,7 +6673,8 @@ if (["broom_detail_1", "broom_detail_2", "broom_detail_3"].includes(job.jobKey))
         renderTeacherWeeklyScheduleControl();
         return;
       }
-      const isExpanded = !!state.settings.weeklyScheduleExpandedOnStudentView;
+      const isExpanded = !!state.settings.weeklyScheduleExpandedOnStudentView || !!scheduleBuilderPreviewWeek;
+      const activeWeek = getStudentWeeklyScheduleWeek();
       if (studentWeeklyScheduleDetails) studentWeeklyScheduleDetails.open = isExpanded;
       if (!isExpanded) {
         studentWeeklyScheduleGrid.innerHTML = "";
@@ -6629,7 +6698,7 @@ if (["broom_detail_1", "broom_detail_2", "broom_detail_3"].includes(job.jobKey))
           return;
         }
 
-        const t = (state.schedule.week?.[1]?.[row.index]) || DEFAULT_SCHEDULE_TIMES[row.key];
+        const t = getMainBlockDisplayTime(row.key, row.index);
         const duration = Math.max(0, Number(t.endMinutes) - Number(t.startMinutes));
         const timeCell = createElement("div", { class: "weekly-timetable-time-cell" });
         timeCell.appendChild(createElement("div", { class: "block-label", text: row.label }));
@@ -6638,7 +6707,7 @@ if (["broom_detail_1", "broom_detail_2", "broom_detail_3"].includes(job.jobKey))
         table.appendChild(timeCell);
 
         SCHEDULE_DAYS.forEach(({ dow }) => {
-          const block = state.schedule.week?.[dow]?.[row.index] || WEEK_MAIN_SCHEDULE[dow]?.[row.index] || {};
+          const block = activeWeek?.[dow]?.[row.index] || activeWeek?.[String(dow)]?.[row.index] || WEEK_MAIN_SCHEDULE[dow]?.[row.index] || {};
           const subj = subjectById(block.subjectId) || SUBJECTS.find((subject) => subject.id === block.subjectId);
           const cell = createElement("div", { class: "weekly-timetable-subject-cell" });
           cell.style.background = subj?.bg || "#ffffff";
@@ -6816,6 +6885,7 @@ This only removes subjects with 0 target blocks and 0 placed blocks. It will not
     }
 
     function markScheduleBuilderDirty() {
+      scheduleBuilderPreviewWeek = null;
       scheduleBuilderDirty = true;
       setScheduleBuilderStatus("Unsaved schedule changes.", "dirty");
     }
@@ -6843,6 +6913,19 @@ This only removes subjects with 0 target blocks and 0 placed blocks. It will not
     function getScheduleBuilderCellFromPoint(clientX, clientY) {
       const el = document.elementFromPoint(clientX, clientY);
       return el?.closest?.(".schedule-builder-cell") || null;
+    }
+
+    function preventScheduleBuilderTextSelection(event) {
+      if (scheduleBuilderPointerDrag?.active || scheduleBuilderPointerDrag?.sourceCellInfo) event.preventDefault();
+    }
+
+    function setScheduleBuilderDraggingSelectionLock(locked) {
+      scheduleBuilderGrid?.classList.toggle("is-dragging-block", !!locked);
+      if (locked) {
+        document.addEventListener("selectstart", preventScheduleBuilderTextSelection);
+      } else {
+        document.removeEventListener("selectstart", preventScheduleBuilderTextSelection);
+      }
     }
 
     function clearScheduleBuilderDropTarget() {
@@ -6881,6 +6964,7 @@ This only removes subjects with 0 target blocks and 0 placed blocks. It will not
       const dy = Math.abs(event.clientY - scheduleBuilderPointerDrag.startY);
       if (!scheduleBuilderPointerDrag.active && (dx > 4 || dy > 4)) {
         scheduleBuilderPointerDrag.active = true;
+        setScheduleBuilderDraggingSelectionLock(true);
         scheduleBuilderPointerDrag.ghost = createScheduleBuilderGhost(
           scheduleBuilderPointerDrag.subject,
           scheduleBuilderPointerDrag.sourceChip,
@@ -6918,6 +7002,7 @@ This only removes subjects with 0 target blocks and 0 placed blocks. It will not
       clearScheduleBuilderDropTarget();
       drag.sourceChip?.classList.remove("is-pointer-drag-source", "drag-source");
       drag.ghost?.remove();
+      setScheduleBuilderDraggingSelectionLock(false);
       scheduleBuilderPointerDrag = null;
       if (drag.active) {
         const cell = getScheduleBuilderCellFromPoint(event.clientX, event.clientY);
@@ -6942,6 +7027,7 @@ This only removes subjects with 0 target blocks and 0 placed blocks. It will not
       clearScheduleBuilderDropTarget();
       scheduleBuilderPointerDrag.sourceChip?.classList.remove("is-pointer-drag-source", "drag-source");
       scheduleBuilderPointerDrag.ghost?.remove();
+      setScheduleBuilderDraggingSelectionLock(false);
       scheduleBuilderPointerDrag = null;
     }
 
@@ -6949,6 +7035,7 @@ This only removes subjects with 0 target blocks and 0 placed blocks. It will not
       if (!subject?.id) return;
       if (event.button !== undefined && event.button !== 0) return;
       if (event.target?.closest?.("input,button,select,textarea")) return;
+      if (sourceCellInfo) event.preventDefault();
       scheduleBuilderPointerDrag = {
         subject,
         sourceChip,
@@ -7054,6 +7141,20 @@ This only removes subjects with 0 target blocks and 0 placed blocks. It will not
       });
     }
 
+    function adjustScheduleBuilderTimeRangeFits() {
+      if (!scheduleBuilderGrid) return;
+      scheduleBuilderGrid.querySelectorAll(".schedule-builder-time-cell .time-range").forEach((rangeEl) => {
+        rangeEl.classList.remove("time-fit-tight", "time-fit-tighter");
+        const parent = rangeEl.closest(".schedule-builder-time-cell");
+        const availableWidth = Math.max(0, (parent?.clientWidth || rangeEl.clientWidth || 0) - 4);
+        if (!availableWidth) return;
+        if (rangeEl.scrollWidth > availableWidth) {
+          rangeEl.classList.add("time-fit-tight");
+          if (rangeEl.scrollWidth > availableWidth) rangeEl.classList.add("time-fit-tighter");
+        }
+      });
+    }
+
     function renderScheduleBuilderGrid() {
       if (!scheduleBuilderGrid) return;
       ensureScheduleBuilderDraft();
@@ -7074,7 +7175,7 @@ This only removes subjects with 0 target blocks and 0 placed blocks. It will not
           return;
         }
 
-        const t = (scheduleBuilderDraft[1]?.[row.index]) || (scheduleBuilderDraft["1"]?.[row.index]) || DEFAULT_SCHEDULE_TIMES[row.key];
+        const t = getMainBlockDisplayTime(row.key, row.index);
         const duration = Math.max(0, Number(t.endMinutes) - Number(t.startMinutes));
         const timeCell = createElement("div", { class: "schedule-builder-time-cell" });
         timeCell.appendChild(createElement("div", { class: "block-label", text: row.label }));
@@ -7111,6 +7212,7 @@ This only removes subjects with 0 target blocks and 0 placed blocks. It will not
           scheduleBuilderGrid.appendChild(cell);
         });
       });
+      requestAnimationFrame(adjustScheduleBuilderTimeRangeFits);
     }
 
     function renderScheduleBuilder() {
@@ -7126,12 +7228,14 @@ This only removes subjects with 0 target blocks and 0 placed blocks. It will not
     function saveScheduleBuilderDraft() {
       if (!scheduleBuilderDraft) return;
       normalizeScheduleState();
+      syncWeekScheduleTimesFromState(scheduleBuilderDraft);
       state.schedule.week = JSON.parse(JSON.stringify(scheduleBuilderDraft));
       ensureScheduleBuilderBlockTargets();
       normalizeScheduleState();
       saveState();
       scheduleBuilderDraft = cloneWeekScheduleFromState();
       scheduleBuilderDirty = false;
+      scheduleBuilderPreviewWeek = null;
       setScheduleBuilderStatus("Schedule saved.", "saved");
       renderSetupWeeklySchedule(false);
       renderSetupSubjectColours(false);
@@ -7146,6 +7250,7 @@ This only removes subjects with 0 target blocks and 0 placed blocks. It will not
     function discardScheduleBuilderDraft() {
       scheduleBuilderDraft = cloneWeekScheduleFromState();
       scheduleBuilderDirty = false;
+      scheduleBuilderPreviewWeek = null;
       scheduleBuilderSelectedSubjectId = null;
       setScheduleBuilderStatus("Unsaved changes discarded.");
       renderScheduleBuilder();
@@ -7202,7 +7307,7 @@ This only removes subjects with 0 target blocks and 0 placed blocks. It will not
           return;
         }
 
-        const t = (safeWeek?.[1]?.[row.index]) || DEFAULT_SCHEDULE_TIMES[row.key];
+        const t = getMainBlockDisplayTime(row.key, row.index);
         const duration = Math.max(0, Number(t.endMinutes) - Number(t.startMinutes));
         html += `<div class="weekly-timetable-time-cell"><div class="block-label">${escapeHtml(row.label)}</div><div class="time-range">${escapeHtml(minutesToTimetableRange(t.startMinutes, t.endMinutes))}</div>${duration ? `<div class="duration">(${duration} minutes)</div>` : ""}</div>`;
 
@@ -7221,6 +7326,7 @@ This only removes subjects with 0 target blocks and 0 placed blocks. It will not
     }
 
     function printScheduleBuilder() {
+      if (scheduleBuilderDraft) syncWeekScheduleTimesFromState(scheduleBuilderDraft);
       const printWeek = scheduleBuilderDraft ? JSON.parse(JSON.stringify(scheduleBuilderDraft)) : cloneWeekScheduleFromState();
       const win = window.open("", "_blank", "width=1200,height=850");
       if (!win) { alert("Pop-up blocked. Allow pop-ups to use the schedule print view."); return; }
@@ -7228,17 +7334,19 @@ This only removes subjects with 0 target blocks and 0 placed blocks. It will not
       const gridHtml = buildPrintableScheduleGridHtml(printWeek);
       win.document.open();
       win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${escapeHtml(title)}</title><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>
-        *{box-sizing:border-box} body{margin:0;padding:18px;background:#fff;color:#0f172a;font-family:"Poppins",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.print-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #e5e7eb}.print-title{font-weight:800;font-size:20px;line-height:1.1}.print-sub{font-size:12px;color:#64748b;margin-top:3px}.print-btn{border:none;border-radius:999px;padding:8px 14px;background:#0f766e;color:#fff;font-weight:800;cursor:pointer}.weekly-timetable{width:100%;display:grid;grid-template-columns:160px repeat(5, minmax(115px,1fr));border:1.5px solid #111;background:#111;gap:1px}.weekly-timetable-title{grid-column:1/-1;background:#000;color:#fff;font-size:24px;line-height:1.05;font-weight:800;text-align:center;padding:10px 12px 12px;letter-spacing:.02em}.weekly-timetable-corner,.weekly-timetable-day{background:#fff;color:#111;padding:6px 8px;min-height:30px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600}.weekly-timetable-time-cell{background:#fff;color:#000;min-height:62px;padding:5px 7px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;line-height:1.1}.weekly-timetable-time-cell .block-label{font-size:12px;font-weight:500;margin-bottom:2px}.weekly-timetable-time-cell .time-range{font-size:16px;font-weight:800;letter-spacing:-.02em}.weekly-timetable-time-cell .duration{font-size:11px;font-weight:400;margin-top:2px}.weekly-timetable-subject-cell{min-height:62px;padding:5px 8px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}.weekly-timetable-subject-name{font-size:18px;line-height:1.04;font-weight:800;letter-spacing:-.02em;overflow-wrap:anywhere}.weekly-timetable-break-time{background:#fff;color:#000;min-height:24px;padding:3px 8px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px;font-weight:800;line-height:1.1}.weekly-timetable-break-label{grid-column:2/-1;min-height:24px;padding:3px 10px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px;line-height:1.1;font-weight:800;color:#fff;background:#555}.weekly-timetable-break-label.light{color:#000;background:#20e6e6}.weekly-timetable{background:#fff;gap:0;border:2px solid #111}.weekly-timetable-title,.weekly-timetable-corner,.weekly-timetable-day,.weekly-timetable-time-cell,.weekly-timetable-subject-cell,.weekly-timetable-break-time,.weekly-timetable-break-label{border:1px solid #111}@page{size:landscape;margin:.35in}@media print{body{padding:0}.print-toolbar{display:none}.weekly-timetable{page-break-inside:avoid}.weekly-timetable-title{font-size:22px}.weekly-timetable-subject-name{font-size:16px}.weekly-timetable-time-cell{min-height:56px}.weekly-timetable-subject-cell{min-height:56px}}
+        *{box-sizing:border-box} body{margin:0;padding:18px;background:#fff;color:#0f172a;font-family:"Poppins",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.print-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #e5e7eb}.print-title{font-weight:800;font-size:20px;line-height:1.1}.print-sub{font-size:12px;color:#64748b;margin-top:3px}.print-btn{border:none;border-radius:999px;padding:7px 12px;background:#0f766e;color:#fff;font-family:"Poppins",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:.85rem;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:6px}.weekly-timetable{width:100%;display:grid;grid-template-columns:160px repeat(5, minmax(115px,1fr));border:1.5px solid #111;background:#111;gap:1px}.weekly-timetable-title{grid-column:1/-1;background:#000;color:#fff;font-size:24px;line-height:1.05;font-weight:800;text-align:center;padding:10px 12px 12px;letter-spacing:.02em}.weekly-timetable-corner,.weekly-timetable-day{background:#fff;color:#111;padding:6px 8px;min-height:30px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600}.weekly-timetable-time-cell{background:#fff;color:#000;min-height:62px;padding:5px 7px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;line-height:1.1}.weekly-timetable-time-cell .block-label{font-size:12px;font-weight:500;margin-bottom:2px}.weekly-timetable-time-cell .time-range{font-size:16px;font-weight:800;letter-spacing:-.02em}.weekly-timetable-time-cell .duration{font-size:11px;font-weight:400;margin-top:2px}.weekly-timetable-subject-cell{min-height:62px;padding:5px 8px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}.weekly-timetable-subject-name{font-size:18px;line-height:1.04;font-weight:800;letter-spacing:-.02em;overflow-wrap:anywhere}.weekly-timetable-break-time{background:#fff;color:#000;min-height:24px;padding:3px 8px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px;font-weight:800;line-height:1.1}.weekly-timetable-break-label{grid-column:2/-1;min-height:24px;padding:3px 10px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px;line-height:1.1;font-weight:800;color:#fff;background:#555}.weekly-timetable-break-label.light{color:#000;background:#20e6e6}.weekly-timetable{background:#fff;gap:0;border:2px solid #111}.weekly-timetable-title,.weekly-timetable-corner,.weekly-timetable-day,.weekly-timetable-time-cell,.weekly-timetable-subject-cell,.weekly-timetable-break-time,.weekly-timetable-break-label{border:1px solid #111}@page{size:landscape;margin:.35in}@media print{body{padding:0}.print-toolbar{display:none}.weekly-timetable{page-break-inside:avoid}.weekly-timetable-title{font-size:22px}.weekly-timetable-subject-name{font-size:16px}.weekly-timetable-time-cell{min-height:56px}.weekly-timetable-subject-cell{min-height:56px}}
       </style></head><body><div class="print-toolbar"><div><div class="print-title">${escapeHtml(title)}</div><div class="print-sub">Schedule grid only. Use Print / Save PDF to print or save this timetable.</div></div><button class="print-btn" onclick="window.print()">Print / Save PDF</button></div>${gridHtml}<script>setTimeout(() => window.focus(), 50);<\/script></body></html>`);
       win.document.close();
       setTimeout(() => { try { win.focus(); } catch (err) {} }, 120);
     }
 
     function previewScheduleOnStudentView() {
-      if (scheduleBuilderDirty) saveScheduleBuilderDraft();
-      state.settings.showWeeklyScheduleOnStudentView = true;
-      state.settings.weeklyScheduleExpandedOnStudentView = true;
-      saveState();
+      ensureScheduleBuilderDraft();
+      syncWeekScheduleTimesFromState(scheduleBuilderDraft);
+      scheduleBuilderPreviewWeek = JSON.parse(JSON.stringify(scheduleBuilderDraft || cloneWeekScheduleFromState()));
+      if (scheduleBuilderDirty) {
+        setScheduleBuilderStatus("Previewing unsaved draft. Use Save schedule to make it permanent.", "dirty");
+      }
       const targetButton = document.querySelector('.tab-btn[data-tab="eod"]');
       targetButton?.click();
     }
@@ -7942,6 +8050,7 @@ function clearPointUndoStack() {
 
     if (studentWeeklyScheduleDetails) {
       studentWeeklyScheduleDetails.addEventListener("toggle", () => {
+        if (scheduleBuilderPreviewWeek) return;
         if (!state.settings.showWeeklyScheduleOnStudentView) return;
         const next = !!studentWeeklyScheduleDetails.open;
         if (state.settings.weeklyScheduleExpandedOnStudentView === next) return;
@@ -8117,6 +8226,7 @@ resetJobsTodayBtn.addEventListener("click", () => {
     if (scheduleBuilderFitToggle) scheduleBuilderFitToggle.addEventListener("change", () => {
       renderScheduleBuilderGrid();
     });
+    window.addEventListener("resize", () => requestAnimationFrame(adjustScheduleBuilderTimeRangeFits));
 
 
 tabButtons.forEach((btn) => {
@@ -8147,7 +8257,9 @@ if (tab === "jobs") {
           renderSeatingBroadcastControls();
         }
         if (tab === "schedule") {
+          scheduleBuilderPreviewWeek = null;
           renderScheduleBuilder();
+          if (scheduleBuilderDirty) setScheduleBuilderStatus("Unsaved schedule changes.", "dirty");
         }
       });
     });
@@ -10462,6 +10574,7 @@ if (tab === "jobs") {
       state.schedule.breaks = state.schedule.breaks || cloneDefaultBreakSchedule();
       applyScheduleTimesToWeek(scheduleTimes);
       normalizeScheduleState();
+      if (scheduleBuilderDraft) syncWeekScheduleTimesFromState(scheduleBuilderDraft);
 
       const setupNames = parseSetupStudentNames();
       syncStudentsFromSetupNames(setupNames);
